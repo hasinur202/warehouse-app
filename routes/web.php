@@ -17,6 +17,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/admin', function () {
+    return view('layouts.backend.auth.login');
+})->name('admin.login');
+
+Route::get('/admin-register', function () {
+    return view('layouts.backend.auth.register');
+})->name('admin.register');
+
 Route::get('/dashboard', function () {
     return view('layouts.backend.dashboard');
 });

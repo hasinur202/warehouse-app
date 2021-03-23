@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">

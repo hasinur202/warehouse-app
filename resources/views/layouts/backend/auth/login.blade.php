@@ -126,7 +126,7 @@
           },
           submitHandler: function(form){
             $.ajax({
-              url: "{{ route('store.adminLogin') }}",
+              url: "{{ route('attempt.adminLogin') }}",
               method: "POST",
               data: $('#login').serialize(),
               success: function(res) {

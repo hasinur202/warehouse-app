@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,8 +31,8 @@ Route::group(['middleware' => 'guest'], function () {
         return view('layouts.backend.auth.register');
     })->name('admin.register');
 
-    Route::post('/admin-login',[LoginController::Class,'login'])->name('store.adminLogin');
-    // Route::post('/user-store',[LoginController::Class,'store'])->name('user.store');
+    Route::post('/admin-store',[LoginController::Class,'store'])->name('admin.store');
+    Route::post('/admin-login',[LoginController::Class,'login'])->name('attempt.adminLogin');
 });
 
 

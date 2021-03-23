@@ -13,18 +13,40 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+
 Route::get('/', function () {
     return view('welcome');
+})->name('home');
+
+
+
+Route::group(['middleware' => 'guest'], function () {
+    Route::get('/admin', function () {
+        return view('layouts.backend.auth.login');
+    })->name('admin.login');
+
+    Route::get('/admin-register', function () {
+        return view('layouts.backend.auth.register');
+    })->name('admin.register');
+
+    Route::post('/admin-login',[LoginController::Class,'login'])->name('store.adminLogin');
+    // Route::post('/user-store',[LoginController::Class,'store'])->name('user.store');
 });
 
-Route::get('/admin', function () {
-    return view('layouts.backend.auth.login');
-})->name('admin.login');
 
-Route::get('/admin-register', function () {
-    return view('layouts.backend.auth.register');
-})->name('admin.register');
 
-Route::get('/dashboard', function () {
-    return view('layouts.backend.dashboard');
+Route::group(['middleware' => ['auth','admin.role']], function () {
+
+    Route::get('/dashboard', function () {
+        return view('layouts.backend.dashboard');
+    });
+
 });
+
+
+
+
+
+
+

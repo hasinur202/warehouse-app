@@ -38,6 +38,7 @@ Route::group(['middleware' => 'guest'], function () {
 
 
 Route::group(['middleware' => ['auth','admin.role']], function () {
+    Route::get('/logout',[LoginController::Class,'logout'])->name('logout');
 
     Route::get('/dashboard', function () {
         return view('layouts.backend.dashboard');

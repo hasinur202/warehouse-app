@@ -17,7 +17,7 @@
     <!-- iCheck -->
     <link rel="stylesheet" href="{{ asset('backend/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
     <!-- JQVMap -->
-    <link rel="stylesheet" href="{{ asset('backend/plugins/jqvmap/jqvmap.min.css') }}">
+    {{--  <link rel="stylesheet" href="{{ asset('backend/plugins/jqvmap/jqvmap.min.css') }}">  --}}
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('backend/dist/css/adminlte.min.css') }}">
     <!-- overlayScrollbars -->
@@ -75,13 +75,14 @@
 
       <li class="nav-item dropdown user-menu">
         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-          <img src="/backend/dist/img/user2-160x160.jpg" class="user-image img-circle elevation-2" alt="User Image">
+            <img src="backend/dist/img/{{ auth()->user()->avatar }}" class="user-image img-circle elevation-2" alt="User Image">
+
           <span class="d-none d-md-inline">{{ auth()->user()->first_name }} {{ auth()->user()->last_name }}</span>
         </a>
         <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
           <!-- User image -->
           <li class="user-header bg-primary">
-            <img src="/backend/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+            <img src="backend/dist/img/{{ auth()->user()->avatar }}" class="img-circle elevation-2" alt="User Image">
             <p>
                 {{ auth()->user()->first_name }} {{ auth()->user()->last_name }} - {{ auth()->user()->type }}
               <small>Member since {{ Carbon\Carbon::parse(auth()->user()->created_at)->isoFormat('MMM Do YYYY') }}</small>

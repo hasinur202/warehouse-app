@@ -31,6 +31,7 @@
 <!-- JQVMap -->
 <script src="{{ asset('backend/plugins/jqvmap/jquery.vmap.min.js') }}"></script>
 <script src="{{ asset('backend/plugins/jqvmap/maps/jquery.vmap.usa.js') }}"></script>
+
 <!-- jQuery Knob Chart -->
 <script src="{{ asset('backend/plugins/jquery-knob/jquery.knob.min.js') }}"></script>
 <!-- daterangepicker -->
@@ -47,7 +48,7 @@
 <!-- AdminLTE for demo purposes -->
 <script src="{{ asset('backend/dist/js/demo.js') }}"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="{{ asset('backend/dist/js/pages/dashboard.js') }}"></script>
+{{--  <script src="{{ asset('backend/dist/js/pages/dashboard.js') }}"></script>  --}}
 
 @yield('js')
 </body>

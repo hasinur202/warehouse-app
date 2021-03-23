@@ -29,6 +29,7 @@
       <p class="login-box-msg">Sign in to start your session</p>
 
       <form id="login">
+          @csrf
         <div class="input-group mb-3">
           <input type="email" name="email" class="form-control" placeholder="Email">
           <div class="input-group-append">
@@ -140,7 +141,7 @@
                 Swal.fire({
                     icon: 'error',
                     title: 'Access Denied',
-                    text: 'Input correct credentials.'
+                    text: 'Wrong credentials. Please input correct email and password'
                 })
               }
             })

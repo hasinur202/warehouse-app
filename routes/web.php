@@ -52,6 +52,9 @@ Route::group(['middleware' => ['auth','admin.role']], function () {
     //Admin Routes
     Route::get('admin-list', [AdminController::Class,'index'])->name('admin.list');
     Route::post('/admin-activity',[AdminController::Class,'adminActivity'])->name('admin.activity');
+    Route::post('/create-admin',[AdminController::Class,'createAdmin'])->name('create.admin');
+
+
 
 });
 

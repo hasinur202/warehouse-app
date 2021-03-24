@@ -79,7 +79,14 @@
           }
       })
   </script>
+  <script>
+    window.onload = (function() {
+        setTimeout(() => {
+            $("#errorMessage").fadeOut("slow");
+        }, 3000);
+    });
 
+</script>
 
 <script>
     $(function () {

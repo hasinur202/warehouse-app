@@ -29,6 +29,7 @@
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">Admin List</h3>
+                            <button data-toggle="modal" data-target="#addModal" class="btn btn-dark btn-sm float-right"><i class="fas fa-plus"></i> Add Admin</button>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
@@ -73,11 +74,57 @@
                         <!-- /.card-body -->
                       </div>
                       <!-- /.card -->
-
                 </div>
             </div>
+            <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Add Admin</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <form action="{{ route('create.admin') }}" method="POST">
+                        <div class="modal-body">
+                            <div class="input-group mb-2">
+                                <input type="text" name="first_name" class="form-control" placeholder="First name*" required>
+                            </div>
+                            <div class="input-group mb-2">
+                                  <input type="text" name="last_name" class="form-control" placeholder="Last name*" required>
+                            </div>
+                            <div class="input-group mb-2">
+                                <input type="text" name="phone" class="form-control" placeholder="Phone*" required>
+                            </div>
+                            <div class="input-group mb-2">
+                                <input type="text" name="address" class="form-control" placeholder="Address*" required>
+                            </div>
+
+                            <div class="input-group mb-2">
+                                <input type="email" name="email" class="form-control" placeholder="Email*" required>
+                            </div>
+                            <div class="input-group mb-2">
+                                <input type="password" name="password" class="form-control" placeholder="Password*" required>
+                            </div>
+                            <div class="input-group mb-2">
+                                <input type="password" name="confirm_password" class="form-control" placeholder="Retype password*" required>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+
+
+
 
         </div>
+
     </section>
     <!-- /.content -->
 </div>

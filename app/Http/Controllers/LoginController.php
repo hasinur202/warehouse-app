@@ -45,7 +45,6 @@ class LoginController extends Controller
             'first_name' => 'required',
             'last_name' => 'required',
             'email' => 'required|unique:users',
-            'type'=>'admin'
         ]);
 
         if ($validator->fails()) {
@@ -59,6 +58,7 @@ class LoginController extends Controller
                 'last_name' => $request->last_name,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
+                'type'=>'admin'
             ]);
 
             return response()->json([

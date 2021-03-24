@@ -6,7 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class AdminController extends Controller
 {
@@ -19,31 +19,35 @@ class AdminController extends Controller
     }
 
     public function createAdmin(Request $request){
-        $validator = Validator::make($request->all(), [
+
+        request()->validate([
             'first_name' => 'required',
             'last_name' => 'required',
             'phone' => 'required',
             'address' => 'required',
             'email' => 'required|unique:users',
-            'type'=>'admin'
         ]);
 
-        if ($validator->fails()) {
-            return response()->json([
-                'errors'=>"match"
-            ],500);
-
-        }else{
+        if ($request->password == $request->confirm_password) {
             $user = User::create([
                 'first_name' => $request->first_name,
                 'last_name' => $request->last_name,
+                'phone' => $request->phone,
+                'address' => $request->address,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
+                'type'=>'admin'
             ]);
 
-            return response()->json([
-                'msg'=>'succes'
-            ],200);
+            if($user){
+                toast('Changes saved successfully','success')->padding('10px')->width('270px')->timerProgressBar()->hideCloseButton();
+                return redirect()->back();
+            }else{
+                Alert::warning('Opps...','Something went wrong!');
+            }
+
+        }else{
+            Alert::warning('Opps',"Password Miss-match");
         }
     }
 

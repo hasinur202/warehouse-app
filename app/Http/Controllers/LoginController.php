@@ -17,7 +17,7 @@ class LoginController extends Controller
             'password' => 'required|string',
         ]);
 
-        if (Auth::attempt(['email'=>$request->email,'password'=>$request->password,'type'=>'super_admin'])){
+        if (Auth::attempt(['email'=>$request->email,'password'=>$request->password,'type'=>'super_admin','status'=>1])){
             return response()->json([
                 'msg'=>"success"
             ],200);
@@ -57,7 +57,7 @@ class LoginController extends Controller
                 'first_name' => $request->first_name,
                 'last_name' => $request->last_name,
                 'email' => $request->email,
-                'password' => Hash::make($request->password)
+                'password' => Hash::make($request->password),
             ]);
 
             return response()->json([

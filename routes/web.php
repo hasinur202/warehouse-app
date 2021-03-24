@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\Backend\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,6 +48,8 @@ Route::group(['middleware' => ['auth','admin.role']], function () {
     Route::get('/dashboard', function () {
         return view('layouts.backend.dashboard');
     })->name('dashboard');
+
+    Route::get('admin-list', [AdminController::Class,'index'])->name('admin.list');
 
 });
 

@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class AdminController extends Controller
 {
     public function index(){
-        $data = auth()->user();
+        $admins = User::where('type','super_admin')->where('status',1)->orWhere('type','admin')->get();
 
-        return view('layouts.backend.admin-setup.create_admin',[
-            'data'=>$data,
+        return view('layouts.backend.admin-setup.admin_list',[
+            'admins'=>$admins,
         ]);
     }
 }

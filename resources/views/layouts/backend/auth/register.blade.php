@@ -19,6 +19,10 @@
 
 </head>
 <body class="hold-transition register-page">
+    <div class="preloader flex-column justify-content-center align-items-center">
+        <img class="animation__shake" src="backend/dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
+    </div>
+
 <div class="register-box">
   <div class="card card-outline card-primary">
     <div class="card-header text-center">

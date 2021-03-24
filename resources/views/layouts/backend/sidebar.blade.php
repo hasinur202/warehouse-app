@@ -23,6 +23,25 @@
             </a>
           </li>
 
+          <li class="nav-item">
+            <a href="" class="nav-link">
+              <i class="nav-icon fas fa-border-none"></i>
+              <p>
+                Admin Setup
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="" class="nav-link">
+              <i class="nav-icon fas fa-book-medical"></i>
+              <p>
+                Category Setup
+              </p>
+            </a>
+          </li>
+
+
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

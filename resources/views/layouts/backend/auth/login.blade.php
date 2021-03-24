@@ -19,6 +19,11 @@
   <link rel="stylesheet" href="{{ asset('backend/plugins/sweetalert2/sweetalert2.min.css') }}">
 </head>
 <body class="hold-transition login-page">
+
+    <div class="preloader flex-column justify-content-center align-items-center">
+        <img class="animation__shake" src="backend/dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
+    </div>
+
 <div class="login-box">
   <!-- /.login-logo -->
   <div class="card card-outline card-primary">

@@ -57,6 +57,7 @@
 <script src="{{ asset('backend/plugins/jszip/jszip.min.js') }}"></script>
 <script src="{{ asset('backend/plugins/pdfmake/pdfmake.min.js') }}"></script>
 <script src="{{ asset('backend/plugins/pdfmake/vfs_fonts.js') }}"></script>
+
 <script src="{{ asset('backend/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
 <script src="{{ asset('backend/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
 <script src="{{ asset('backend/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
@@ -64,6 +65,21 @@
 <script src="{{ asset('backend/dist/js/demo.js') }}"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 {{--  <script src="{{ asset('backend/dist/js/pages/dashboard.js') }}"></script>  --}}
+<script src="{{ asset('backend/plugins/sweetalert2/sweetalert2.min.js')}}"></script>
+<script>
+    const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+              toast.addEventListener('mouseenter', Swal.stopTimer)
+              toast.addEventListener('mouseleave', Swal.resumeTimer)
+          }
+      })
+  </script>
+
 
 <script>
     $(function () {
@@ -85,7 +101,9 @@
 
 
 
+
 @yield('js')
+@include('sweetalert::alert')
 </body>
 
 </html>

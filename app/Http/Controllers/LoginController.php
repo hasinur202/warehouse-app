@@ -44,7 +44,8 @@ class LoginController extends Controller
         $validator = Validator::make($request->all(), [
             'first_name' => 'required',
             'last_name' => 'required',
-            'email' => 'required|unique:users'
+            'email' => 'required|unique:users',
+            'type'=>'admin'
         ]);
 
         if ($validator->fails()) {

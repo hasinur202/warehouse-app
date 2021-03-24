@@ -49,7 +49,9 @@ Route::group(['middleware' => ['auth','admin.role']], function () {
         return view('layouts.backend.dashboard');
     })->name('dashboard');
 
+    //Admin Routes
     Route::get('admin-list', [AdminController::Class,'index'])->name('admin.list');
+    Route::post('/admin-activity',[AdminController::Class,'adminActivity'])->name('admin.activity');
 
 });
 

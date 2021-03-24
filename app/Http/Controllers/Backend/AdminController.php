@@ -51,6 +51,38 @@ class AdminController extends Controller
         }
     }
 
+    public function update(Request $request){
+        $data = User::where('id',$request->id)->first();
+
+        if($data->email == $request->email){
+            $user = true;
+        }else{
+            $countMail = User::where('email',$request->email)->count();
+            if($countMail > 0){
+                Alert::warning('Opps',"Email has been taken already!");
+                return redirect()->back();
+            }else{
+                $user = true;
+            }
+        }
+
+        if($user == true){
+            User::where('id',$request->id)->update([
+                'first_name' => $request->first_name,
+                'last_name' => $request->last_name,
+                'phone' => $request->phone,
+                'address' => $request->address,
+                'email' => $request->email,
+            ]);
+
+            toast('Updated successfully','success')->padding('10px')->width('270px')->timerProgressBar()->hideCloseButton();
+            return redirect()->back();
+        }else{
+            Alert::warning('Opps',"Something went wrong!");
+            return redirect()->back();
+        }
+    }
+
 
     public function adminActivity(Request $request){
         $data = User::where('id',$request->id)->first();

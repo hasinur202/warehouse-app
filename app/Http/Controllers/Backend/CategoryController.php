@@ -7,6 +7,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\Main_category;
 use App\Http\Controllers\Controller;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class CategoryController extends Controller
 {
@@ -49,6 +50,52 @@ class CategoryController extends Controller
                 'message'=>'success'
             ],200);
         }
+    }
+
+    public function updateMainCategory(Request $request){
+        $data = Main_category::where('id',$request->id)->first();
+        if ($request->file('icon')) {
+            $image = $request->file('icon');
+            $new_name = rand() . '.' . $image->getClientOriginalExtension();
+            $upload_path = public_path()."/images/main_category/";
+        }else{
+            $new_name=$data->icon;
+        }
+
+        if($data->category_name == $request->category_name){
+            $slugg = $request->category_name;
+        }else{
+            $checkslug = Main_category::where('category_name',$request->category_name)->count();
+            if($checkslug > 0){
+                Alert::warning('Opps...','Category name should be unique!');
+                return redirect()->back();
+            }else{
+                $slugg = $request->category_name;
+            }
+        }
+
+        $cat = Main_category::where('id',$request->id)->update([
+            'warehouse_id'=>$request->warehouse_id,
+            'category_name'=>$request->category_name,
+            'icon'=>$new_name,
+            'slug'=>Str::slug($slugg),
+        ]);
+
+        if ($request->file('icon') !=null ){
+            $icon_d = public_path('images/main_category/').$data->icon;
+            if(file_exists($icon_d)){
+                @unlink($icon_d);
+            }
+            $image->move($upload_path, $new_name);
+        }
+        if($cat){
+            toast('Created successfully','success')->padding('10px')->width('270px')->timerProgressBar()->hideCloseButton();
+                return redirect()->back();
+        }else{
+            Alert::warning('Opps...','Something went wrong!');
+                return redirect()->back();
+        }
+
     }
 
 

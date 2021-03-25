@@ -151,7 +151,7 @@
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
-                <form id="addCategory">
+                <form action="{{ route('update.main.category') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
                         <input type="hidden" id="id" name="id">
@@ -176,7 +176,7 @@
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                      <button type="submit" class="btn btn-primary">Save</button>
+                      <button type="submit" class="btn btn-primary">Update</button>
                     </div>
                 </form>
               </div>

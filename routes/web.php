@@ -65,7 +65,7 @@ Route::group(['middleware' => ['auth','admin.role']], function () {
     //Category Rotues
     Route::get('main-category-list', [CategoryController::Class,'index'])->name('main.category.list');
     Route::post('/create-main-category',[CategoryController::Class,'storeMainCategory'])->name('add.main.category');
-    // Route::post('/warehouse-update',[WarehouseController::Class,'update'])->name('update.warehouse');
+    Route::post('/update-main-category',[CategoryController::Class,'updateMainCategory'])->name('update.main.category');
 
 
 

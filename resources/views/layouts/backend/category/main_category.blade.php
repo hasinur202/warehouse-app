@@ -60,7 +60,7 @@
                                     <th>Category Name</th>
                                     <th>Icon</th>
                                     <th>Warehouse</th>
-                                    <th>Status</th>
+                                    <th width="70px">Status</th>
                                     <th>
                                         <img style="height: 20px; width:50px;" src="/backend/images/action.png">
                                     </th>
@@ -74,10 +74,11 @@
                                     <td>{{ $i }}</td>
                                     <td>{{ $cat->category_name }}</td>
                                     <td>
-                                        {{--  <img src="/images/technology/{{ $tech->logo }}" height="40px" width="70px">  --}}
+                                        <img src="/images/main_category/{{ $cat->icon }}" alt="Category Icon" height="40px" width="70px">
                                     </td>
+                                    <td>US</td>
                                     <td>
-                                        @if($admin->status == 1)
+                                        @if($cat->status == 1)
                                             <button onclick="changeActivity({{ $cat->id }})" type="button" class="btn btn-success btn-block btn-xs">Active</button>
                                         @else
                                             <button onclick="changeActivity({{ $cat->id }})" type="button" class="btn btn-danger btn-block btn-xs">Inactive</button>
@@ -103,37 +104,32 @@
             <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
-                    <div class="modal-header">
+                    <div class="modal-header bg-info">
                       <h5 class="modal-title" id="exampleModalLabel">Add Category</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     </div>
-                    <form action="{{ route('create.admin') }}" method="POST">
+                    <form id="addCategory">
                         @csrf
                         <div class="modal-body">
                             <div class="form-group">
-                                <select name="warehouse" class="form-control">
+                                <select name="warehouse_id" class="form-control">
                                     <option selected disabled>Select Warehouse</option>
-                                    <option value="">US</option>
-                                    <option value="">UK</option>
+                                    @foreach ($warehouses as $warehouse)
+                                        <option value="{{ $warehouse->id }}">{{ $warehouse->warehouse_name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
-                            <div class="input-group mb-2">
-                                <input type="text" name="category_name" class="form-control" placeholder="Category name*" required>
+                            <div class="form-group mb-2">
+                                <input type="text" name="category_name" class="form-control" placeholder="Category name*">
                             </div>
-                            <div class="input-group mb-2">
-                                  <input type="text" name="slug" class="form-control" placeholder="Slug*" required>
-                            </div>
-                            <div class="form-group">
-                                <label class="check-input-label">Main Category Icon</label>
-                                <div class="service-img" style="width: 50% !important">
-                                    <input id="image" type="file" class="form-control" name="logo">
+                            <div class="form-group mt-4" style="display: inline-flex">
+                                <label class="form-check-label mr-4">Main Category Icon</label>
+                                <div class="service-img" style="width: 35% !important">
+                                    <input id="image" type="file" class="form-control" name="icon">
                                     <img src="" id="image-img"/>
                                 </div>
                             </div>
                         </div>
-
                         <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                           <button type="submit" class="btn btn-primary">Save</button>
@@ -191,6 +187,9 @@
 </div>
   <!-- /.content-wrapper -->
 
+  <div id="loading" style="display:none; position: absolute;width: 100%;text-align: center;top: 15rem;font-size: 3rem;color: #7ca6b2;">
+    <i class="fas fa-spinner fa-pulse"></i>
+</div>
 
 @section('js')
 <script>
@@ -203,6 +202,69 @@
         $("#email").val(val.email);
         $("#id").val(val.id);
     }
+
+    $(document).ready(function () {
+        $('#addCategory').validate({
+           rules: {
+               warehouse_id: {
+                   required: true
+               },
+               category_name: {
+                   required: true
+               },
+               icon: {
+                   required: true
+               }
+           },
+           errorElement: 'span',
+           errorPlacement: function (error, element) {
+               error.addClass('invalid-feedback');
+               element.closest('.form-group').append(error);
+           },
+           highlight: function (element, errorClass, validClass) {
+               $(element).addClass('is-invalid');
+           },
+           unhighlight: function (element, errorClass, validClass) {
+               $(element).removeClass('is-invalid');
+           },
+           submitHandler: function(form){
+               $("#addCategory").css({'opacity':'0.8'})
+               $("#loading").show();
+
+               $.ajax({
+                   url: "{{route('add.main.category')}}",
+                   method: "POST",
+                   data: new FormData(document.getElementById("addCategory")),
+                   enctype: 'multipart/form-data',
+                   dataType: 'JSON',
+                   contentType: false,
+                   cache: false,
+                   processData: false,
+                   success: function(res) {
+                        $("#loading").hide();
+                        window.location.reload();
+                        Toast.fire({
+                            icon: 'success',
+                            title: 'Category created successfully'
+                       })
+                   },
+                   error: function(err) {
+                       $("#loading").hide();
+
+                       if(err.status == 422){
+                           Swal.fire({
+                               icon: 'error',
+                               title: 'Category name should be unique'
+                           })
+                       }
+                   }
+               })
+           }
+       });
+
+   });
+
+
 
     function changeActivity(id){
         $.ajax({

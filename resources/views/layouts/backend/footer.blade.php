@@ -1,3 +1,5 @@
+
+
 <footer class="main-footer">
     <strong>Copyright &copy; 2014-2021 <a href="https://ideatechsolution.com/">Idea Tech Solution</a>.</strong>
     All rights reserved.
@@ -61,6 +63,8 @@
 <script src="{{ asset('backend/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
 <script src="{{ asset('backend/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
 <script src="{{ asset('backend/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+<script src="{{ asset('backend/plugins/jquery-validation/jquery.validate.min.js') }}"></script>
+<script src="{{ asset('backend/plugins/jquery-validation/additional-methods.min.js') }}"></script>
 
 <script src="{{ asset('backend/dist/js/demo.js') }}"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->

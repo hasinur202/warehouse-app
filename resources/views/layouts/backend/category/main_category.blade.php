@@ -267,10 +267,9 @@
    });
 
 
-
     function changeActivity(id){
         $.ajax({
-            url:"{{ route('admin.activity') }}",
+            url:"{{ route('main.category.activity') }}",
             method:"POST",
             dataType:"json",
             data:{

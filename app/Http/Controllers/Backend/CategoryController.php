@@ -99,6 +99,30 @@ class CategoryController extends Controller
     }
 
 
+    public function mainCategoryActivity(Request $request){
+        $data = Main_category::where('id',$request->id)->first();
+
+        if ($data->status == 0) {
+            Main_category::where('id',$request->id)->update([
+                'status'=>1
+            ]);
+
+            return response()->json([
+                'message'=>'success'
+            ],200);
+        }else{
+            Main_category::where('id',$request->id)->update([
+                'status'=>0
+            ]);
+
+            return response()->json([
+                'message'=>'success'
+            ],200);
+        }
+
+    }
+
+
 
 
 }

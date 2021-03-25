@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\Backend\AdminController;
+use App\Http\Controllers\Backend\WarehouseController;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,6 +55,12 @@ Route::group(['middleware' => ['auth','admin.role']], function () {
     Route::post('/admin-activity',[AdminController::Class,'adminActivity'])->name('admin.activity');
     Route::post('/admin-add',[AdminController::Class,'createAdmin'])->name('create.admin');
     Route::post('/admin-update',[AdminController::Class,'update'])->name('update.admin');
+
+    //Warehouse Rotues
+    Route::get('ware-house-list', [WarehouseController::Class,'index'])->name('warehouse.list');
+    Route::post('/create-warehouse',[WarehouseController::Class,'store'])->name('create.warehouse');
+    // Route::post('/admin-update',[AdminController::Class,'update'])->name('update.admin');
+    // Route::post('/admin-activity',[AdminController::Class,'adminActivity'])->name('admin.activity');
 
 
 

@@ -44,7 +44,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{ route('admin.list') }}" class="nav-link">
+                    <a href="{{ route('warehouse.list') }}" class="nav-link">
                         <i class="fas fa-angle-double-right nav-icon"></i>
                         <p>Warehouse Setup</p>
                     </a>

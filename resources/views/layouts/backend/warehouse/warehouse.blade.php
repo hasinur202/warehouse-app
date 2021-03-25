@@ -26,17 +26,18 @@
     <section class="content">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-7">
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">Warehouse List</h3>
-                            <button data-toggle="modal" data-target="#addModal" class="btn btn-dark btn-sm float-right"><i class="fas fa-plus"></i> Add Admin</button>
+                            <button data-toggle="modal" data-target="#addModal" class="btn btn-dark btn-sm float-right"><i class="fas fa-plus"></i> Add Warehouse</button>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
                           <table id="example1" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
+                                    <th>SI#</th>
                                     <th>Name</th>
                                     <th>Status</th>
                                     <th>
@@ -44,24 +45,27 @@
                                     </th>
                                 </tr>
                             </thead>
-                            {{--  <tbody>
-                                @foreach ($admins as $admin)
+                            <tbody>
+                                @php $i=0; @endphp
+                                @foreach ($warehouses as $warehouse)
+                                @php $i++; @endphp
                                 <tr>
-                                    <td>{{ $admin->email }}</td>
+                                    <td>{{ $i }}</td>
+                                    <td>{{ $warehouse->warehouse_name }}</td>
                                     <td>
-                                        @if($admin->status == 1)
-                                            <button onclick="changeActivity({{ $admin->id }})" type="button" class="btn btn-success btn-block btn-xs">Active</button>
+                                        @if($warehouse->status == 1)
+                                            <button onclick="changeActivity({{ $warehouse->id }})" type="button" class="btn btn-success btn-block btn-xs">Active</button>
                                         @else
-                                            <button onclick="changeActivity({{ $admin->id }})" type="button" class="btn btn-danger btn-block btn-xs">Inactive</button>
+                                            <button onclick="changeActivity({{ $warehouse->id }})" type="button" class="btn btn-danger btn-block btn-xs">Inactive</button>
                                         @endif
                                     </td>
                                     <td>
-                                        <a href="javascript:void(0)" onclick="editModal({{ $admin }})" class="btn btn-dark btn-xs"><i class="fas fa-edit"></i></a>
+                                        <a href="javascript:void(0)" onclick="editModal({{ $warehouse }})" class="btn btn-dark btn-xs"><i class="fas fa-edit"></i></a>
                                         <a href="javascript:void(0)" class="btn btn-danger btn-xs"><i class="fas fa-trash"></i></a>
                                     </td>
                                 </tr>
                                 @endforeach
-                            </tbody>  --}}
+                            </tbody>
                           </table>
                         </div>
                         <!-- /.card-body -->
@@ -73,41 +77,22 @@
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">Add Admin</h5>
+                      <h5 class="modal-title" id="exampleModalLabel">Add Warehouse</h5>
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                       </button>
                     </div>
-                    <form action="{{ route('create.admin') }}" method="POST">
+                    <form action="{{ route('create.warehouse') }}" method="POST">
                         @csrf
                         <div class="modal-body">
                             <div class="input-group mb-2">
-                                <input type="text" name="first_name" class="form-control" placeholder="First name*" required>
-                            </div>
-                            <div class="input-group mb-2">
-                                  <input type="text" name="last_name" class="form-control" placeholder="Last name*" required>
-                            </div>
-                            <div class="input-group mb-2">
-                                <input type="text" name="phone" class="form-control" placeholder="Phone*" required>
-                            </div>
-                            <div class="input-group mb-2">
-                                <input type="text" name="address" class="form-control" placeholder="Address*" required>
-                            </div>
-
-                            <div class="input-group mb-2">
-                                <input type="email" name="email" class="form-control" placeholder="Email*" required>
-                            </div>
-                            <div class="input-group mb-2">
-                                <input type="password" name="password" class="form-control" placeholder="Password*" required>
-                            </div>
-                            <div class="input-group mb-2">
-                                <input type="password" name="confirm_password" class="form-control" placeholder="Retype password*" required>
+                                <input type="text" name="warehouse_name" class="form-control" placeholder="Warehouse name*" required>
                             </div>
                         </div>
 
                         <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                          <button type="submit" class="btn btn-primary">Save changes</button>
+                          <button type="submit" class="btn btn-primary">Save</button>
                         </div>
                     </form>
                   </div>
@@ -121,7 +106,7 @@
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Edit Admin</h5>
+                  <h5 class="modal-title" id="exampleModalLabel">Edit Warehouse</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
@@ -130,22 +115,10 @@
                     @csrf
                     <div class="modal-body">
                         <div class="input-group mb-2">
-                            <input type="text" name="first_name" id="first_name" class="form-control" required>
-                        </div>
-                        <div class="input-group mb-2">
-                              <input type="text" name="last_name" id="last_name" class="form-control" required>
-                        </div>
-                        <div class="input-group mb-2">
-                            <input type="text" name="phone" id="phone" class="form-control" placeholder="Phone*" required>
-                        </div>
-                        <div class="input-group mb-2">
-                            <input type="text" name="address" id="address" class="form-control" placeholder="Address*" required>
+                            <input type="text" name="warehouse" id="warehouse" class="form-control" required>
                         </div>
 
-                        <div class="input-group mb-2">
-                            <input type="email" name="email" id="email" class="form-control" required>
-                            <input type="hidden" name="id" id="id" required>
-                        </div>
+                        <input type="hidden" name="id" id="id" required>
                     </div>
 
                     <div class="modal-footer">
@@ -167,11 +140,7 @@
 <script>
     function editModal(val){
         $("#edit-Modal").modal('show');
-        $("#first_name").val(val.first_name);
-        $("#last_name").val(val.last_name);
-        $("#phone").val(val.phone);
-        $("#address").val(val.address);
-        $("#email").val(val.email);
+        $("#warehouse").val(val.warehouse_name);
         $("#id").val(val.id);
     }
 

@@ -16,7 +16,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Admin Setup</h1>
+            <h1>Warehouse Setup</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -29,7 +29,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Admin List</h3>
+                            <h3 class="card-title">Warehouse List</h3>
                             <button data-toggle="modal" data-target="#addModal" class="btn btn-dark btn-sm float-right"><i class="fas fa-plus"></i> Add Admin</button>
                         </div>
                         <!-- /.card-header -->
@@ -38,24 +38,16 @@
                             <thead>
                                 <tr>
                                     <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Phone</th>
-                                    <th>Address</th>
-                                    <th>Type</th>
                                     <th>Status</th>
                                     <th>
                                         <img style="height: 20px; width:50px;" src="/backend/images/action.png">
                                     </th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            {{--  <tbody>
                                 @foreach ($admins as $admin)
                                 <tr>
-                                    <td>{{ $admin->first_name }} {{ $admin->last_name }}</td>
                                     <td>{{ $admin->email }}</td>
-                                    <td>{{ $admin->phone }}</td>
-                                    <td>{{ $admin->address }}</td>
-                                    <td>{{ $admin->type }}</td>
                                     <td>
                                         @if($admin->status == 1)
                                             <button onclick="changeActivity({{ $admin->id }})" type="button" class="btn btn-success btn-block btn-xs">Active</button>
@@ -69,7 +61,7 @@
                                     </td>
                                 </tr>
                                 @endforeach
-                            </tbody>
+                            </tbody>  --}}
                           </table>
                         </div>
                         <!-- /.card-body -->

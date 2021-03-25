@@ -28,19 +28,60 @@
           </li>
 
           <li class="nav-item">
-            <a href="{{ route('admin.list') }}" class="nav-link">
+            <a href="javascript:void(0)" class="nav-link">
               <i class="nav-icon fas fa-border-none"></i>
               <p>
-                Admin Setup
+                Setup
+                <i class="right fas fa-angle-left"></i>
               </p>
             </a>
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a href="{{ route('admin.list') }}" class="nav-link">
+                        <i class="fas fa-angle-double-right nav-icon"></i>
+                        <p>Admin Setup</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('admin.list') }}" class="nav-link">
+                        <i class="fas fa-angle-double-right nav-icon"></i>
+                        <p>Warehouse Setup</p>
+                    </a>
+                </li>
+            </ul>
           </li>
 
           <li class="nav-item">
             <a href="" class="nav-link">
               <i class="nav-icon fas fa-book-medical"></i>
               <p>
-                Category Setup
+                Product Categories
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="" class="nav-link">
+              <i class="nav-icon fas fa-book-medical"></i>
+              <p>
+                Brands
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="" class="nav-link">
+              <i class="nav-icon fas fa-book-medical"></i>
+              <p>
+                Products
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="" class="nav-link">
+              <i class="nav-icon fas fa-cog"></i>
+              <p>
+                Website Setting
               </p>
             </a>
           </li>

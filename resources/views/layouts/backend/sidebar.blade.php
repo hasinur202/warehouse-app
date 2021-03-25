@@ -62,7 +62,7 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="{{ route('admin.list') }}" class="nav-link">
+                        <a href="{{ route('main.category.list') }}" class="nav-link">
                             <i class="fas fa-angle-double-right nav-icon"></i>
                             <p>Main Category</p>
                         </a>
@@ -104,8 +104,59 @@
                     <i class="nav-icon fas fa-cog"></i>
                     <p>
                         Website Setting
+                        <i class="right fas fa-angle-left"></i>
                     </p>
                 </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-angle-double-right nav-icon"></i>
+                            <p>About Us</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-angle-double-right nav-icon"></i>
+                            <p>Contact Us</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-angle-double-right nav-icon"></i>
+                            <p>Privacy & Policy</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-angle-double-right nav-icon"></i>
+                            <p>Terms & Conditions</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-angle-double-right nav-icon"></i>
+                            <p>How to Buy</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-angle-double-right nav-icon"></i>
+                            <p>Slider</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-angle-double-right nav-icon"></i>
+                            <p>Offer Banner</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-angle-double-right nav-icon"></i>
+                            <p>Faq</p>
+                        </a>
+                    </li>
+                </ul>
             </li>
 
 

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\Backend\AdminController;
+use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\WarehouseController;
 
 /*
@@ -62,7 +63,7 @@ Route::group(['middleware' => ['auth','admin.role']], function () {
     Route::post('/warehouse-update',[WarehouseController::Class,'update'])->name('update.warehouse');
 
     //Category Rotues
-    Route::get('main-category-list', [CategoryController::Class,'index'])->name('main-category.list');
+    Route::get('main-category-list', [CategoryController::Class,'index'])->name('main.category.list');
     // Route::post('/create-warehouse',[WarehouseController::Class,'store'])->name('create.warehouse');
     // Route::post('/warehouse-update',[WarehouseController::Class,'update'])->name('update.warehouse');
 

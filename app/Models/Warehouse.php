@@ -10,4 +10,5 @@ class Warehouse extends Model
     use HasFactory;
 
     protected $guarded = [];
+
 }

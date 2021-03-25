@@ -76,7 +76,7 @@
                                     <td>
                                         <img src="/images/main_category/{{ $cat->icon }}" alt="Category Icon" height="40px" width="70px">
                                     </td>
-                                    <td>US</td>
+                                    <td>{{ $cat->get_warehouse->warehouse_name }}</td>
                                     <td>
                                         @if($cat->status == 1)
                                             <button onclick="changeActivity({{ $cat->id }})" type="button" class="btn btn-success btn-block btn-xs">Active</button>
@@ -124,7 +124,7 @@
                             </div>
                             <div class="form-group mt-4" style="display: inline-flex">
                                 <label class="form-check-label mr-4">Main Category Icon</label>
-                                <div class="service-img" style="width: 35% !important">
+                                <div class="service-img" style="width: 30% !important">
                                     <input id="image" type="file" class="form-control" name="icon">
                                     <img src="" id="image-img"/>
                                 </div>
@@ -151,43 +151,44 @@
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
-                <form action="{{ route('update.admin') }}" method="POST">
+                <form id="addCategory">
                     @csrf
                     <div class="modal-body">
-                        <div class="input-group mb-2">
-                            <input type="text" name="first_name" id="first_name" class="form-control" required>
+                        <input type="hidden" id="id" name="id">
+                        <div class="form-group">
+                            <select name="warehouse_id" id="warehouse_id" class="form-control">
+                                <option selected disabled>Select Warehouse</option>
+                                @foreach ($warehouses as $warehouse)
+                                    <option value="{{ $warehouse->id }}">{{ $warehouse->warehouse_name }}</option>
+                                @endforeach
+                            </select>
                         </div>
-                        <div class="input-group mb-2">
-                              <input type="text" name="last_name" id="last_name" class="form-control" required>
+                        <div class="form-group mb-2">
+                            <input type="text" name="category_name" id="category_name" class="form-control" placeholder="Category name*">
                         </div>
-                        <div class="input-group mb-2">
-                            <input type="text" name="phone" id="phone" class="form-control" placeholder="Phone*" required>
-                        </div>
-                        <div class="input-group mb-2">
-                            <input type="text" name="address" id="address" class="form-control" placeholder="Address*" required>
-                        </div>
-
-                        <div class="input-group mb-2">
-                            <input type="email" name="email" id="email" class="form-control" required>
-                            <input type="hidden" name="id" id="id" required>
+                        <div class="form-group mt-4" style="display: inline-flex">
+                            <label class="form-check-label mr-4">Main Category Icon</label>
+                            <div class="service-img" style="width: 30% !important">
+                                <input id="edit-image" type="file" class="form-control" name="icon">
+                                <img src="" id="edit-image-img"/>
+                            </div>
                         </div>
                     </div>
-
                     <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                      <button type="submit" class="btn btn-primary">Save changes</button>
+                      <button type="submit" class="btn btn-primary">Save</button>
                     </div>
                 </form>
               </div>
             </div>
-          </div>
+        </div>
 
     </section>
     <!-- /.content -->
 </div>
   <!-- /.content-wrapper -->
 
-  <div id="loading" style="display:none; position: absolute;width: 100%;text-align: center;top: 15rem;font-size: 3rem;color: #7ca6b2;">
+  <div id="loading" style="display:none; z-index:9999; position: absolute;width: 100%;text-align: center;top: 15rem;font-size: 3rem;color: #7ca6b2;">
     <i class="fas fa-spinner fa-pulse"></i>
 </div>
 
@@ -195,13 +196,14 @@
 <script>
     function editModal(val){
         $("#edit-Modal").modal('show');
-        $("#first_name").val(val.first_name);
-        $("#last_name").val(val.last_name);
-        $("#phone").val(val.phone);
-        $("#address").val(val.address);
-        $("#email").val(val.email);
+
+        $("#category_name").val(val.category_name);
+        $("#warehouse_id").val(val.get_warehouse.id);
+        $("#edit-image-img").attr('src', "{{ asset('/images/main_category') }}/" + val.icon);
+
         $("#id").val(val.id);
     }
+
 
     $(document).ready(function () {
         $('#addCategory').validate({
@@ -306,6 +308,24 @@
     $("#image").change(function() {
         imageUrl(this);
     });
+
+
+    function editimageUrl(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                $('#edit-image-img').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $("#edit-image").change(function() {
+        editimageUrl(this);
+    });
+
+
+
 </script>
 @endsection
 @endsection

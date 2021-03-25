@@ -13,7 +13,7 @@ class CategoryController extends Controller
     public function index(){
         $warehouses = Warehouse::where('status',1)->get();
 
-        $main_cats = Main_category::get();
+        $main_cats = Main_category::with('get_warehouse')->get();
 
         return view('layouts.backend.category.main_category',[
             'main_cats'=>$main_cats,

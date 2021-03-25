@@ -44,10 +44,12 @@ class AdminController extends Controller
                 return redirect()->back();
             }else{
                 Alert::warning('Opps...','Something went wrong!');
+                return redirect()->back();
             }
 
         }else{
             Alert::warning('Opps',"Password Miss-match");
+            return redirect()->back();
         }
     }
 

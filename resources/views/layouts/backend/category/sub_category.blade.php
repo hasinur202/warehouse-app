@@ -35,7 +35,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Main Category</h1>
+            <h1>Sub Category</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -48,8 +48,8 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Main Category List</h3>
-                            <button data-toggle="modal" data-target="#addModal" class="btn btn-dark btn-sm float-right"><i class="fas fa-plus"></i> Add Category</button>
+                            <h3 class="card-title">Sub Category List</h3>
+                            <button data-toggle="modal" data-target="#addModal" class="btn btn-dark btn-sm float-right"><i class="fas fa-plus"></i> Add Sub Category</button>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
@@ -57,7 +57,8 @@
                             <thead>
                                 <tr>
                                     <th>SI#</th>
-                                    <th>Category Name</th>
+                                    <th>Main Category</th>
+                                    <th>Sub Category</th>
                                     <th>Icon</th>
                                     <th>Warehouse</th>
                                     <th width="70px">Status</th>
@@ -68,11 +69,12 @@
                             </thead>
                             <tbody>
                                 @php $i=0; @endphp
-                                @foreach ($main_cats as $cat)
+                                @foreach ($sub_cats as $cat)
                                 @php $i++; @endphp
                                 <tr>
                                     <td>{{ $i }}</td>
                                     <td>{{ $cat->category_name }}</td>
+                                    <td>{{ $cat->get_main_category->category_name }}</td>
                                     <td>
                                         <img src="/images/main_category/{{ $cat->icon }}" alt="Category Icon" height="40px" width="70px">
                                     </td>
@@ -105,7 +107,7 @@
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
                     <div class="modal-header bg-info">
-                      <h5 class="modal-title" id="exampleModalLabel">Add Category</h5>
+                      <h5 class="modal-title" id="exampleModalLabel">Add Sub Category</h5>
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     </div>
                     <form id="addCategory">
@@ -145,8 +147,8 @@
         <div class="modal fade" id="edit-Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
-                <div class="modal-header bg-warning">
-                  <h5 class="modal-title" id="exampleModalLabel">Edit Category</h5>
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Edit Sub Category</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>

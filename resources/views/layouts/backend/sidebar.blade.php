@@ -68,7 +68,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('warehouse.list') }}" class="nav-link">
+                        <a href="{{ route('sub.category.list') }}" class="nav-link">
                             <i class="fas fa-angle-double-right nav-icon"></i>
                             <p>Sub Category</p>
                         </a>

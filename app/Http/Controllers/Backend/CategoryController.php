@@ -7,6 +7,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\Main_category;
 use App\Http\Controllers\Controller;
+use App\Models\Sub_category;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class CategoryController extends Controller
@@ -18,6 +19,17 @@ class CategoryController extends Controller
 
         return view('layouts.backend.category.main_category',[
             'main_cats'=>$main_cats,
+            'warehouses'=>$warehouses ?? '',
+        ]);
+    }
+
+    public function sub_index(){
+        $warehouses = Warehouse::where('status',1)->get();
+
+        $sub_cats = Sub_category::with('get_main_category','get_warehouse')->get();
+
+        return view('layouts.backend.category.sub_category',[
+            'sub_cats'=>$sub_cats,
             'warehouses'=>$warehouses ?? '',
         ]);
     }

@@ -10,7 +10,7 @@ use RealRashid\SweetAlert\Facades\Alert;
 class WarehouseController extends Controller
 {
     public function index(){
-        $warehouses = Warehouse::where('status',1)->get();
+        $warehouses = Warehouse::get();
 
         return view('layouts.backend.warehouse.warehouse',[
             'warehouses'=>$warehouses,
@@ -23,6 +23,7 @@ class WarehouseController extends Controller
         ]);
         $ware = Warehouse::create([
             'warehouse_name' => $request->warehouse_name,
+            'status' => $request->status,
         ]);
 
         if($ware){

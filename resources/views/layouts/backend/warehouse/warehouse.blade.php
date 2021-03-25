@@ -26,11 +26,10 @@
     <section class="content">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-7">
+                <div class="col-md-8">
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">Warehouse List</h3>
-                            <button data-toggle="modal" data-target="#addModal" class="btn btn-dark btn-sm float-right"><i class="fas fa-plus"></i> Add Warehouse</button>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
@@ -54,9 +53,9 @@
                                     <td>{{ $warehouse->warehouse_name }}</td>
                                     <td>
                                         @if($warehouse->status == 1)
-                                            <button onclick="changeActivity({{ $warehouse->id }})" type="button" class="btn btn-success btn-block btn-xs">Active</button>
+                                            <span class="badge badge-success">Active</span>
                                         @else
-                                            <button onclick="changeActivity({{ $warehouse->id }})" type="button" class="btn btn-danger btn-block btn-xs">Inactive</button>
+                                            <span class="badge badge-danger">Inactive</span>
                                         @endif
                                     </td>
                                     <td>
@@ -72,32 +71,33 @@
                       </div>
                       <!-- /.card -->
                 </div>
-            </div>
-            <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">Add Warehouse</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                    <form action="{{ route('create.warehouse') }}" method="POST">
-                        @csrf
-                        <div class="modal-body">
-                            <div class="input-group mb-2">
-                                <input type="text" name="warehouse_name" class="form-control" placeholder="Warehouse name*" required>
-                            </div>
-                        </div>
 
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                          <button type="submit" class="btn btn-primary">Save</button>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-header bg-warning">
+                            <h3 class="card-title"><i class="fas fa-plus"></i> Add Warehouse</h3>
                         </div>
-                    </form>
-                  </div>
+                        <form action="{{ route('create.warehouse') }}" method="POST">
+                                @csrf
+                            <div class="card-body">
+                                <div class="input-group mb-2">
+                                    <input type="text" name="warehouse_name" class="form-control" placeholder="Warehouse name*" required>
+                                </div>
+                                <div class="input-group mb-2">
+                                    <select name="status" class="form-control">
+                                        <option selected value="1">Active</option>
+                                        <option value="0">Inactive</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary">Add</button>
+                            </div>
+                        </form>
+                    </div>
+
                 </div>
-              </div>
+            </div>
 
         </div>
 
@@ -116,6 +116,12 @@
                     <div class="modal-body">
                         <div class="input-group mb-2">
                             <input type="text" name="warehouse" id="warehouse" class="form-control" required>
+                        </div>
+                        <div class="input-group mb-2">
+                            <select name="status" id="status" class="form-control">
+                                <option selected value="1">Active</option>
+                                <option value="0">Inactive</option>
+                            </select>
                         </div>
 
                         <input type="hidden" name="id" id="id" required>
@@ -141,33 +147,10 @@
     function editModal(val){
         $("#edit-Modal").modal('show');
         $("#warehouse").val(val.warehouse_name);
+        $("#status").val(val.status);
         $("#id").val(val.id);
     }
 
-    function changeActivity(id){
-        $.ajax({
-            url:"{{ route('admin.activity') }}",
-            method:"POST",
-            dataType:"json",
-            data:{
-                "_token": "{{ csrf_token() }}",
-                'id':id,
-            },
-            success: function(response) {
-                Toast.fire({
-                    icon: 'success',
-                    title: 'Status Changes Successfully.'
-                })
-                window.location.reload();
-            },
-            error: function() {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Something Wrong'
-                })
-            }
-        })
-    }
 
 </script>
 @endsection

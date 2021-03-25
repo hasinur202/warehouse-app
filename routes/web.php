@@ -59,8 +59,7 @@ Route::group(['middleware' => ['auth','admin.role']], function () {
     //Warehouse Rotues
     Route::get('ware-house-list', [WarehouseController::Class,'index'])->name('warehouse.list');
     Route::post('/create-warehouse',[WarehouseController::Class,'store'])->name('create.warehouse');
-    // Route::post('/admin-update',[AdminController::Class,'update'])->name('update.admin');
-    // Route::post('/admin-activity',[AdminController::Class,'adminActivity'])->name('admin.activity');
+    Route::post('/warehouse-update',[WarehouseController::Class,'update'])->name('update.warehouse');
 
 
 

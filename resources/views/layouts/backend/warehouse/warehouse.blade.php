@@ -111,7 +111,7 @@
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
-                <form action="{{ route('update.admin') }}" method="POST">
+                <form action="{{ route('update.warehouse') }}" method="POST">
                     @csrf
                     <div class="modal-body">
                         <div class="input-group mb-2">

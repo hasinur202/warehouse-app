@@ -27,6 +27,26 @@ class WarehouseController extends Controller
         ]);
 
         if($ware){
+            toast('Created successfully','success')->padding('10px')->width('270px')->timerProgressBar()->hideCloseButton();
+            return redirect()->back();
+        }else{
+            Alert::warning('Opps...','Something went wrong!');
+            return redirect()->back();
+        }
+    }
+
+
+    public function update(Request $request){
+        request()->validate([
+            'warehouse' => 'required',
+        ]);
+
+        $ware = Warehouse::where('id',$request->id)->update([
+            'warehouse_name' => $request->warehouse,
+            'status' => $request->status,
+        ]);
+
+        if($ware){
             toast('Changes saved successfully','success')->padding('10px')->width('270px')->timerProgressBar()->hideCloseButton();
             return redirect()->back();
         }else{
@@ -34,4 +54,9 @@ class WarehouseController extends Controller
             return redirect()->back();
         }
     }
+
+
+
+
+
 }

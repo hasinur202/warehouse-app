@@ -64,6 +64,38 @@ class CategoryController extends Controller
         }
     }
 
+    public function storeSubCategory(Request $request){
+        $request->validate([
+            'category_name'  =>  'required|unique:sub_categories',
+        ]);
+
+        if ($request->file('icon')) {
+            $image = $request->file('icon');
+            $new_name = rand() . '.' . $image->getClientOriginalExtension();
+            $upload_path = public_path()."/images/sub_category/";
+
+            $cat = Sub_category::create([
+                'warehouse_id'=>$request->warehouse_id,
+                'main_category_id'=>$request->main_cat_id,
+                'category_name'=>$request->category_name,
+                'slug'=>Str::slug($request->category_name),
+                'icon'=>$new_name,
+                'status'=>1
+            ]);
+
+            if($cat){
+                $image->move($upload_path, $new_name);
+            }
+
+            return response()->json([
+                'message'=>'success'
+            ],200);
+        }
+    }
+
+
+
+
     public function updateMainCategory(Request $request){
         $data = Main_category::where('id',$request->id)->first();
         if ($request->file('icon')) {
@@ -107,6 +139,16 @@ class CategoryController extends Controller
             Alert::warning('Opps...','Something went wrong!');
                 return redirect()->back();
         }
+
+    }
+
+    public function mainCategoryByWarehouse(Request $request){
+        $data = Main_category::where('warehouse_id',$request->id)->get();
+
+        return response()->json([
+            'message'=>'success',
+            'data'=>$data
+        ],200);
 
     }
 

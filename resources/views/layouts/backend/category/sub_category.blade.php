@@ -76,7 +76,7 @@
                                     <td>{{ $cat->category_name }}</td>
                                     <td>{{ $cat->get_main_category->category_name }}</td>
                                     <td>
-                                        <img src="/images/main_category/{{ $cat->icon }}" alt="Category Icon" height="40px" width="70px">
+                                        <img src="/images/sub_category/{{ $cat->icon }}" alt="Category Icon" height="40px" width="70px">
                                     </td>
                                     <td>{{ $cat->get_warehouse->warehouse_name }}</td>
                                     <td>
@@ -114,18 +114,23 @@
                         @csrf
                         <div class="modal-body">
                             <div class="form-group">
-                                <select name="warehouse_id" class="form-control">
-                                    <option selected disabled>Select Warehouse</option>
+                                <select onchange="loadMainCategory(this.value)" name="warehouse_id" class="form-control">
+                                    <option selected disabled>Select warehouse</option>
                                     @foreach ($warehouses as $warehouse)
                                         <option value="{{ $warehouse->id }}">{{ $warehouse->warehouse_name }}</option>
                                     @endforeach
                                 </select>
                             </div>
+                            <div class="form-group">
+                                <select name="main_cat_id" id="main_cat_id" class="form-control">
+                                    <option selected disabled>Select main category</option>
+                                </select>
+                            </div>
                             <div class="form-group mb-2">
-                                <input type="text" name="category_name" class="form-control" placeholder="Category name*">
+                                <input type="text" name="category_name" class="form-control" placeholder="Sub category name*">
                             </div>
                             <div class="form-group mt-4" style="display: inline-flex">
-                                <label class="form-check-label mr-4">Main Category Icon</label>
+                                <label class="form-check-label mr-4">Sub Category Icon</label>
                                 <div class="service-img" style="width: 30% !important">
                                     <input id="image" type="file" class="form-control" name="icon">
                                     <img src="" id="image-img"/>
@@ -213,6 +218,9 @@
                warehouse_id: {
                    required: true
                },
+               main_cat_id: {
+                    required: true
+                },
                category_name: {
                    required: true
                },
@@ -236,7 +244,7 @@
                $("#loading").show();
 
                $.ajax({
-                   url: "{{route('add.main.category')}}",
+                   url: "{{route('add.sub.category')}}",
                    method: "POST",
                    data: new FormData(document.getElementById("addCategory")),
                    enctype: 'multipart/form-data',
@@ -268,6 +276,33 @@
 
    });
 
+
+    function loadMainCategory(id){
+        $.ajax({
+            url:"{{ route('load.main.category') }}",
+            method:"POST",
+            dataType:"json",
+            data:{
+                "_token": "{{ csrf_token() }}",
+                'id':id,
+            },
+            success: function(res) {
+                $("#main_cat_id").text('');
+
+                res.data.forEach(function (m_cat) {
+                    console.log(m_cat.category_name);
+                    $('#main_cat_id').append('<option value="'+m_cat.id+'">'+m_cat.category_name+'</option>');
+                });
+
+            },
+            error: function() {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Something Wrong'
+                })
+            }
+        })
+    }
 
     function changeActivity(id){
         $.ajax({

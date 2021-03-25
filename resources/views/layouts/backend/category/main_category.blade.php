@@ -157,7 +157,7 @@
                         <input type="hidden" id="id" name="id">
                         <div class="form-group">
                             <select name="warehouse_id" id="warehouse_id" class="form-control">
-                                <option selected disabled>Select Warehouse</option>
+                                <option selected disabled>Select warehouse</option>
                                 @foreach ($warehouses as $warehouse)
                                     <option value="{{ $warehouse->id }}">{{ $warehouse->warehouse_name }}</option>
                                 @endforeach

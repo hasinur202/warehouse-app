@@ -81,6 +81,9 @@
   <!-- /.card -->
 </div>
 <!-- /.login-box -->
+<div id="loading" style="display:none; z-index:9999; position: absolute;width: 100%;text-align: center;top: 15rem;font-size: 3rem;color: #7ca6b2;">
+    <i class="fas fa-spinner fa-pulse"></i>
+</div>
 
 <!-- jQuery -->
 <script src="{{ asset('backend/plugins/jquery/jquery.min.js') }}"></script>
@@ -131,11 +134,13 @@
             $(element).removeClass('is-invalid');
           },
           submitHandler: function(form){
+              $("#loading").show();
             $.ajax({
               url: "{{ route('attempt.adminLogin') }}",
               method: "POST",
               data: $('#login').serialize(),
               success: function(res) {
+                  $("#loading").hide();
                   window.location.href ='/dashboard';
                   Toast.fire({
                       icon: 'success',

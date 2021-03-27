@@ -145,7 +145,6 @@
                   </div>
                 </div>
               </div>
-
         </div>
 
 
@@ -158,26 +157,45 @@
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
-                <form action="{{ route('update.main.category') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('update.sub.category') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
                         <input type="hidden" id="id" name="id">
-                        <div class="form-group">
-                            <select name="warehouse_id" id="warehouse_id" class="form-control">
-                                <option selected disabled>Select Warehouse</option>
-                                @foreach ($warehouses as $warehouse)
-                                    <option value="{{ $warehouse->id }}">{{ $warehouse->warehouse_name }}</option>
-                                @endforeach
-                            </select>
+                        <div class="form-group row">
+                            <label class="form-check-label col-sm-4">Warehouse</label>
+                            <div class="col-sm-8">
+                                <select onchange="loadMainCategory(this.value)" name="warehouse_id" id="warehouse_id" class="form-control">
+                                    <option selected disabled>Select Warehouse</option>
+                                    @foreach ($warehouses as $warehouse)
+                                        <option value="{{ $warehouse->id }}">{{ $warehouse->warehouse_name }}</option>
+                                    @endforeach
+                                </select>
+
+                            </div>
                         </div>
-                        <div class="form-group mb-2">
-                            <input type="text" name="category_name" id="category_name" class="form-control" placeholder="Category name*">
+
+                        <div class="form-group row">
+                            <label class="form-check-label col-sm-4">Main Category</label>
+                            <div class="col-sm-8">
+                                <select name="edit_main_cat_id" id="edit_main_cat_id" class="form-control">
+                                </select>
+                            </div>
                         </div>
-                        <div class="form-group mt-4" style="display: inline-flex">
-                            <label class="form-check-label mr-4">Main Category Icon</label>
-                            <div class="service-img" style="width: 30% !important">
-                                <input id="edit-image" type="file" class="form-control" name="icon">
-                                <img src="" id="edit-image-img"/>
+
+                        <div class="form-group row mb-2">
+                            <label class="form-check-label col-sm-4">Sub Category</label>
+                            <div class="col-sm-8">
+                                <input type="text" name="category_name" id="category_name" class="form-control" placeholder="Category name*">
+                            </div>
+                        </div>
+                        <div class="form-group row mt-4">
+                            <label class="form-check-label col-sm-4">Sub Category Icon</label>
+                            <div class="col-sm-8">
+                                <div class="service-img" style="width: 40% !important">
+                                    <input id="edit-image" type="file" class="form-control" name="icon">
+                                    <img src="" id="edit-image-img"/>
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -201,12 +219,16 @@
 
 @section('js')
 <script>
+
     function editModal(val){
         $("#edit-Modal").modal('show');
 
         $("#category_name").val(val.category_name);
         $("#warehouse_id").val(val.get_warehouse.id);
-        $("#edit-image-img").attr('src', "{{ asset('/images/main_category') }}/" + val.icon);
+
+        $('#edit_main_cat_id').append('<option selected value="'+val.get_main_category.id+'">'+val.get_main_category.category_name+'</option>');
+
+        $("#edit-image-img").attr('src', "{{ asset('/images/sub_category') }}/" + val.icon);
 
         $("#id").val(val.id);
     }
@@ -278,6 +300,7 @@
 
 
     function loadMainCategory(id){
+        $("#loading").show();
         $.ajax({
             url:"{{ route('load.main.category') }}",
             method:"POST",
@@ -288,10 +311,12 @@
             },
             success: function(res) {
                 $("#main_cat_id").text('');
+                $("#edit_main_cat_id").text('');
+                $("#loading").hide();
 
                 res.data.forEach(function (m_cat) {
-                    console.log(m_cat.category_name);
                     $('#main_cat_id').append('<option value="'+m_cat.id+'">'+m_cat.category_name+'</option>');
+                    $('#edit_main_cat_id').append('<option value="'+m_cat.id+'">'+m_cat.category_name+'</option>');
                 });
 
             },

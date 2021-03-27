@@ -155,22 +155,30 @@
                     @csrf
                     <div class="modal-body">
                         <input type="hidden" id="id" name="id">
-                        <div class="form-group">
-                            <select name="warehouse_id" id="warehouse_id" class="form-control">
-                                <option selected disabled>Select warehouse</option>
-                                @foreach ($warehouses as $warehouse)
-                                    <option value="{{ $warehouse->id }}">{{ $warehouse->warehouse_name }}</option>
-                                @endforeach
-                            </select>
+                        <div class="form-group row">
+                            <label class="col-sm-4 form-check-label">Warehouse</label>
+                            <div class="col-sm-8">
+                                <select name="warehouse_id" id="warehouse_id" class="form-control">
+                                    <option selected disabled>Select warehouse</option>
+                                    @foreach ($warehouses as $warehouse)
+                                        <option value="{{ $warehouse->id }}">{{ $warehouse->warehouse_name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
-                        <div class="form-group mb-2">
-                            <input type="text" name="category_name" id="category_name" class="form-control" placeholder="Category name*">
+                        <div class="form-group row mb-2">
+                            <label class="col-sm-4 form-check-label">Category name</label>
+                            <div class="col-sm-8">
+                                <input type="text" name="category_name" id="category_name" class="form-control" placeholder="Category name*">
+                            </div>
                         </div>
-                        <div class="form-group mt-4" style="display: inline-flex">
-                            <label class="form-check-label mr-4">Main Category Icon</label>
-                            <div class="service-img" style="width: 30% !important">
-                                <input id="edit-image" type="file" class="form-control" name="icon">
-                                <img src="" id="edit-image-img"/>
+                        <div class="form-group row mt-4">
+                            <label class="form-check-label col-sm-4">Main Category Icon</label>
+                            <div class="col-sm-8">
+                                <div class="service-img" style="width: 40% !important">
+                                    <input id="edit-image" type="file" class="form-control" name="icon">
+                                    <img src="" id="edit-image-img"/>
+                                </div>
                             </div>
                         </div>
                     </div>

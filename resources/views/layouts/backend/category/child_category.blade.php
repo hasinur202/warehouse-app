@@ -109,7 +109,7 @@
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
                     <div class="modal-header bg-info">
-                      <h5 class="modal-title" id="exampleModalLabel">Add Sub Category</h5>
+                      <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-plus"></i> Add Child Category</h5>
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     </div>
                     <form id="addCategory">
@@ -134,7 +134,7 @@
                                 </select>
                             </div>
                             <div class="form-group mb-2">
-                                <input type="text" name="category_name" class="form-control" placeholder="Sub category name*">
+                                <input type="text" name="category_name" class="form-control" placeholder="Child category name*">
                             </div>
                             <div class="form-group mt-4" style="display: inline-flex">
                                 <label class="form-check-label mr-4">Child Category Icon</label>
@@ -276,7 +276,7 @@
                $("#loading").show();
 
                $.ajax({
-                   url: "{{route('add.sub.category')}}",
+                   url: "{{route('add.child.category')}}",
                    method: "POST",
                    data: new FormData(document.getElementById("addCategory")),
                    enctype: 'multipart/form-data',
@@ -289,7 +289,7 @@
                         window.location.reload();
                         Toast.fire({
                             icon: 'success',
-                            title: 'Category created successfully'
+                            title: 'Child Category created successfully'
                        })
                    },
                    error: function(err) {
@@ -298,7 +298,7 @@
                        if(err.status == 422){
                            Swal.fire({
                                icon: 'error',
-                               title: 'Category name should be unique'
+                               title: 'Child Category name should be unique'
                            })
                        }
                    }
@@ -323,6 +323,8 @@
                 $("#main_cat_id").text('');
                 $("#edit_main_cat_id").text('');
                 $("#loading").hide();
+
+                $('#main_cat_id').append('<option selected disabled>Select category</option>');
 
                 res.data.forEach(function (m_cat) {
                     $('#main_cat_id').append('<option value="'+m_cat.id+'">'+m_cat.category_name+'</option>');
@@ -354,6 +356,7 @@
                 $("#edit_sub_cat_id").text('');
                 $("#loading").hide();
 
+                $('#sub_cat_id').append('<option selected disabled>Select category</option>');
                 res.data.forEach(function (m_cat) {
                     $('#sub_cat_id').append('<option value="'+m_cat.id+'">'+m_cat.category_name+'</option>');
                     $('#edit_sub_cat_id').append('<option value="'+m_cat.id+'">'+m_cat.category_name+'</option>');

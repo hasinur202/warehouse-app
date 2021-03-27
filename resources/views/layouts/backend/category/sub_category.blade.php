@@ -279,7 +279,7 @@
                         window.location.reload();
                         Toast.fire({
                             icon: 'success',
-                            title: 'Category created successfully'
+                            title: 'Sub Category created successfully'
                        })
                    },
                    error: function(err) {
@@ -288,7 +288,7 @@
                        if(err.status == 422){
                            Swal.fire({
                                icon: 'error',
-                               title: 'Category name should be unique'
+                               title: 'Sub Category name should be unique'
                            })
                        }
                    }
@@ -313,6 +313,8 @@
                 $("#main_cat_id").text('');
                 $("#edit_main_cat_id").text('');
                 $("#loading").hide();
+
+                $('#main_cat_id').append('<option selected disabled>Select category</option>');
 
                 res.data.forEach(function (m_cat) {
                     $('#main_cat_id').append('<option value="'+m_cat.id+'">'+m_cat.category_name+'</option>');

@@ -16,7 +16,11 @@ class SubCategoryController extends Controller
     public function index(){
         $warehouses = Warehouse::where('status',1)->get();
 
-        $sub_cats = Sub_category::with('get_main_category','get_warehouse')->get();
+        $sub_cats = Sub_category::with(['get_main_category'=>function($q){
+            $q->where('status',1);
+        },'get_warehouse'=>function($q){
+            $q->where('status',1);
+        }])->get();
 
         return view('layouts.backend.category.sub_category',[
             'sub_cats'=>$sub_cats,
@@ -131,7 +135,7 @@ class SubCategoryController extends Controller
 
 
     public function mainCategoryByWarehouse(Request $request){
-        $data = Main_category::where('warehouse_id',$request->id)->get();
+        $data = Main_category::where('warehouse_id',$request->id)->where('status',1)->get();
 
         return response()->json([
             'message'=>'success',

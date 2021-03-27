@@ -7,6 +7,7 @@ use App\Http\Controllers\Backend\AdminController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\WarehouseController;
 use App\Http\Controllers\backend\SubCategoryController;
+use App\Http\Controllers\backend\ChildCategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -75,6 +76,14 @@ Route::group(['middleware' => ['auth','admin.role']], function () {
     Route::post('/create-sub-category',[SubCategoryController::Class,'store'])->name('add.sub.category');
     Route::post('/update-sub-category',[SubCategoryController::Class,'update'])->name('update.sub.category');
     Route::post('/sub-category-activity',[SubCategoryController::Class,'activity'])->name('sub.category.activity');
+
+
+    //Child Category Rotues
+    Route::get('child-category-list', [ChildCategoryController::Class,'index'])->name('child.category.list');
+    // Route::post('/main-category-by-warehouse',[SubCategoryController::Class,'mainCategoryByWarehouse'])->name('load.main.category');
+    // Route::post('/create-sub-category',[SubCategoryController::Class,'store'])->name('add.sub.category');
+    // Route::post('/update-sub-category',[SubCategoryController::Class,'update'])->name('update.sub.category');
+    // Route::post('/sub-category-activity',[SubCategoryController::Class,'activity'])->name('sub.category.activity');
 
 
 });

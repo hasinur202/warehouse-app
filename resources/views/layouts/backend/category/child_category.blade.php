@@ -59,6 +59,7 @@
                                     <th>SI#</th>
                                     <th>Main Category</th>
                                     <th>Sub Category</th>
+                                    <th>Child Category</th>
                                     <th>Icon</th>
                                     <th>Warehouse</th>
                                     <th width="70px">Status</th>

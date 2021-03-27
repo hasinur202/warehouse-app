@@ -74,7 +74,7 @@ Route::group(['middleware' => ['auth','admin.role']], function () {
     Route::post('/main-category-by-warehouse',[SubCategoryController::Class,'mainCategoryByWarehouse'])->name('load.main.category');
     Route::post('/create-sub-category',[SubCategoryController::Class,'store'])->name('add.sub.category');
     Route::post('/update-sub-category',[SubCategoryController::Class,'update'])->name('update.sub.category');
-    // Route::post('/main-category-activity',[CategoryController::Class,'mainCategoryActivity'])->name('main.category.activity');
+    Route::post('/sub-category-activity',[SubCategoryController::Class,'activity'])->name('sub.category.activity');
 
 
 });

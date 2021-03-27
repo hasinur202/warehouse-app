@@ -330,8 +330,9 @@
     }
 
     function changeActivity(id){
+        $("#loading").show();
         $.ajax({
-            url:"{{ route('main.category.activity') }}",
+            url:"{{ route('sub.category.activity') }}",
             method:"POST",
             dataType:"json",
             data:{
@@ -339,6 +340,7 @@
                 'id':id,
             },
             success: function(response) {
+                $("#loading").hide();
                 Toast.fire({
                     icon: 'success',
                     title: 'Status Changes Successfully.'
@@ -346,6 +348,7 @@
                 window.location.reload();
             },
             error: function() {
+                $("#loading").hide();
                 Swal.fire({
                     icon: 'error',
                     title: 'Something Wrong'

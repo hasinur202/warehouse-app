@@ -103,6 +103,30 @@ class SubCategoryController extends Controller
     }
 
 
+    public function activity(Request $request){
+        $data = Sub_category::where('id',$request->id)->first();
+
+        if ($data->status == 0) {
+            Sub_category::where('id',$request->id)->update([
+                'status'=>1
+            ]);
+
+            return response()->json([
+                'message'=>'success'
+            ],200);
+        }else{
+            Sub_category::where('id',$request->id)->update([
+                'status'=>0
+            ]);
+
+            return response()->json([
+                'message'=>'success'
+            ],200);
+        }
+
+    }
+
+
 
 
 

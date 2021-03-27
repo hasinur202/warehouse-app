@@ -108,6 +108,29 @@ class ChildCategoryController extends Controller
 
     }
 
+    public function activity(Request $request){
+        $data = Child_category::where('id',$request->id)->first();
+
+        if ($data->status == 0) {
+            Child_category::where('id',$request->id)->update([
+                'status'=>1
+            ]);
+
+            return response()->json([
+                'message'=>'success'
+            ],200);
+        }else{
+            Child_category::where('id',$request->id)->update([
+                'status'=>0
+            ]);
+
+            return response()->json([
+                'message'=>'success'
+            ],200);
+        }
+
+    }
+
 
 
     public function subCategoryById(Request $request){

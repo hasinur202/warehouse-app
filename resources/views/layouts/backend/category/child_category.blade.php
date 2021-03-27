@@ -389,7 +389,7 @@
     function changeActivity(id){
         $("#loading").show();
         $.ajax({
-            url:"{{ route('sub.category.activity') }}",
+            url:"{{ route('child.category.activity') }}",
             method:"POST",
             dataType:"json",
             data:{

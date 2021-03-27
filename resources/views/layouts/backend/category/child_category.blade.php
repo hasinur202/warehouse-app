@@ -35,7 +35,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Sub Category</h1>
+            <h1>Child Category</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -48,7 +48,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Sub Category List</h3>
+                            <h3 class="card-title">Child Category List</h3>
                             <button data-toggle="modal" data-target="#addModal" class="btn btn-dark btn-sm float-right"><i class="fas fa-plus"></i> Add Sub Category</button>
                         </div>
                         <!-- /.card-header -->
@@ -69,14 +69,15 @@
                             </thead>
                             <tbody>
                                 @php $i=0; @endphp
-                                @foreach ($sub_cats as $cat)
+                                @foreach ($child_cats as $cat)
                                 @php $i++; @endphp
                                 <tr>
                                     <td>{{ $i }}</td>
                                     <td>{{ $cat->get_main_category->category_name }}</td>
+                                    <td>{{ $cat->get_sub_category->category_name }}</td>
                                     <td>{{ $cat->category_name }}</td>
                                     <td>
-                                        <img src="/images/sub_category/{{ $cat->icon }}" alt="Category Icon" height="40px" width="70px">
+                                        <img src="/images/child_category/{{ $cat->icon }}" alt="Category Icon" height="40px" width="70px">
                                     </td>
                                     <td>{{ $cat->get_warehouse->warehouse_name }}</td>
                                     <td>

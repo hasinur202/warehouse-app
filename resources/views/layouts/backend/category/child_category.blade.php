@@ -49,7 +49,7 @@
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">Child Category List</h3>
-                            <button data-toggle="modal" data-target="#addModal" class="btn btn-dark btn-sm float-right"><i class="fas fa-plus"></i> Add Sub Category</button>
+                            <button data-toggle="modal" data-target="#addModal" class="btn btn-dark btn-sm float-right"><i class="fas fa-plus"></i> Add Child Category</button>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
@@ -124,15 +124,20 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <select name="main_cat_id" id="main_cat_id" class="form-control">
+                                <select onchange="loadSubCategory(this.value)" name="main_cat_id" id="main_cat_id" class="form-control">
                                     <option selected disabled>Select main category</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <select name="sub_cat_id" id="sub_cat_id" class="form-control">
+                                    <option selected disabled>Select sub category</option>
                                 </select>
                             </div>
                             <div class="form-group mb-2">
                                 <input type="text" name="category_name" class="form-control" placeholder="Sub category name*">
                             </div>
                             <div class="form-group mt-4" style="display: inline-flex">
-                                <label class="form-check-label mr-4">Sub Category Icon</label>
+                                <label class="form-check-label mr-4">Child Category Icon</label>
                                 <div class="service-img" style="width: 30% !important">
                                     <input id="image" type="file" class="form-control" name="icon">
                                     <img src="" id="image-img"/>
@@ -245,6 +250,9 @@
                main_cat_id: {
                     required: true
                 },
+               sub_cat_id: {
+                    required: true
+               },
                category_name: {
                    required: true
                },
@@ -319,6 +327,36 @@
                 res.data.forEach(function (m_cat) {
                     $('#main_cat_id').append('<option value="'+m_cat.id+'">'+m_cat.category_name+'</option>');
                     $('#edit_main_cat_id').append('<option value="'+m_cat.id+'">'+m_cat.category_name+'</option>');
+                });
+
+            },
+            error: function() {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Something Wrong'
+                })
+            }
+        })
+    }
+
+    function loadSubCategory(id){
+        $("#loading").show();
+        $.ajax({
+            url:"{{ route('load.sub.category') }}",
+            method:"POST",
+            dataType:"json",
+            data:{
+                "_token": "{{ csrf_token() }}",
+                'id':id,
+            },
+            success: function(res) {
+                $("#sub_cat_id").text('');
+                $("#edit_sub_cat_id").text('');
+                $("#loading").hide();
+
+                res.data.forEach(function (m_cat) {
+                    $('#sub_cat_id').append('<option value="'+m_cat.id+'">'+m_cat.category_name+'</option>');
+                    $('#edit_sub_cat_id').append('<option value="'+m_cat.id+'">'+m_cat.category_name+'</option>');
                 });
 
             },

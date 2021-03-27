@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\backend;
 
 use App\Models\Warehouse;
+use App\Models\Sub_category;
 use Illuminate\Http\Request;
 use App\Models\Child_category;
 use App\Http\Controllers\Controller;
@@ -24,5 +25,16 @@ class ChildCategoryController extends Controller
             'child_cats'=>$child_cats,
             'warehouses'=>$warehouses ?? '',
         ]);
+    }
+
+
+
+    public function subCategoryById(Request $request){
+        $data = Sub_category::where('main_category_id',$request->id)->where('status',1)->get();
+
+        return response()->json([
+            'message'=>'success',
+            'data'=>$data
+        ],200);
     }
 }

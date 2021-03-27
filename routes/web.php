@@ -6,6 +6,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\Backend\AdminController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\WarehouseController;
+use App\Http\Controllers\backend\SubCategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -64,14 +65,14 @@ Route::group(['middleware' => ['auth','admin.role']], function () {
 
     //Category Rotues
     Route::get('main-category-list', [CategoryController::Class,'index'])->name('main.category.list');
-    Route::post('/create-main-category',[CategoryController::Class,'storeMainCategory'])->name('add.main.category');
-    Route::post('/update-main-category',[CategoryController::Class,'updateMainCategory'])->name('update.main.category');
-    Route::post('/main-category-activity',[CategoryController::Class,'mainCategoryActivity'])->name('main.category.activity');
+    Route::post('/create-main-category',[CategoryController::Class,'store'])->name('add.main.category');
+    Route::post('/update-main-category',[CategoryController::Class,'update'])->name('update.main.category');
+    Route::post('/main-category-activity',[CategoryController::Class,'activity'])->name('main.category.activity');
 
     //Sub Category Rotues
-    Route::get('sub-category-list', [CategoryController::Class,'sub_index'])->name('sub.category.list');
-    Route::post('/main-category-by-warehouse',[CategoryController::Class,'mainCategoryByWarehouse'])->name('load.main.category');
-    Route::post('/create-sub-category',[CategoryController::Class,'storeSubCategory'])->name('add.sub.category');
+    Route::get('sub-category-list', [SubCategoryController::Class,'index'])->name('sub.category.list');
+    Route::post('/main-category-by-warehouse',[SubCategoryController::Class,'mainCategoryByWarehouse'])->name('load.main.category');
+    Route::post('/create-sub-category',[SubCategoryController::Class,'store'])->name('add.sub.category');
     // Route::post('/update-main-category',[CategoryController::Class,'updateMainCategory'])->name('update.main.category');
     // Route::post('/main-category-activity',[CategoryController::Class,'mainCategoryActivity'])->name('main.category.activity');
 

@@ -166,7 +166,7 @@
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
-                <form action="{{ route('update.sub.category') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('update.child.category') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
                         <input type="hidden" id="id" name="id">

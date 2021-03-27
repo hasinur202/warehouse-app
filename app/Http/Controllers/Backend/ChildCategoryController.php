@@ -8,6 +8,7 @@ use App\Models\Sub_category;
 use Illuminate\Http\Request;
 use App\Models\Child_category;
 use App\Http\Controllers\Controller;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class ChildCategoryController extends Controller
 {
@@ -57,6 +58,54 @@ class ChildCategoryController extends Controller
                 'message'=>'success'
             ],200);
         }
+    }
+
+    public function update(Request $request){
+        $data = Child_category::where('id',$request->id)->first();
+        if ($request->file('icon')) {
+            $image = $request->file('icon');
+            $new_name = rand() . '.' . $image->getClientOriginalExtension();
+            $upload_path = public_path()."/images/child_category/";
+        }else{
+            $new_name=$data->icon;
+        }
+
+        if($data->category_name == $request->category_name){
+            $slugg = $request->category_name;
+        }else{
+            $checkslug = Child_category::where('category_name',$request->category_name)->count();
+            if($checkslug > 0){
+                Alert::warning('Opps...','Child Category name should be unique!');
+                return redirect()->back();
+            }else{
+                $slugg = $request->category_name;
+            }
+        }
+
+        $cat = Child_category::where('id',$request->id)->update([
+            'warehouse_id'=>$request->warehouse_id,
+            'main_category_id'=>$request->edit_main_cat_id,
+            'sub_category_id'=>$request->edit_sub_cat_id,
+            'category_name'=>$request->category_name,
+            'icon'=>$new_name,
+            'slug'=>Str::slug($slugg),
+        ]);
+
+        if ($request->file('icon') !=null ){
+            $icon_d = public_path('images/child_category/').$data->icon;
+            if(file_exists($icon_d)){
+                @unlink($icon_d);
+            }
+            $image->move($upload_path, $new_name);
+        }
+        if($cat){
+            toast('Created successfully','success')->padding('10px')->width('270px')->timerProgressBar()->hideCloseButton();
+                return redirect()->back();
+        }else{
+            Alert::warning('Opps...','Something went wrong!');
+                return redirect()->back();
+        }
+
     }
 
 

@@ -71,6 +71,7 @@
                             <tbody>
                                 @php $i=0; @endphp
                                 @foreach ($child_cats as $cat)
+                                @if($cat->get_main_category != null && $cat->get_sub_category != null)
                                 @php $i++; @endphp
                                 <tr>
                                     <td>{{ $i }}</td>
@@ -93,6 +94,7 @@
                                         <a href="javascript:void(0)" class="btn btn-danger btn-xs"><i class="fas fa-trash"></i></a>
                                     </td>
                                 </tr>
+                                @endif
                                 @endforeach
                             </tbody>
                           </table>
@@ -159,7 +161,7 @@
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Edit Sub Category</h5>
+                  <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-edit"></i> Edit Child Category</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
@@ -184,19 +186,28 @@
                         <div class="form-group row">
                             <label class="form-check-label col-sm-4">Main Category</label>
                             <div class="col-sm-8">
-                                <select name="edit_main_cat_id" id="edit_main_cat_id" class="form-control">
+                                <select onchange="loadSubCategory(this.value)" name="edit_main_cat_id" id="edit_main_cat_id" class="form-control">
+
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="form-check-label col-sm-4">Sub Category</label>
+                            <div class="col-sm-8">
+                                <select name="edit_sub_cat_id" id="edit_sub_cat_id" class="form-control">
                                 </select>
                             </div>
                         </div>
 
                         <div class="form-group row mb-2">
-                            <label class="form-check-label col-sm-4">Sub Category</label>
+                            <label class="form-check-label col-sm-4">Child Category</label>
                             <div class="col-sm-8">
                                 <input type="text" name="category_name" id="category_name" class="form-control" placeholder="Category name*">
                             </div>
                         </div>
                         <div class="form-group row mt-4">
-                            <label class="form-check-label col-sm-4">Sub Category Icon</label>
+                            <label class="form-check-label col-sm-4">Child Category Icon</label>
                             <div class="col-sm-8">
                                 <div class="service-img" style="width: 40% !important">
                                     <input id="edit-image" type="file" class="form-control" name="icon">
@@ -234,8 +245,9 @@
         $("#warehouse_id").val(val.get_warehouse.id);
 
         $('#edit_main_cat_id').append('<option selected value="'+val.get_main_category.id+'">'+val.get_main_category.category_name+'</option>');
+        $('#edit_sub_cat_id').append('<option selected value="'+val.get_sub_category.id+'">'+val.get_sub_category.category_name+'</option>');
 
-        $("#edit-image-img").attr('src', "{{ asset('/images/sub_category') }}/" + val.icon);
+        $("#edit-image-img").attr('src', "{{ asset('/images/child_category') }}/" + val.icon);
 
         $("#id").val(val.id);
     }
@@ -325,6 +337,7 @@
                 $("#loading").hide();
 
                 $('#main_cat_id').append('<option selected disabled>Select category</option>');
+                $('#edit_main_cat_id').append('<option selected disabled>Select category</option>');
 
                 res.data.forEach(function (m_cat) {
                     $('#main_cat_id').append('<option value="'+m_cat.id+'">'+m_cat.category_name+'</option>');
@@ -357,6 +370,7 @@
                 $("#loading").hide();
 
                 $('#sub_cat_id').append('<option selected disabled>Select category</option>');
+                $('#edit_sub_cat_id').append('<option selected disabled>Select category</option>');
                 res.data.forEach(function (m_cat) {
                     $('#sub_cat_id').append('<option value="'+m_cat.id+'">'+m_cat.category_name+'</option>');
                     $('#edit_sub_cat_id').append('<option value="'+m_cat.id+'">'+m_cat.category_name+'</option>');

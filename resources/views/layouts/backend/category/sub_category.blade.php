@@ -70,6 +70,7 @@
                             <tbody>
                                 @php $i=0; @endphp
                                 @foreach ($sub_cats as $cat)
+                                @if($cat->get_main_category != null)
                                 @php $i++; @endphp
                                 <tr>
                                     <td>{{ $i }}</td>
@@ -91,6 +92,7 @@
                                         <a href="javascript:void(0)" class="btn btn-danger btn-xs"><i class="fas fa-trash"></i></a>
                                     </td>
                                 </tr>
+                                @endif
                                 @endforeach
                             </tbody>
                           </table>
@@ -107,7 +109,7 @@
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
                     <div class="modal-header bg-info">
-                      <h5 class="modal-title" id="exampleModalLabel">Add Sub Category</h5>
+                      <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-plus"></i> Add Sub Category</h5>
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     </div>
                     <form id="addCategory">
@@ -152,7 +154,7 @@
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Edit Sub Category</h5>
+                  <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-edit"></i> Edit Sub Category</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
@@ -315,6 +317,7 @@
                 $("#loading").hide();
 
                 $('#main_cat_id').append('<option selected disabled>Select category</option>');
+                $('#edit_main_cat_id').append('<option selected disabled>Select category</option>');
 
                 res.data.forEach(function (m_cat) {
                     $('#main_cat_id').append('<option value="'+m_cat.id+'">'+m_cat.category_name+'</option>');

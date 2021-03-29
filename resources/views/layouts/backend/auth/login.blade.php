@@ -148,6 +148,7 @@
                   })
               },
               error: function() {
+                $("#loading").hide();
                 Swal.fire({
                     icon: 'error',
                     title: 'Access Denied',

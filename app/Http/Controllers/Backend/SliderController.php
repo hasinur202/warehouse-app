@@ -37,7 +37,7 @@ class SliderController extends Controller
                 'title'=>$request->title,
                 'slug'=>Str::slug($request->title),
                 'image'=>$new_name,
-                'url'=>$request->url,
+                'url'=>$request->url ?? '#',
                 'status'=>1
             ]);
 
@@ -76,7 +76,7 @@ class SliderController extends Controller
         $slld = Slide::where('id',$request->id)->update([
             'warehouse_id'=>$request->warehouse_id,
             'title'=>$request->title,
-            'url'=>$request->url,
+            'url'=>$request->url ?? '#',
             'image'=>$new_name,
             'slug'=>Str::slug($slugg),
         ]);

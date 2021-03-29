@@ -79,8 +79,11 @@
                                     <td>
                                         <img src="/images/slider/{{ $slide->image }}" alt="Slider" height="40px" width="70px">
                                     </td>
-                                    <td>{{ $slide->url }}</td>
-                                    <td>{{ $slide->get_warehouse->warehouse_name }}</td>
+                                    <td>
+                                        <a target="_blank" href="{{ $slide->url }}">{{ Str::limit($slide->url,30) }}</a>
+                                    </td>
+                                    <td>
+                                        {{ $slide->get_warehouse->warehouse_name }}</td>
                                     <td>
                                         @if($slide->status == 1)
                                             <button onclick="changeActivity({{ $slide->id }})" type="button" class="btn btn-success btn-block btn-xs">Active</button>
@@ -158,7 +161,7 @@
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
-                <form action="{{ route('update.main.category') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('update.slider') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
                         <input type="hidden" id="id" name="id">
@@ -174,16 +177,22 @@
                             </div>
                         </div>
                         <div class="form-group row mb-2">
-                            <label class="col-sm-4 form-check-label">Category name</label>
+                            <label class="col-sm-4 form-check-label">Title</label>
                             <div class="col-sm-8">
-                                <input type="text" name="category_name" id="category_name" class="form-control" placeholder="Category name*">
+                                <input type="text" name="title" id="title" class="form-control" placeholder="Title*">
+                            </div>
+                        </div>
+                        <div class="form-group row mb-2">
+                            <label class="col-sm-4 form-check-label">Url</label>
+                            <div class="col-sm-8">
+                                <input type="text" name="url" id="url" class="form-control" placeholder="Url">
                             </div>
                         </div>
                         <div class="form-group row mt-4">
-                            <label class="form-check-label col-sm-4">Main Category Icon</label>
+                            <label class="form-check-label col-sm-4">Image</label>
                             <div class="col-sm-8">
-                                <div class="service-img" style="width: 40% !important">
-                                    <input id="edit-image" type="file" class="form-control" name="icon">
+                                <div class="service-img" style="width: 80% !important">
+                                    <input id="edit-image" type="file" class="form-control" name="image">
                                     <img src="" id="edit-image-img"/>
                                 </div>
                             </div>
@@ -212,9 +221,10 @@
     function editModal(val){
         $("#edit-Modal").modal('show');
 
-        $("#category_name").val(val.category_name);
+        $("#title").val(val.title);
+        $("#url").val(val.url);
         $("#warehouse_id").val(val.get_warehouse.id);
-        $("#edit-image-img").attr('src', "{{ asset('/images/slider') }}/" + val.icon);
+        $("#edit-image-img").attr('src', "{{ asset('/images/slider') }}/" + val.image);
 
         $("#id").val(val.id);
     }

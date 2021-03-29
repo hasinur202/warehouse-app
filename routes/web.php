@@ -97,7 +97,7 @@ Route::group(['middleware' => ['auth','admin.role']], function () {
     //Slider Routes
     Route::get('slides-list', [SliderController::Class,'index'])->name('slider.list');
     Route::post('/create-new-slider',[SliderController::Class,'store'])->name('add.slider');
-    // Route::post('/update-new-brand',[BrandController::Class,'update'])->name('update.brand');
+    Route::post('/update-new-slider',[SliderController::Class,'update'])->name('update.slider');
     // Route::post('/brand-activity',[BrandController::Class,'activity'])->name('brand.activity');
 
 

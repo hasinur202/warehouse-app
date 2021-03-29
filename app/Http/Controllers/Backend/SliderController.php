@@ -7,6 +7,7 @@ use App\Models\Warehouse;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class SliderController extends Controller
 {
@@ -49,6 +50,54 @@ class SliderController extends Controller
             ],200);
         }
     }
+
+    public function update(Request $request){
+        $data = Slide::where('id',$request->id)->first();
+        if ($request->file('image')) {
+            $image = $request->file('image');
+            $new_name = rand() . '.' . $image->getClientOriginalExtension();
+            $upload_path = public_path()."/images/slider/";
+        }else{
+            $new_name=$data->image;
+        }
+
+        if($data->title == $request->title){
+            $slugg = $request->title;
+        }else{
+            $checkslug = Slide::where('title',$request->title)->count();
+            if($checkslug > 0){
+                Alert::warning('Opps...','Slide title should be unique!');
+                return redirect()->back();
+            }else{
+                $slugg = $request->title;
+            }
+        }
+
+        $slld = Slide::where('id',$request->id)->update([
+            'warehouse_id'=>$request->warehouse_id,
+            'title'=>$request->title,
+            'url'=>$request->url,
+            'image'=>$new_name,
+            'slug'=>Str::slug($slugg),
+        ]);
+
+        if ($request->file('image') !=null ){
+            $icon_d = public_path('images/slider/').$data->image;
+            if(file_exists($icon_d)){
+                @unlink($icon_d);
+            }
+            $image->move($upload_path, $new_name);
+        }
+        if($slld){
+            toast('Created successfully','success')->padding('10px')->width('270px')->timerProgressBar()->hideCloseButton();
+                return redirect()->back();
+        }else{
+            Alert::warning('Opps...','Something went wrong!');
+                return redirect()->back();
+        }
+
+    }
+
 
 
 

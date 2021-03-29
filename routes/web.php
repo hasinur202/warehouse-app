@@ -90,7 +90,7 @@ Route::group(['middleware' => ['auth','admin.role']], function () {
     Route::get('brand-list', [BrandController::Class,'index'])->name('brand.list');
     Route::post('/create-new-brand',[BrandController::Class,'store'])->name('add.brand');
     Route::post('/update-new-brand',[BrandController::Class,'update'])->name('update.brand');
-    // Route::post('/main-category-activity',[CategoryController::Class,'activity'])->name('main.category.activity');
+    Route::post('/brand-activity',[BrandController::Class,'activity'])->name('brand.activity');
 
 
 });

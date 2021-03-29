@@ -11,7 +11,7 @@ use RealRashid\SweetAlert\Facades\Alert;
 class BrandController extends Controller
 {
     public function index(){
-        $brands = Brand::where('status',1)->get();
+        $brands = Brand::all();
 
         return view('layouts.backend.brand.brand',[
             'brands'=>$brands,
@@ -88,6 +88,32 @@ class BrandController extends Controller
         }else{
             Alert::warning('Opps...','Something went wrong!');
                 return redirect()->back();
+        }
+
+    }
+
+
+
+
+    public function activity(Request $request){
+        $data = Brand::where('id',$request->id)->first();
+
+        if ($data->status == 0) {
+            Brand::where('id',$request->id)->update([
+                'status'=>1
+            ]);
+
+            return response()->json([
+                'message'=>'success'
+            ],200);
+        }else{
+            Brand::where('id',$request->id)->update([
+                'status'=>0
+            ]);
+
+            return response()->json([
+                'message'=>'success'
+            ],200);
         }
 
     }

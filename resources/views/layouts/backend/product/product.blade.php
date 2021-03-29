@@ -2,6 +2,7 @@
 
 @section('css')
 
+
     <style>
         .service-img{
             height: 9.5rem;
@@ -49,13 +50,15 @@
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
+            <form action="{{ route('test') }}" method="POST" enctype="multipart/form-data">
+                @csrf
             <div class="row">
                 <div class="col-md-9">
                     <div class="card">
                         <div class="card-body row">
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label class="form-check-label">Product Barcode*</label>
+                                    <label class="form-check-label" style="font-weight: bold;color:red;">Product Barcode*</label>
                                     <input type="text" name="barcode" class="form-control" placeholder="Barcode">
                                 </div>
 
@@ -115,8 +118,30 @@
                                         @endforeach
                                     </select>
                                 </div>
+                            </div>
+
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label style="width: 100%">Product Attributes</label>
+                                    <input type="text" name="dd" placeholder="Size">
+                                    <input type="text" name="dd" placeholder="Quantity">
+                                    <input type="text" name="dd" placeholder="Sale Price">
+                                    <input type="text" name="dd" placeholder="Discount">
+
+                                </div>
+                                <div class="form-group">
+                                    <label>Product Description</label>
+                                    <textarea name="description" placeholder="Description" required class="form-control"></textarea>
+                                </div>
 
                             </div>
+
+
+
+
+
+
+
                         </div>
                         <!-- /.card-body -->
                     </div>
@@ -135,14 +160,12 @@
                                 </div>
                             </div>
 
-                            <div class="form-group row">
-                                <label class="form-check-label col-sm-4">Product Gallery Images</label>
-                                <div class="col-sm-8">
-                                    <span class="btn btn-success col fileinput-button">
-                                        <i class="fas fa-plus"></i>
-                                        <span>Add files</span>
-                                    </span>
-                                </div>
+                            <div class="form-group">
+                                <label class="form-check-label">Product Gallery Images</label>
+                                <input required type="file" class="form-control" name="images[]" placeholder="address" multiple>
+                            </div>
+                            <div style="text-align:center">
+                                <span class="btn btn-success btn-sm"><i class="fas fa-plus"></i> Add More</span>
                             </div>
 
 
@@ -150,111 +173,14 @@
                         <!-- /.card-body -->
                     </div>
                     <!-- /.card -->
+                    <button type="submit" class="btn btn-info">Submit</button>
                 </div>
+
             </div>
 
+        </form>
+    </div>
 
-
-
-
-            <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header bg-info">
-                      <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-plus"></i> Add Slider</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    </div>
-                    <form id="addSlider">
-                        @csrf
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <select name="warehouse_id" class="form-control">
-                                    <option selected disabled>Select Warehouse*</option>
-                                    @foreach ($warehouses as $warehouse)
-                                        <option value="{{ $warehouse->id }}">{{ $warehouse->warehouse_name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="form-group mb-2">
-                                <input type="text" name="title" class="form-control" placeholder="Title *">
-                            </div>
-                            <div class="form-group mb-2">
-                                <input type="text" name="url" class="form-control" placeholder="Url ">
-                            </div>
-                            <div class="form-group mt-4" style="display: inline-flex">
-                                <label class="form-check-label mr-4">Image</label>
-                                <div class="service-img" style="width: 80% !important">
-                                    <input id="image" type="file" class="form-control" name="image">
-                                    <img src="" id="image-img"/>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                          <button type="submit" class="btn btn-primary">Save</button>
-                        </div>
-                    </form>
-                  </div>
-                </div>
-              </div>
-
-        </div>
-
-
-        <div class="modal fade" id="edit-Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header bg-warning">
-                  <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-edit"></i> Edit Category</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <form action="{{ route('update.slider') }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    <div class="modal-body">
-                        <input type="hidden" id="id" name="id">
-                        <div class="form-group row">
-                            <label class="col-sm-4 form-check-label">Warehouse</label>
-                            <div class="col-sm-8">
-                                <select name="warehouse_id" id="warehouse_id" class="form-control">
-                                    <option selected disabled>Select warehouse</option>
-                                    @foreach ($warehouses as $warehouse)
-                                        <option value="{{ $warehouse->id }}">{{ $warehouse->warehouse_name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group row mb-2">
-                            <label class="col-sm-4 form-check-label">Title</label>
-                            <div class="col-sm-8">
-                                <input type="text" name="title" id="title" class="form-control" placeholder="Title*">
-                            </div>
-                        </div>
-                        <div class="form-group row mb-2">
-                            <label class="col-sm-4 form-check-label">Url</label>
-                            <div class="col-sm-8">
-                                <input type="text" name="url" id="url" class="form-control" placeholder="Url">
-                            </div>
-                        </div>
-                        <div class="form-group row mt-4">
-                            <label class="form-check-label col-sm-4">Image</label>
-                            <div class="col-sm-8">
-                                <div class="service-img" style="width: 80% !important">
-                                    <input id="edit-image" type="file" class="form-control" name="image">
-                                    <img src="" id="edit-image-img"/>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                      <button type="submit" class="btn btn-primary">Update</button>
-                    </div>
-                </form>
-              </div>
-            </div>
-        </div>
 
     </section>
     <!-- /.content -->
@@ -266,6 +192,9 @@
 </div>
 
 @section('js')
+<script>
+    CKEDITOR.replace('description');
+</script>
 <script>
     function editModal(val){
         $("#edit-Modal").modal('show');

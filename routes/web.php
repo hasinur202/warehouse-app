@@ -106,6 +106,9 @@ Route::group(['middleware' => ['auth','admin.role']], function () {
     Route::post('/slider-activity',[SliderController::Class,'activity'])->name('slider.activity');
 
 
+    Route::post('/test-activity',[SliderController::Class,'test'])->name('test');
+
+
 });
 
 

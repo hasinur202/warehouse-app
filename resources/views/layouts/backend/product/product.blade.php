@@ -4,25 +4,27 @@
 
     <style>
         .service-img{
-            height: 6.5rem;
+            height: 9.5rem;
             border: dashed 1.5px blue;
             background-image: repeating-linear-gradient(32deg, #b99dc714, transparent 100px);
-            width: 68.5% !important;
+            width: 100% !important;
             cursor: pointer;
         }
 
         .service-img input{
             opacity: 0;
-            height: 6.5rem;
+            height: 9.5rem !important;
             cursor: pointer;
             padding: 0px;
         }
         .service-img img{
-            height: 6.5rem;
+            height: 9.5rem;
             width: 100% !important;
             cursor: pointer;
-            margin-top: -134px;
+            margin-top: -179px;
         }
+
+
    </style>
 @endsection
 
@@ -48,26 +50,101 @@
     <section class="content">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-8">
+                <div class="col-md-9">
                     <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">Add Product</h3>
-                        </div>
-                        <!-- /.card-header -->
-                        <div class="card-body">
+                        <div class="card-body row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="form-check-label">Product Barcode*</label>
+                                    <input type="text" name="barcode" class="form-control" placeholder="Barcode">
+                                </div>
 
+                                <div class="form-group">
+                                    <label class="form-check-label">Product SKU*</label>
+                                    <input type="text" name="barcode" class="form-control" placeholder="SKU">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-check-label">Product Name*</label>
+                                    <input type="text" name="barcode" class="form-control" placeholder="Product Name">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-check-label">Brand*</label>
+                                    <select name="warehouse_id" class="form-control">
+                                        <option selected disabled>Select brand</option>
+                                        @foreach ($warehouses as $warehouse)
+                                            <option value="{{ $warehouse->id }}">{{ $warehouse->warehouse_name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="form-check-label">Warehouse*</label>
+                                    <select name="warehouse_id" class="form-control">
+                                        <option selected disabled>Select warehouse</option>
+                                        @foreach ($warehouses as $warehouse)
+                                            <option value="{{ $warehouse->id }}">{{ $warehouse->warehouse_name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-check-label">Main Category*</label>
+                                    <select name="warehouse_id" class="form-control">
+                                        <option selected disabled>Select category</option>
+                                        @foreach ($warehouses as $warehouse)
+                                            <option value="{{ $warehouse->id }}">{{ $warehouse->warehouse_name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-check-label">Sub Category*</label>
+                                    <select name="warehouse_id" class="form-control">
+                                        <option selected disabled>Select sub category</option>
+                                        @foreach ($warehouses as $warehouse)
+                                            <option value="{{ $warehouse->id }}">{{ $warehouse->warehouse_name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-check-label">Child Category*</label>
+                                    <select name="warehouse_id" class="form-control">
+                                        <option selected disabled>Select child category</option>
+                                        @foreach ($warehouses as $warehouse)
+                                            <option value="{{ $warehouse->id }}">{{ $warehouse->warehouse_name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                            </div>
                         </div>
                         <!-- /.card-body -->
                     </div>
                     <!-- /.card -->
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">Add Product</h3>
-                        </div>
-                        <!-- /.card-header -->
                         <div class="card-body">
+                            <div class="form-group row">
+                                <label class="form-check-label col-sm-4">Product Feature Image*</label>
+                                <div class="col-sm-8">
+                                    <div class="service-img">
+                                        <input id="image" type="file" class="form-control" name="image">
+                                        <img src="" id="image-img"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="form-check-label col-sm-4">Product Gallery Images</label>
+                                <div class="col-sm-8">
+                                    <span class="btn btn-success col fileinput-button">
+                                        <i class="fas fa-plus"></i>
+                                        <span>Add files</span>
+                                    </span>
+                                </div>
+                            </div>
+
 
                         </div>
                         <!-- /.card-body -->
@@ -75,6 +152,8 @@
                     <!-- /.card -->
                 </div>
             </div>
+
+
 
 
 

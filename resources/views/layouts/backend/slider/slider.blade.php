@@ -75,9 +75,9 @@
                                 @php $i++; @endphp
                                 <tr>
                                     <td>{{ $i }}</td>
-                                    <td>{{ $slide->description }}</td>
+                                    <td>{{ $slide->title }}</td>
                                     <td>
-                                        <img src="/images/slider/{{ $slide->icon }}" alt="Slider" height="40px" width="70px">
+                                        <img src="/images/slider/{{ $slide->image }}" alt="Slider" height="40px" width="70px">
                                     </td>
                                     <td>{{ $slide->url }}</td>
                                     <td>{{ $slide->get_warehouse->warehouse_name }}</td>
@@ -112,12 +112,12 @@
                       <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-plus"></i> Add Slider</h5>
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     </div>
-                    <form id="addCategory">
+                    <form id="addSlider">
                         @csrf
                         <div class="modal-body">
                             <div class="form-group">
                                 <select name="warehouse_id" class="form-control">
-                                    <option selected disabled>Select Warehouse</option>
+                                    <option selected disabled>Select Warehouse*</option>
                                     @foreach ($warehouses as $warehouse)
                                         <option value="{{ $warehouse->id }}">{{ $warehouse->warehouse_name }}</option>
                                     @endforeach
@@ -214,22 +214,22 @@
 
         $("#category_name").val(val.category_name);
         $("#warehouse_id").val(val.get_warehouse.id);
-        $("#edit-image-img").attr('src', "{{ asset('/images/main_category') }}/" + val.icon);
+        $("#edit-image-img").attr('src', "{{ asset('/images/slider') }}/" + val.icon);
 
         $("#id").val(val.id);
     }
 
 
     $(document).ready(function () {
-        $('#addCategory').validate({
+        $('#addSlider').validate({
            rules: {
                warehouse_id: {
                    required: true
                },
-               category_name: {
+               title: {
                    required: true
                },
-               icon: {
+               image: {
                    required: true
                }
            },
@@ -245,13 +245,13 @@
                $(element).removeClass('is-invalid');
            },
            submitHandler: function(form){
-               $("#addCategory").css({'opacity':'0.8'})
+               $("#addSlider").css({'opacity':'0.8'})
                $("#loading").show();
 
                $.ajax({
-                   url: "{{route('add.main.category')}}",
+                   url: "{{ route('add.slider') }}",
                    method: "POST",
-                   data: new FormData(document.getElementById("addCategory")),
+                   data: new FormData(document.getElementById("addSlider")),
                    enctype: 'multipart/form-data',
                    dataType: 'JSON',
                    contentType: false,
@@ -262,7 +262,7 @@
                         window.location.reload();
                         Toast.fire({
                             icon: 'success',
-                            title: 'Category created successfully'
+                            title: 'Slider created successfully'
                        })
                    },
                    error: function(err) {
@@ -271,7 +271,7 @@
                        if(err.status == 422){
                            Swal.fire({
                                icon: 'error',
-                               title: 'Category name should be unique'
+                               title: 'Slider name should be unique'
                            })
                        }
                    }

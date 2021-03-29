@@ -18,7 +18,7 @@ class CreateSlidesTable extends Migration
             $table->foreignId('warehouse_id')->nullable()->constrained('warehouses')->onDelete('cascade');
             $table->string('image');
             $table->string('slug');
-            $table->text('description');
+            $table->text('title');
             $table->string('url')->default('#');
             $table->boolean('status')->default(1);
             $table->timestamps();

@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\Backend\AdminController;
 use App\Http\Controllers\backend\BrandController;
+use App\Http\Controllers\backend\SliderController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\WarehouseController;
 use App\Http\Controllers\backend\SubCategoryController;
@@ -91,6 +92,13 @@ Route::group(['middleware' => ['auth','admin.role']], function () {
     Route::post('/create-new-brand',[BrandController::Class,'store'])->name('add.brand');
     Route::post('/update-new-brand',[BrandController::Class,'update'])->name('update.brand');
     Route::post('/brand-activity',[BrandController::Class,'activity'])->name('brand.activity');
+
+
+    //Slider Routes
+    Route::get('slides-list', [SliderController::Class,'index'])->name('slider.list');
+    // Route::post('/create-new-brand',[BrandController::Class,'store'])->name('add.brand');
+    // Route::post('/update-new-brand',[BrandController::Class,'update'])->name('update.brand');
+    // Route::post('/brand-activity',[BrandController::Class,'activity'])->name('brand.activity');
 
 
 });

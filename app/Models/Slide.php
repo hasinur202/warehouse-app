@@ -9,4 +9,9 @@ class Slide extends Model
 {
     use HasFactory;
     protected $guarded = [];
+
+    public function get_warehouse()
+    {
+        return $this->belongsTo(Warehouse::class,'warehouse_id');
+    }
 }

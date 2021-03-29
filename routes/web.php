@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\Backend\AdminController;
+use App\Http\Controllers\backend\BrandController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\WarehouseController;
 use App\Http\Controllers\backend\SubCategoryController;
@@ -84,6 +85,12 @@ Route::group(['middleware' => ['auth','admin.role']], function () {
     Route::post('/create-child-category',[ChildCategoryController::Class,'store'])->name('add.child.category');
     Route::post('/update-child-category',[ChildCategoryController::Class,'update'])->name('update.child.category');
     Route::post('/child-category-activity',[ChildCategoryController::Class,'activity'])->name('child.category.activity');
+
+    //Brand Routes
+    Route::get('brand-list', [BrandController::Class,'index'])->name('brand.list');
+    Route::post('/create-new-brand',[BrandController::Class,'store'])->name('add.brand');
+    // Route::post('/update-main-category',[CategoryController::Class,'update'])->name('update.main.category');
+    // Route::post('/main-category-activity',[CategoryController::Class,'activity'])->name('main.category.activity');
 
 
 });

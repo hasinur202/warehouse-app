@@ -37,6 +37,10 @@
           <div class="col-sm-6">
             <h1>Child Category</h1>
           </div>
+          <div class="col-sm-6">
+            <button data-toggle="modal" data-target="#addModal" class="btn btn-dark btn-sm float-right"><i class="fas fa-plus"></i> Add Child Category</button>
+
+          </div>
         </div>
       </div><!-- /.container-fluid -->
     </section>
@@ -49,7 +53,7 @@
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">Child Category List</h3>
-                            <button data-toggle="modal" data-target="#addModal" class="btn btn-dark btn-sm float-right"><i class="fas fa-plus"></i> Add Child Category</button>
+                            {{--  <button data-toggle="modal" data-target="#addModal" class="btn btn-dark btn-sm float-right"><i class="fas fa-plus"></i> Add Child Category</button>  --}}
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">

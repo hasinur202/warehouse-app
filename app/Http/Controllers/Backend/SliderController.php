@@ -99,6 +99,30 @@ class SliderController extends Controller
     }
 
 
+    public function activity(Request $request){
+        $data = Slide::where('id',$request->id)->first();
+
+        if ($data->status == 0) {
+            Slide::where('id',$request->id)->update([
+                'status'=>1
+            ]);
+
+            return response()->json([
+                'message'=>'success'
+            ],200);
+        }else{
+            Slide::where('id',$request->id)->update([
+                'status'=>0
+            ]);
+
+            return response()->json([
+                'message'=>'success'
+            ],200);
+        }
+
+    }
+
+
 
 
 

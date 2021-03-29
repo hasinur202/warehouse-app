@@ -295,7 +295,7 @@
     function changeActivity(id){
         $("#loading").show();
         $.ajax({
-            url:"{{ route('main.category.activity') }}",
+            url:"{{ route('slider.activity') }}",
             method:"POST",
             dataType:"json",
             data:{

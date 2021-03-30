@@ -125,7 +125,6 @@
                                     <label style="width: 100%">Product Attributes</label>
                                     <input type="text" name="dd" placeholder="Size">
                                     <input type="text" name="dd" placeholder="Quantity">
-                                    <input type="text" name="dd" placeholder="Sale Price">
                                     <input type="text" name="dd" placeholder="Discount">
 
                                 </div>
@@ -196,110 +195,7 @@
     CKEDITOR.replace('description');
 </script>
 <script>
-    function editModal(val){
-        $("#edit-Modal").modal('show');
-
-        $("#title").val(val.title);
-        $("#url").val(val.url);
-        $("#warehouse_id").val(val.get_warehouse.id);
-        $("#edit-image-img").attr('src', "{{ asset('/images/slider') }}/" + val.image);
-
-        $("#id").val(val.id);
-    }
-
-
-    $(document).ready(function () {
-        $('#addSlider').validate({
-           rules: {
-               warehouse_id: {
-                   required: true
-               },
-               title: {
-                   required: true
-               },
-               image: {
-                   required: true
-               }
-           },
-           errorElement: 'span',
-           errorPlacement: function (error, element) {
-               error.addClass('invalid-feedback');
-               element.closest('.form-group').append(error);
-           },
-           highlight: function (element, errorClass, validClass) {
-               $(element).addClass('is-invalid');
-           },
-           unhighlight: function (element, errorClass, validClass) {
-               $(element).removeClass('is-invalid');
-           },
-           submitHandler: function(form){
-               $("#addSlider").css({'opacity':'0.8'})
-               $("#loading").show();
-
-               $.ajax({
-                   url: "{{ route('add.slider') }}",
-                   method: "POST",
-                   data: new FormData(document.getElementById("addSlider")),
-                   enctype: 'multipart/form-data',
-                   dataType: 'JSON',
-                   contentType: false,
-                   cache: false,
-                   processData: false,
-                   success: function(res) {
-                        $("#loading").hide();
-                        window.location.reload();
-                        Toast.fire({
-                            icon: 'success',
-                            title: 'Slider created successfully'
-                       })
-                   },
-                   error: function(err) {
-                       $("#loading").hide();
-
-                       if(err.status == 422){
-                           Swal.fire({
-                               icon: 'error',
-                               title: 'Slider name should be unique'
-                           })
-                       }
-                   }
-               })
-           }
-       });
-
-   });
-
-
-    function changeActivity(id){
-        $("#loading").show();
-        $.ajax({
-            url:"{{ route('slider.activity') }}",
-            method:"POST",
-            dataType:"json",
-            data:{
-                "_token": "{{ csrf_token() }}",
-                'id':id,
-            },
-            success: function(response) {
-                $("#loading").hide();
-                Toast.fire({
-                    icon: 'success',
-                    title: 'Status Changes Successfully.'
-                })
-                window.location.reload();
-            },
-            error: function() {
-                $("#loading").hide();
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Something Wrong'
-                })
-            }
-        })
-    }
-
-
-
+   
     function imageUrl(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();

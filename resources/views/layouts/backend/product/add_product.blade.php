@@ -44,9 +44,9 @@
           <div class="col-sm-6">
             <h1>Products</h1>
           </div>
-          {{-- <div class="col-sm-6">
-            <button data-toggle="modal" data-target="#addModal" class="btn btn-dark float-right"><i class="fas fa-plus"></i> Add Product</button>
-          </div> --}}
+          <div class="col-sm-6">
+            <a href="{{ route('product.list') }}" class="btn btn-dark btn-sm float-right"><i class="fas fa-arrow-left"></i> Product List</a>
+          </div>
         </div>
       </div><!-- /.container-fluid -->
     </section>
@@ -201,7 +201,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="form-check-label">Shipping Class*</label>
+                                <label class="form-check-label">Product Condition*</label>
                                 <select name="conditions" class="form-control">
                                     <option selected disabled>Select one</option>
                                     <option value="Used">Used</option>

@@ -38,7 +38,7 @@
             <h1>Product List</h1>
           </div>
           <div class="col-sm-6">
-            <a href="{{ route('product.add') }}" class="btn btn-dark btn-sm float-right"><i class="fas fa-plus"></i> Add Product</a>
+            <a href="{{ route('product.add') }}" class="btn btn-success btn-sm float-right"><i class="fas fa-plus"></i> Add Product</a>
           </div>
         </div>
       </div><!-- /.container-fluid -->

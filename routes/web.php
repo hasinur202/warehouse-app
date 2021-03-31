@@ -87,7 +87,9 @@ Route::group(['middleware' => ['auth','admin.role']], function () {
     Route::post('/create-child-category',[ChildCategoryController::Class,'store'])->name('add.child.category');
     Route::post('/update-child-category',[ChildCategoryController::Class,'update'])->name('update.child.category');
     Route::post('/child-category-activity',[ChildCategoryController::Class,'activity'])->name('child.category.activity');
+
     Route::post('/child-category-by-warehouse',[ChildCategoryController::Class,'getChildCategByWarehouse'])->name('load.child.category');
+    Route::post('/all-category-by-child',[ChildCategoryController::Class,'getAllCategByChildCat'])->name('load.all.category');
 
     //Brand Routes
     Route::get('brand-list', [BrandController::Class,'index'])->name('brand.list');

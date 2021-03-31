@@ -121,7 +121,6 @@
                                 <div class="form-group">
                                     <label class="control-label">Product Type</label>
                                     <div class="controls">
-                                        <input type="checkbox" name="onsale" value="1">&nbsp;On Sale&nbsp;
                                         <input type="checkbox" name="popular" value="1">&nbsp;Popular Product&nbsp;
                                         <input type="checkbox" name="trending" value="1">&nbsp;Trending&nbsp;
                                     </div>
@@ -267,9 +266,13 @@
                 'id':id,
             },
             success: function(res) {
+                $("#main_cat_id").text('');
+                $("#sub_cat_id").text('');
                 $("#child_cat_id").text('');
                 $("#loading").hide();
 
+                $('#main_cat_id').append('<option selected disabled>Select category</option>');
+                $('#sub_cat_id').append('<option selected disabled>Select sub category</option>');
                 $('#child_cat_id').append('<option selected disabled>Select category</option>');
 
                 res.child_categories.forEach(function (child_cat) {
@@ -301,8 +304,9 @@
                 $("#sub_cat_id").text('');
                 $("#loading").hide();
 
-                res.child_categories.forEach(function (child_cat) {
-                    $('#child_cat_id').append('<option value="'+child_cat.id+'">'+child_cat.category_name+'</option>');
+                res.data.forEach(function (cat) {
+                    $('#main_cat_id').append('<option value="'+cat.get_main_category.id+'">'+cat.get_main_category.category_name+'</option>');
+                    $('#sub_cat_id').append('<option value="'+cat.get_sub_category.id+'">'+cat.get_sub_category.category_name+'</option>');
                 });
 
             },

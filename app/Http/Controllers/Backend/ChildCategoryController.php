@@ -152,4 +152,20 @@ class ChildCategoryController extends Controller
     }
 
 
+    public function getAllCategByChildCat(Request $request){
+
+        $data = Child_category::with(['get_sub_category'=>function($q){
+            $q->where('status',1);
+        },'get_main_category'=>function($q){
+            $q->where('status',1);
+        }])
+            ->where('id',$request->id)
+            ->where('status',1)->get();
+
+        return response()->json([
+            'message'=>'success',
+            'data'=>$data
+        ],200);
+    }
+
 }

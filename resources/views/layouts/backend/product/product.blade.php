@@ -25,6 +25,10 @@
             margin-top: -179px;
         }
 
+        .attr input{
+            width: 21%;
+        }
+
 
    </style>
 @endsection
@@ -79,6 +83,16 @@
                                         @endforeach
                                     </select>
                                 </div>
+                                <div class="form-group">
+                                    <label>Product Color</label>
+                                    <select class="select2" multiple="multiple" data-placeholder="Select a State" style="width: 100%;">
+                                      <option>Red</option>
+                                      <option>Blue</option>
+                                      <option>White</option>
+                                      <option>Green</option>
+                                      <option>Orange</option>
+                                    </select>
+                                </div>
 
                             </div>
                             <div class="col-sm-6">
@@ -121,12 +135,31 @@
                             </div>
 
                             <div class="col-sm-12">
-                                <div class="form-group">
-                                    <label style="width: 100%">Product Attributes</label>
-                                    <input type="text" name="dd" placeholder="Size">
-                                    <input type="text" name="dd" placeholder="Quantity">
-                                    <input type="text" name="dd" placeholder="Discount">
 
+                                <div class="form-group">
+                                    <label class="control-label">Product Type</label>
+                                    <div class="controls">
+                                        <input type="checkbox" name="type[]" value="2">&nbsp;On Sale&nbsp;
+                                        <input type="checkbox" name="type[]" value="3">&nbsp;Popular Product&nbsp;
+                                        <input type="checkbox" name="type[]" value="4">&nbsp;New Arival&nbsp;
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group attr">
+                                    <label style="width: 100%">Product Attributes</label>
+                                    <div class="field_wrapper">
+                                        <div class="form-group">
+                                            <input type="text" name="size[]" placeholder="Size">
+                                            <input type="text" name="qty[]" placeholder="Quantity" style="width:12% !important">
+                                            <input type="text" name="p_price[]" placeholder="Purchase Price">
+                                            <input type="text" name="sale_price[]" id="sale_price" onkeyup="calculate()" placeholder="Sale Price">
+                                            <input type="text" name="discount[]" id="discount_price" onkeyup="calculate()" placeholder="Discount">
+                                            <input type="text" name="discount_p[]" id="discount_per" disabled placeholder="Discount[%]" style="width: 13 !important;margin-top:5px">
+                                            <input type="text" name="c_price[]" id="current_price" disabled placeholder="Current Price" style="width: 13 !important;margin-top:5px">
+                                            <a href="javascript:void(0);" class="add_button" title="Add field" style="padding:6px;"><i class="fa fa-plus"></i></a>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label>Product Description</label>
@@ -160,9 +193,10 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="form-check-label">Product Gallery Images</label>
+                                <label class="form-check-label">Product Gallery Images [max: 4]</label>
                                 <input required type="file" class="form-control" name="images[]" placeholder="address" multiple>
                             </div>
+
                             <div style="text-align:center">
                                 <span class="btn btn-success btn-sm"><i class="fas fa-plus"></i> Add More</span>
                             </div>
@@ -191,11 +225,49 @@
 </div>
 
 @section('js')
+
 <script>
+    $(function () {
+      //Initialize Select2 Elements
+      $('.select2').select2()
+
+      //Initialize Select2 Elements
+      $('.select2bs4').select2({
+        theme: 'bootstrap4'
+      })
+    });
+
     CKEDITOR.replace('description');
 </script>
 <script>
-   
+    function calculate(){
+        var sale_price = $("#sale_price").val();
+        var discount_price = $("#discount_price").val();
+        var total=0;
+
+            total = sale_price - discount_price;
+            per = (discount_price/sale_price*100);
+
+            $("#current_price").val(total);
+            $("#discount_per").val(per.toFixed(0));
+
+    }
+
+
+    function calculatee(x){
+        var sale_price = $("#sale_price"+x).val();
+        var discount_price = $("#discount_price"+x).val();
+        var total=0;
+
+            total = sale_price - discount_price;
+            per = (discount_price/sale_price*100);
+
+            $("#current_price"+x).val(total);
+            $("#discount_per"+x).val(per.toFixed(0));
+    }
+
+
+
     function imageUrl(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
@@ -224,6 +296,34 @@
     $("#edit-image").change(function() {
         editimageUrl(this);
     });
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        var maxField = 5; //Input fields increment limitation
+        var addButton = $('.add_button'); //Add button selector
+        var wrapper = $('.field_wrapper'); //Input field wrapper
+        var x = 1; //Initial field counter is 1
+        //Once add button is clicked
+        $(addButton).click(function(){
+            //Check maximum number of input fields
+            if(x < maxField){
+                var fieldHTML = '<div class="form-group"><input type="text" name="size[]" placeholder="Size" style="margin-right:3px"><input type="text" name="qty[]" placeholder="Quantity" style="width:12% !important;margin-right:3px"><input type="text" name="p_price[]" placeholder="Purchase Price" style="margin-right:3px"><input type="text" name="sale_price[]" onkeyup="calculatee('+x+')" id="sale_price'+x+'" placeholder="Sale Price" style="margin-right:3px"><input type="text" name="discount[]" onkeyup="calculatee('+x+')" id="discount_price'+x+'" placeholder="Discount" style="margin-right:3px"><input type="text" name="discount_p[]" id="discount_per'+x+'" disabled placeholder="Discount[%]" style="width: 13 !important;margin-right:3px"><input type="text" name="c_price[]" id="current_price'+x+'" disabled placeholder="Current Price" style="width: 13 !important;margin-right:3px;margin-top:5px"><a href="javascript:void(0);" class="remove_button" title="Remove field" style="padding:6px;"><i class="fa fa-times"></i></a></div>';
+                calculatee(x);
+                x++; //Increment field counter
+                $(wrapper).append(fieldHTML); //Add field html
+            }
+        });
+
+        //Once remove button is clicked
+        $(wrapper).on('click', '.remove_button', function(e){
+            e.preventDefault();
+            $(this).parent('div').remove(); //Remove field html
+            x--; //Decrement field counter
+        });
+    });
+
+
 
 
 

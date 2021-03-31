@@ -43,12 +43,16 @@
 <script src="{{ asset('backend/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
 <!-- Summernote -->
 {{-- <script src="{{ asset('backend/plugins/summernote/summernote-bs4.min.js') }}"></script> --}}
+
 <script src="https://cdn.ckeditor.com/4.15.1/standard/ckeditor.js"></script>
 <!-- overlayScrollbars -->
 <script src="{{ asset('backend/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('backend/dist/js/adminlte.js') }}"></script>
 <!-- AdminLTE for demo purposes -->
+
+<!-- Select2 -->
+<script src="{{ asset('backend/plugins/select2/js/select2.full.min.js') }}"></script>
 
 <!-- Datatables plugins -->
 <script src="{{ asset('backend/plugins/datatables/jquery.dataTables.min.js') }}"></script>

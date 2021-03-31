@@ -95,7 +95,8 @@ Route::group(['middleware' => ['auth','admin.role']], function () {
     Route::post('/brand-activity',[BrandController::Class,'activity'])->name('brand.activity');
 
     //Products Routes
-    Route::get('product-list', [ProductController::Class,'index'])->name('product.list');
+    Route::get('product-add', [ProductController::Class,'index'])->name('product.add');
+    Route::get('product-list', [ProductController::Class,'product_list_index'])->name('product.list');
 
 
 

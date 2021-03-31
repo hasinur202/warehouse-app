@@ -90,13 +90,29 @@
                     </p>
                 </a>
             </li>
+
             <li class="nav-item">
-                <a href="{{ route('product.list') }}" class="nav-link">
+                <a href="" class="nav-link">
                     <i class="nav-icon fas fa-book-medical"></i>
                     <p>
                         Products
+                        <i class="right fas fa-angle-left"></i>
                     </p>
                 </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{ route('product.list') }}" class="nav-link">
+                            <i class="fas fa-angle-double-right nav-icon"></i>
+                            <p>Product List</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('product.add') }}" class="nav-link">
+                            <i class="fas fa-angle-double-right nav-icon"></i>
+                            <p>Add Product</p>
+                        </a>
+                    </li>
+                </ul>
             </li>
 
             <li class="nav-item">

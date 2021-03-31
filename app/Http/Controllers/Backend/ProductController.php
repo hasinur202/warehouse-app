@@ -12,7 +12,16 @@ class ProductController extends Controller
 
         $warehouses = Warehouse::where('status',1)->get();
 
-        return view('layouts.backend.product.product',[
+        return view('layouts.backend.product.add_product',[
+            'warehouses'=>$warehouses ?? '',
+        ]);
+    }
+
+    public function product_list_index(){
+
+        $warehouses = Warehouse::where('status',1)->get();
+
+        return view('layouts.backend.product.product_list',[
             'warehouses'=>$warehouses ?? '',
         ]);
     }

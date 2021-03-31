@@ -83,16 +83,7 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="form-group">
-                                    <label>Product Color</label>
-                                    <select class="select2" multiple="multiple" data-placeholder="Select a State" style="width: 100%;">
-                                      <option>Red</option>
-                                      <option>Blue</option>
-                                      <option>White</option>
-                                      <option>Green</option>
-                                      <option>Orange</option>
-                                    </select>
-                                </div>
+
 
                             </div>
                             <div class="col-sm-6">
@@ -171,9 +162,6 @@
 
 
 
-
-
-
                         </div>
                         <!-- /.card-body -->
                     </div>
@@ -193,20 +181,50 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="form-check-label">Product Gallery Images [max: 4]</label>
+                                <label>Product Gallery Images [max: 4]</label>
                                 <input required type="file" class="form-control" name="images[]" placeholder="address" multiple>
                             </div>
 
-                            <div style="text-align:center">
-                                <span class="btn btn-success btn-sm"><i class="fas fa-plus"></i> Add More</span>
+                            <div class="form-group">
+                                <label>Product Color</label>
+                                <select class="select2" multiple="multiple" data-placeholder="Select a State" style="width: 100%;">
+                                  <option>Red</option>
+                                  <option>Blue</option>
+                                  <option>White</option>
+                                  <option>Green</option>
+                                  <option>Orange</option>
+                                </select>
                             </div>
+
+                            <div class="form-group">
+                                <label class="form-check-label">Shipping Duration*</label>
+                                <input type="text" name="barcode" class="form-control" placeholder="Ship. duration">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-check-label">Shipping Class*</label>
+                                <select name="warehouse_id" class="form-control">
+                                    <option selected disabled>Select one</option>
+                                    <option value="">Shipping Class-1 (0-1 kg)</option>
+                                    <option value="">Shipping Class-2 (2-5 kg)</option>
+                                    <option value="">Shipping Class-3 (5-above)</option>
+                                    {{-- @foreach ($warehouses as $warehouse) --}}
+                                        {{-- <option value="{{ $warehouse->id }}">{{ $warehouse->warehouse_name }}</option> --}}
+                                    {{-- @endforeach --}}
+                                </select>
+                            </div>
+
+
+
+                            {{-- <div style="text-align:center">
+                                <span class="btn btn-success btn-sm"><i class="fas fa-plus"></i> Add More</span>
+                            </div> --}}
 
 
                         </div>
                         <!-- /.card-body -->
                     </div>
                     <!-- /.card -->
-                    <button type="submit" class="btn btn-info">Submit</button>
+                    <button type="submit" class="btn btn-success">Submit</button>
                 </div>
 
             </div>

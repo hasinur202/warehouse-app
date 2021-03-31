@@ -141,4 +141,15 @@ class ChildCategoryController extends Controller
             'data'=>$data
         ],200);
     }
+
+    public function getChildCategByWarehouse(Request $request){
+        $child_categories = Child_category::where('warehouse_id',$request->id)->where('status',1)->get();
+
+        return response()->json([
+            'message'=>'success',
+            'child_categories'=>$child_categories
+        ],200);
+    }
+
+
 }

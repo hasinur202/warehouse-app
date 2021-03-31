@@ -63,23 +63,23 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label class="form-check-label" style="font-weight: bold;color:red;">Product Barcode*</label>
-                                    <input type="text" name="barcode" class="form-control" placeholder="Barcode">
+                                    <input type="text" name="product_barcode" class="form-control" placeholder="Barcode">
                                 </div>
 
                                 <div class="form-group">
                                     <label class="form-check-label">Product SKU*</label>
-                                    <input type="text" name="barcode" class="form-control" placeholder="SKU">
+                                    <input type="text" name="product_sku" class="form-control" placeholder="SKU">
                                 </div>
                                 <div class="form-group">
                                     <label class="form-check-label">Product Name*</label>
-                                    <input type="text" name="barcode" class="form-control" placeholder="Product Name">
+                                    <input type="text" name="product_name" class="form-control" placeholder="Product Name">
                                 </div>
                                 <div class="form-group">
                                     <label class="form-check-label">Brand*</label>
-                                    <select name="warehouse_id" class="form-control">
+                                    <select name="brand" class="form-control">
                                         <option selected disabled>Select brand</option>
-                                        @foreach ($warehouses as $warehouse)
-                                            <option value="{{ $warehouse->id }}">{{ $warehouse->warehouse_name }}</option>
+                                        @foreach ($brands as $brand)
+                                            <option value="{{ $brand->id }}">{{ $brand->brand_name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -89,7 +89,7 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label class="form-check-label">Warehouse*</label>
-                                    <select name="warehouse_id" class="form-control">
+                                    <select onchange="loadChildCategory(this.value)" name="warehouse_id" class="form-control">
                                         <option selected disabled>Select warehouse</option>
                                         @foreach ($warehouses as $warehouse)
                                             <option value="{{ $warehouse->id }}">{{ $warehouse->warehouse_name }}</option>
@@ -98,29 +98,20 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="form-check-label">Main Category*</label>
-                                    <select name="warehouse_id" class="form-control">
+                                    <select disabled id="main_cat_id" name="main_category" class="form-control">
                                         <option selected disabled>Select category</option>
-                                        @foreach ($warehouses as $warehouse)
-                                            <option value="{{ $warehouse->id }}">{{ $warehouse->warehouse_name }}</option>
-                                        @endforeach
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label class="form-check-label">Sub Category*</label>
-                                    <select name="warehouse_id" class="form-control">
+                                    <select disabled id="sub_cat_id" name="sub_category" class="form-control">
                                         <option selected disabled>Select sub category</option>
-                                        @foreach ($warehouses as $warehouse)
-                                            <option value="{{ $warehouse->id }}">{{ $warehouse->warehouse_name }}</option>
-                                        @endforeach
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label class="form-check-label">Child Category*</label>
-                                    <select name="warehouse_id" class="form-control">
+                                    <select onchange="loadAllCategory(this.value)" name="child_category" id="child_cat_id" class="form-control">
                                         <option selected disabled>Select child category</option>
-                                        @foreach ($warehouses as $warehouse)
-                                            <option value="{{ $warehouse->id }}">{{ $warehouse->warehouse_name }}</option>
-                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -130,12 +121,11 @@
                                 <div class="form-group">
                                     <label class="control-label">Product Type</label>
                                     <div class="controls">
-                                        <input type="checkbox" name="type[]" value="2">&nbsp;On Sale&nbsp;
-                                        <input type="checkbox" name="type[]" value="3">&nbsp;Popular Product&nbsp;
-                                        <input type="checkbox" name="type[]" value="4">&nbsp;New Arival&nbsp;
+                                        <input type="checkbox" name="onsale" value="1">&nbsp;On Sale&nbsp;
+                                        <input type="checkbox" name="popular" value="1">&nbsp;Popular Product&nbsp;
+                                        <input type="checkbox" name="trending" value="1">&nbsp;Trending&nbsp;
                                     </div>
                                 </div>
-
 
                                 <div class="form-group attr">
                                     <label style="width: 100%">Product Attributes</label>
@@ -160,8 +150,6 @@
                             </div>
 
 
-
-
                         </div>
                         <!-- /.card-body -->
                     </div>
@@ -182,43 +170,52 @@
 
                             <div class="form-group">
                                 <label>Product Gallery Images [max: 4]</label>
-                                <input required type="file" class="form-control" name="images[]" placeholder="address" multiple>
+                                <input required type="file" class="form-control" name="gallery[]" placeholder="address" multiple>
                             </div>
 
                             <div class="form-group">
                                 <label>Product Color</label>
-                                <select class="select2" multiple="multiple" data-placeholder="Select a State" style="width: 100%;">
-                                  <option>Red</option>
-                                  <option>Blue</option>
-                                  <option>White</option>
-                                  <option>Green</option>
-                                  <option>Orange</option>
+                                <select name="product_color" class="select2" multiple="multiple" data-placeholder="Select a State" style="width: 100%;">
+                                  <option value="red">Red</option>
+                                  <option value="blue">Blue</option>
+                                  <option value="white">White</option>
+                                  <option value="green">Green</option>
+                                  <option value="orange">Orange</option>
                                 </select>
                             </div>
 
                             <div class="form-group">
                                 <label class="form-check-label">Shipping Duration*</label>
-                                <input type="text" name="barcode" class="form-control" placeholder="Ship. duration">
+                                <input type="text" name="shipp_duration" class="form-control" placeholder="Ship. duration">
                             </div>
                             <div class="form-group">
                                 <label class="form-check-label">Shipping Class*</label>
-                                <select name="warehouse_id" class="form-control">
+                                <select name="shipp_class" class="form-control">
                                     <option selected disabled>Select one</option>
-                                    <option value="">Shipping Class-1 (0-1 kg)</option>
-                                    <option value="">Shipping Class-2 (2-5 kg)</option>
-                                    <option value="">Shipping Class-3 (5-above)</option>
+                                    <option value="1">Shipping Class-1 (0-1 kg)</option>
+                                    <option value="2">Shipping Class-2 (2-5 kg)</option>
+                                    <option value="3">Shipping Class-3 (5-above)</option>
                                     {{-- @foreach ($warehouses as $warehouse) --}}
                                         {{-- <option value="{{ $warehouse->id }}">{{ $warehouse->warehouse_name }}</option> --}}
                                     {{-- @endforeach --}}
                                 </select>
                             </div>
 
+                            <div class="form-group">
+                                <label class="form-check-label">Shipping Class*</label>
+                                <select name="conditions" class="form-control">
+                                    <option selected disabled>Select one</option>
+                                    <option value="Used">Used</option>
+                                    <option value="New">New</option>
+                                </select>
+                            </div>
+
+
 
 
                             {{-- <div style="text-align:center">
                                 <span class="btn btn-success btn-sm"><i class="fas fa-plus"></i> Add More</span>
                             </div> --}}
-
 
                         </div>
                         <!-- /.card-body -->
@@ -258,6 +255,67 @@
     CKEDITOR.replace('description');
 </script>
 <script>
+
+    function loadChildCategory(id){
+        $("#loading").show();
+        $.ajax({
+            url:"{{ route('load.child.category') }}",
+            method:"POST",
+            dataType:"json",
+            data:{
+                "_token": "{{ csrf_token() }}",
+                'id':id,
+            },
+            success: function(res) {
+                $("#child_cat_id").text('');
+                $("#loading").hide();
+
+                $('#child_cat_id').append('<option selected disabled>Select category</option>');
+
+                res.child_categories.forEach(function (child_cat) {
+                    $('#child_cat_id').append('<option value="'+child_cat.id+'">'+child_cat.category_name+'</option>');
+                });
+
+            },
+            error: function() {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Something Wrong'
+                })
+            }
+        })
+    }
+
+    function loadAllCategory(id){
+        $("#loading").show();
+        $.ajax({
+            url:"{{ route('load.all.category') }}",
+            method:"POST",
+            dataType:"json",
+            data:{
+                "_token": "{{ csrf_token() }}",
+                'id':id,
+            },
+            success: function(res) {
+                $("#main_cat_id").text('');
+                $("#sub_cat_id").text('');
+                $("#loading").hide();
+
+                res.child_categories.forEach(function (child_cat) {
+                    $('#child_cat_id').append('<option value="'+child_cat.id+'">'+child_cat.category_name+'</option>');
+                });
+
+            },
+            error: function() {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Something Wrong'
+                })
+            }
+        })
+    }
+
+
     function calculate(){
         var sale_price = $("#sale_price").val();
         var discount_price = $("#discount_price").val();

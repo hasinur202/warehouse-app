@@ -19,7 +19,7 @@
     <section class="content">
         <div class="row">
             <div class="col-md-12">
-            <form action="{{ route('about.save') }}" method="POST" role="form">
+            <form action="{{ route('privacy.save') }}" method="POST" role="form">
                 @csrf
             <input name="id" hidden type="text" hidden value="{{ optional($privacy)->id }}" class="form-control" />
 

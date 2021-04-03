@@ -12,6 +12,7 @@ use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\WarehouseController;
 use App\Http\Controllers\backend\SubCategoryController;
 use App\Http\Controllers\backend\ChildCategoryController;
+use App\Http\Controllers\backend\PrivacypolicyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -117,6 +118,10 @@ Route::group(['middleware' => ['auth','admin.role']], function () {
     //About routes
     Route::get('/about-setup', [AboutController::Class, 'index'])->name('setup.about');
     Route::post('save/about', [AboutController::Class, 'store'])->name('about.save');
+
+    //Privacy and Policy
+    Route::get('/privacy-policy-setup', [PrivacypolicyController::Class, 'index'])->name('privacy.policy');
+    Route::post('save/privacy-policy', [PrivacypolicyController::Class, 'store'])->name('privacy.save');
 
 
 });

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\backend\AboutController;
 use App\Http\Controllers\Backend\AdminController;
 use App\Http\Controllers\backend\BrandController;
 use App\Http\Controllers\backend\SliderController;
@@ -111,6 +112,11 @@ Route::group(['middleware' => ['auth','admin.role']], function () {
 
 
     Route::post('/test-activity',[SliderController::Class,'test'])->name('test');
+
+
+    //About routes
+    Route::get('/about-setup', [AboutController::Class, 'index'])->name('setup.about');
+    Route::post('save/about', [AboutController::Class, 'store'])->name('about.save');
 
 
 });

@@ -140,7 +140,7 @@ Route::group(['middleware' => ['auth','admin.role']], function () {
     //District Routes
     Route::get('/state-setup', [DistrictController::Class, 'index'])->name('district.setup');
     Route::post('/create-state',[DistrictController::Class,'store'])->name('add.district');
-    // Route::post('/update-shipping-class',[ShippingClassController::Class,'update'])->name('update.shipping.class');
+    Route::post('/update-state',[DistrictController::Class,'update'])->name('update.state');
 
 
 });

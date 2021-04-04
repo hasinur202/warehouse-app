@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\backend;
 
+use App\Models\District;
 use App\Models\Warehouse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\District;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class DistrictController extends Controller
 {
@@ -38,25 +39,26 @@ class DistrictController extends Controller
     }
 
 
-    // public function update(Request $request){
-    //     $request->validate([
-    //         'shipping_name'  =>  'required',
-    //     ]);
+    public function update(Request $request){
+        $request->validate([
+            'state_name'  =>  'required',
+            'warehouse_id'=> 'required'
+        ]);
 
-    //     $bb = Shipping_class::where('id',$request->id)->update([
-    //         'shipping_name'=>$request->shipping_name,
-    //     ]);
+        $bb = District::where('id',$request->id)->update([
+            'warehouse_id'=>$request->warehouse_id,
+            'state_name'=>$request->state_name,
+        ]);
 
 
-    //     if($bb){
-    //         toast('Created successfully','success')->padding('10px')->width('270px')->timerProgressBar()->hideCloseButton();
-    //             return redirect()->back();
-    //     }else{
-    //         Alert::warning('Opps...','Something went wrong!');
-    //             return redirect()->back();
-    //     }
-
-    // }
+        if($bb){
+            toast('Updated successfully','success')->padding('10px')->width('270px')->timerProgressBar()->hideCloseButton();
+                return redirect()->back();
+        }else{
+            Alert::warning('Opps...','Something went wrong!');
+                return redirect()->back();
+        }
+    }
 
 
 

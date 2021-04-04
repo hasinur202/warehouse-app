@@ -46,7 +46,7 @@ class ColorController extends Controller
 
 
         if($bb){
-            toast('Created successfully','success')->padding('10px')->width('270px')->timerProgressBar()->hideCloseButton();
+            toast('Updated successfully','success')->padding('10px')->width('270px')->timerProgressBar()->hideCloseButton();
                 return redirect()->back();
         }else{
             Alert::warning('Opps...','Something went wrong!');

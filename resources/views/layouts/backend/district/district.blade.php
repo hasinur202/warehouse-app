@@ -101,20 +101,26 @@
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header bg-warning">
-                  <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-edit"></i> Edit Shipping Class</h5>
+                  <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-edit"></i> Edit State</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
-                <form action="{{ route('update.shipping.class') }}" method="POST">
+                <form action="{{ route('update.state') }}" method="POST">
                     @csrf
                     <div class="modal-body">
                         <input type="hidden" id="id" name="id">
-                        <div class="form-group row mb-2">
-                            <label class="col-sm-4 form-check-label">Shipping name</label>
-                            <div class="col-sm-8">
-                                <input type="text" name="shipping_name" id="shipping_name" class="form-control" placeholder="Shipping name*">
-                            </div>
+                        <div class="form-group">
+                            <select name="warehouse_id" id="warehouse_id" class="form-control">
+                                <option selected disabled>Select country</option>
+                                @foreach ($warehouses as $warehouse)
+                                    <option value="{{ $warehouse->id }}">{{ $warehouse->warehouse_name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="form-group mb-2">
+                            <input type="text" name="state_name" id="state_name" class="form-control" placeholder="State name*">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -140,7 +146,8 @@
     function editModal(val){
         $("#edit-Modal").modal('show');
 
-        $("#shipping_name").val(val.shipping_name);
+        $("#warehouse_id").val(val.get_warehouse.id);
+        $("#state_name").val(val.state_name);
         $("#id").val(val.id);
     }
 

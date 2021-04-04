@@ -201,7 +201,7 @@
     function changeActivity(id){
         $("#loading").show();
         $.ajax({
-            url:"{{ route('brand.activity') }}",
+            url:"{{ route('color.activity') }}",
             method:"POST",
             dataType:"json",
             data:{
@@ -228,34 +228,6 @@
 
 
 
-    function imageUrl(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                $('#image-img').attr('src', e.target.result);
-            }
-            reader.readAsDataURL(input.files[0]);
-        }
-    }
-
-    $("#image").change(function() {
-        imageUrl(this);
-    });
-
-
-    function editimageUrl(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                $('#edit-image-img').attr('src', e.target.result);
-            }
-            reader.readAsDataURL(input.files[0]);
-        }
-    }
-
-    $("#edit-image").change(function() {
-        editimageUrl(this);
-    });
 
 
 

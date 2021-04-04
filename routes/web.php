@@ -128,7 +128,7 @@ Route::group(['middleware' => ['auth','admin.role']], function () {
     Route::get('/color-info', [ColorController::Class, 'index'])->name('color.list');
     Route::post('/create-new-color',[ColorController::Class,'store'])->name('add.color');
     Route::post('/update-color',[ColorController::Class,'update'])->name('update.color');
-    // Route::post('/brand-activity',[BrandController::Class,'activity'])->name('brand.activity');
+    Route::post('/update-color-activity',[ColorController::Class,'activity'])->name('color.activity');
 
 
 });

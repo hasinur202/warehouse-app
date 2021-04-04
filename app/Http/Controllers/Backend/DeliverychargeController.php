@@ -14,16 +14,13 @@ class DeliverychargeController extends Controller
 {
     public function index(){
         $warehouses = Warehouse::where('status',1)->get();
-        $districts = District::all();
         $ships = Shipping_class::all();
-        $charges = Delivery_charge::all();
 
-        // $main_cats = Main_category::with('get_warehouse')->get();
+        $charges = Delivery_charge::with('get_warehouse','get_shipping','get_district')->get();
 
         return view('layouts.backend.delivery-charge.delivery_charge',[
             'charges'=>$charges,
             'warehouses'=>$warehouses ?? '',
-            'districts'=>$districts,
             'ships'=>$ships,
         ]);
     }

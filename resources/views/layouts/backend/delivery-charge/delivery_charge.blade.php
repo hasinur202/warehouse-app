@@ -44,31 +44,22 @@
                                     </th>
                                 </tr>
                             </thead>
-                            {{--  <tbody>
+                            <tbody>
                                 @php $i=0; @endphp
-                                @foreach ($main_cats as $cat)
+                                @foreach ($charges as $charge)
                                 @php $i++; @endphp
                                 <tr>
                                     <td>{{ $i }}</td>
-                                    <td>{{ $cat->category_name }}</td>
+                                    <td>{{ $charge->get_warehouse->warehouse_name }}</td>
+                                    <td>{{ $charge->get_district->state_name }}</td>
+                                    <td>{{ $charge->get_shipping->shipping_name }}</td>
+                                    <td>{{ $charge->charge }}</td>
                                     <td>
-                                        <img src="/images/main_category/{{ $cat->icon }}" alt="Category Icon" height="40px" width="70px">
-                                    </td>
-                                    <td>{{ $cat->get_warehouse->warehouse_name }}</td>
-                                    <td>
-                                        @if($cat->status == 1)
-                                            <button onclick="changeActivity({{ $cat->id }})" type="button" class="btn btn-success btn-block btn-xs">Active</button>
-                                        @else
-                                            <button onclick="changeActivity({{ $cat->id }})" type="button" class="btn btn-danger btn-block btn-xs">Inactive</button>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        <a href="javascript:void(0)" onclick="editModal({{ $cat }})" class="btn btn-dark btn-xs"><i class="fas fa-edit"></i></a>
                                         <a href="javascript:void(0)" class="btn btn-danger btn-xs"><i class="fas fa-trash"></i></a>
                                     </td>
                                 </tr>
                                 @endforeach
-                            </tbody>  --}}
+                            </tbody>
                           </table>
                         </div>
                         <!-- /.card-body -->

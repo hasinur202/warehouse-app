@@ -69,6 +69,12 @@
                             <p>District Setup</p>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="{{ route('delivery.charge') }}" class="nav-link">
+                            <i class="fas fa-angle-double-right nav-icon"></i>
+                            <p>Delivery Charge Setup</p>
+                        </a>
+                    </li>
 
 
 

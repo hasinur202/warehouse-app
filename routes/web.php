@@ -16,6 +16,7 @@ use App\Http\Controllers\backend\SubCategoryController;
 use App\Http\Controllers\backend\ChildCategoryController;
 use App\Http\Controllers\backend\PrivacypolicyController;
 use App\Http\Controllers\backend\ShippingClassController;
+use App\Http\Controllers\backend\DeliverychargeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -141,6 +142,13 @@ Route::group(['middleware' => ['auth','admin.role']], function () {
     Route::get('/state-setup', [DistrictController::Class, 'index'])->name('district.setup');
     Route::post('/create-state',[DistrictController::Class,'store'])->name('add.district');
     Route::post('/update-state',[DistrictController::Class,'update'])->name('update.state');
+
+
+    //Delivery charge Routes
+    Route::get('/delivery-charge-setup', [DeliverychargeController::Class, 'index'])->name('delivery.charge');
+    Route::post('/district-find', [DeliverychargeController::Class, 'district_find'])->name('district.find');
+    // Route::post('/create-state',[DistrictController::Class,'store'])->name('add.district');
+    // Route::post('/update-state',[DistrictController::Class,'update'])->name('update.state');
 
 
 });

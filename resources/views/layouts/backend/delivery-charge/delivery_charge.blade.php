@@ -82,53 +82,64 @@
                             <button onclick="closeAdd()" class="close" type="button"><span aria-hidden="true">&times;</span></button>
                         </div>
                         <div class="col-md-8" style="margin: auto">
-                            <div class="card-body">
-                                <div class="form-group row">
-                                    <label class="form-check-label col-sm-4">Country Name *</label>
-                                    <div class="col-sm-8">
-                                        <select onchange="district_find(this.value)" name="warehouse_id" id="warehouse_id" class="form-control">
-                                            <option selected disabled>Select country</option>
-                                            @foreach ($warehouses as $warehouse)
-                                                <option value="{{ $warehouse->id }}">{{ $warehouse->warehouse_name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="form-group row">
-                                    <label class="col-sm-4 form-check-label">State Name *</label>
-                                    <div class="col-sm-8">
-                                        <div style='text-align:center;' class='span12'>
-                                            <label style='float:left'  class='linkname'>
-                                                <input id="chkbx_all"  onclick="return check_all()" type="checkbox" />&nbsp;
-                                                <span><strong class="text-danger ">Select All</strong></span>
-                                            </label>
-
-                                        </div>
-                                        <br>
-                                        <div id="state">
-
+                            <form method="POST" action="{{ route('deliverychargeadd.store') }}" enctype="multipart/form-data">
+                                @csrf
+                                <div class="card-body">
+                                    <div class="form-group row">
+                                        <label class="form-check-label col-sm-4">Country Name *</label>
+                                        <div class="col-sm-8">
+                                            <select onchange="district_find(this.value)" name="warehouse_id" id="warehouse_id" class="form-control">
+                                                <option selected disabled>Select country</option>
+                                                @foreach ($warehouses as $warehouse)
+                                                    <option value="{{ $warehouse->id }}">{{ $warehouse->warehouse_name }}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                     </div>
-                                </div>
 
+                                    <div class="row">
+                                        <label class="col-sm-4 form-check-label">State Name *</label>
+                                        <div class="col-sm-8">
+                                            <div style='text-align:center;' class='span12'>
+                                                <label style='float:left'  class='linkname'>
+                                                    <input id="chkbx_all"  onclick="return check_all()" type="checkbox" />&nbsp;
+                                                    <span><strong class="text-danger ">Select All</strong></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-4"></label>
+                                        <div id="state" class="col-sm-8">
+                                        </div>
+                                    </div>
 
+                                    <div class="form-group row">
+                                        <label class="form-check-label col-sm-4">Shipping Class *</label>
+                                        <div class="col-sm-8">
+                                            <select name="shipping_id" id="shipping_id" class="form-control">
+                                                <option selected disabled>Select country</option>
+                                                @foreach ($ships as $ship)
+                                                    <option value="{{ $ship->id }}">{{ $ship->shipping_name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
 
-                                <div class="form-group row mb-2">
-                                    <label class="form-check-label col-sm-4">Charge *</label>
-                                    <div class="col-sm-8">
-                                        <input type="number" name="charge" id="charge" class="form-control" placeholder="Charge">
+                                    <div class="form-group row mb-2">
+                                        <label class="form-check-label col-sm-4">Charge *</label>
+                                        <div class="col-sm-8">
+                                            <input type="number" name="charge" id="charge" class="form-control" placeholder="Charge">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label class="col-sm-4"></label>
+                                        <div class="col-sm-8">
+                                            <button type="submit" class="btn btn-primary">Save</button>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <label class="col-sm-4"></label>
-                                    <div class="col-sm-8">
-                                        <button type="submit" class="btn btn-primary">Save</button>
-                                    </div>
-                                </div>
-
-
-                            </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -160,7 +171,7 @@
             data: {country_id: id},
             success: function(data){
                 $("#loading").hide();
-                console.log($('#state').html(data));
+                $('#state').html(data);
                 //GetBrand();
             },
             error: function() {
@@ -174,6 +185,18 @@
         });
 
     }
+
+    function check_all(){
+    if($('#chkbx_all').is(':checked')){
+      $('input.check_elmnt2').prop('disabled', false);
+      $('input.check_elmnt').prop('checked', true);
+      $('input.check_elmnt2').prop('checked', true);
+    }else{
+      $('input.check_elmnt2').prop('disabled', true);
+      $('input.check_elmnt').prop('checked', false);
+      $('input.check_elmnt2').prop('checked', false);
+      }
+  }
 
 
     function viewAdd(){

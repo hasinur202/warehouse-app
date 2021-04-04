@@ -83,9 +83,17 @@
                                         @endforeach
                                     </select>
                                 </div>
-
-
+                                <div class="form-group">
+                                    <label class="form-check-label">Measurement Type*</label>
+                                    <select name="brand" class="form-control">
+                                        <option selected disabled>Select measurement</option>
+                                        @foreach ($brands as $brand)
+                                            <option value="{{ $brand->id }}">{{ $brand->brand_name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
+
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label class="form-check-label">Warehouse*</label>
@@ -114,18 +122,16 @@
                                         <option selected disabled>Select child category</option>
                                     </select>
                                 </div>
-                            </div>
-
-                            <div class="col-sm-12">
-
                                 <div class="form-group">
-                                    <label class="control-label">Product Type</label>
+                                    <label class="form-check-label">Product Type *</label>
                                     <div class="controls">
                                         <input type="checkbox" name="popular" value="1">&nbsp;Popular Product&nbsp;
                                         <input type="checkbox" name="trending" value="1">&nbsp;Trending&nbsp;
                                     </div>
                                 </div>
+                            </div>
 
+                            <div class="col-sm-12">
                                 <div class="form-group attr">
                                     <label style="width: 100%">Product Attributes</label>
                                     <div class="field_wrapper">
@@ -175,11 +181,9 @@
                             <div class="form-group">
                                 <label>Product Color</label>
                                 <select name="product_color" class="select2" multiple="multiple" data-placeholder="Select a State" style="width: 100%;">
-                                  <option value="red">Red</option>
-                                  <option value="blue">Blue</option>
-                                  <option value="white">White</option>
-                                  <option value="green">Green</option>
-                                  <option value="orange">Orange</option>
+                                    @foreach ($colors as $color)
+                                        <option value="{{ $color->id }}">{{ $color->color_name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
 
@@ -191,12 +195,9 @@
                                 <label class="form-check-label">Shipping Class*</label>
                                 <select name="shipp_class" class="form-control">
                                     <option selected disabled>Select one</option>
-                                    <option value="1">Shipping Class-1 (0-1 kg)</option>
-                                    <option value="2">Shipping Class-2 (2-5 kg)</option>
-                                    <option value="3">Shipping Class-3 (5-above)</option>
-                                    {{-- @foreach ($warehouses as $warehouse) --}}
-                                        {{-- <option value="{{ $warehouse->id }}">{{ $warehouse->warehouse_name }}</option> --}}
-                                    {{-- @endforeach --}}
+                                    @foreach ($ships as $ship)
+                                        <option value="{{ $ship->id }}">{{ $ship->shipping_name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
 

@@ -94,7 +94,7 @@ class SliderController extends Controller
             $image->move($upload_path, $new_name);
         }
         if($slld){
-            toast('Created successfully','success')->padding('10px')->width('270px')->timerProgressBar()->hideCloseButton();
+            toast('Updated successfully','success')->padding('10px')->width('270px')->timerProgressBar()->hideCloseButton();
                 return redirect()->back();
         }else{
             Alert::warning('Opps...','Something went wrong!');

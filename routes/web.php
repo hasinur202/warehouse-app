@@ -14,6 +14,7 @@ use App\Http\Controllers\Backend\WarehouseController;
 use App\Http\Controllers\backend\SubCategoryController;
 use App\Http\Controllers\backend\ChildCategoryController;
 use App\Http\Controllers\backend\PrivacypolicyController;
+use App\Http\Controllers\backend\ShippingClassController;
 
 /*
 |--------------------------------------------------------------------------
@@ -129,6 +130,11 @@ Route::group(['middleware' => ['auth','admin.role']], function () {
     Route::post('/create-new-color',[ColorController::Class,'store'])->name('add.color');
     Route::post('/update-color',[ColorController::Class,'update'])->name('update.color');
     Route::post('/update-color-activity',[ColorController::Class,'activity'])->name('color.activity');
+
+    //Shipping Class Routes
+    Route::get('/shipping--class-list', [ShippingClassController::Class, 'index'])->name('shipping.class');
+    // Route::post('/create-new-color',[ColorController::Class,'store'])->name('add.color');
+    // Route::post('/update-color',[ColorController::Class,'update'])->name('update.color');
 
 
 });

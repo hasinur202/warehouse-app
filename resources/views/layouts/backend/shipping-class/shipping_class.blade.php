@@ -36,7 +36,6 @@
                                 <tr>
                                     <th>SI#</th>
                                     <th>Color</th>
-                                    <th width="70px">Status</th>
                                     <th>
                                         <img style="height: 20px; width:50px;" src="/backend/images/action.png">
                                     </th>
@@ -136,9 +135,9 @@
 
 
     $(document).ready(function () {
-        $('#addColor').validate({
+        $('#addShipping').validate({
            rules: {
-               color_name: {
+               shipping_name: {
                    required: true
                },
            },
@@ -154,13 +153,13 @@
                $(element).removeClass('is-invalid');
            },
            submitHandler: function(form){
-               $("#addColor").css({'opacity':'0.8'})
+               $("#addShipping").css({'opacity':'0.8'})
                $("#loading").show();
 
                $.ajax({
-                   url: "{{ route('add.color') }}",
+                   url: "{{ route('add.shipping.class') }}",
                    method: "POST",
-                   data: new FormData(document.getElementById("addColor")),
+                   data: new FormData(document.getElementById("addShipping")),
                    enctype: 'multipart/form-data',
                    dataType: 'JSON',
                    contentType: false,
@@ -171,18 +170,16 @@
                         window.location.reload();
                         Toast.fire({
                             icon: 'success',
-                            title: 'Color created successfully'
+                            title: 'Shipping Class created successfully'
                        })
                    },
                    error: function(err) {
                        $("#loading").hide();
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Something went wrong!'
+                        })
 
-                       if(err.status == 422){
-                           Swal.fire({
-                               icon: 'error',
-                               title: 'Color name should be unique'
-                           })
-                       }
                    }
                })
            }

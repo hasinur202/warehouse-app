@@ -17,6 +17,22 @@ class ShippingClassController extends Controller
     }
 
 
+    public function store(Request $request){
+        $request->validate([
+            'shipping_name'  =>  'required',
+        ]);
+
+        Shipping_class::create([
+            'shipping_name'=>$request->shipping_name,
+        ]);
+
+        return response()->json([
+            'message'=>'success'
+        ],200);
+
+    }
+
+
 
 
 }

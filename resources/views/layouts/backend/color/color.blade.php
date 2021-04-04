@@ -183,13 +183,11 @@
                    },
                    error: function(err) {
                        $("#loading").hide();
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Something went wrong!'
+                        })
 
-                       if(err.status == 422){
-                           Swal.fire({
-                               icon: 'error',
-                               title: 'Color name should be unique'
-                           })
-                       }
                    }
                })
            }

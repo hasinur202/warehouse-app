@@ -132,9 +132,9 @@ Route::group(['middleware' => ['auth','admin.role']], function () {
     Route::post('/update-color-activity',[ColorController::Class,'activity'])->name('color.activity');
 
     //Shipping Class Routes
-    Route::get('/shipping--class-list', [ShippingClassController::Class, 'index'])->name('shipping.class');
+    Route::get('/shipping-class-list', [ShippingClassController::Class, 'index'])->name('shipping.class');
     Route::post('/create-shipping-class',[ShippingClassController::Class,'store'])->name('add.shipping.class');
-    // Route::post('/update-color',[ColorController::Class,'update'])->name('update.color');
+    Route::post('/update-shipping-class',[ShippingClassController::Class,'update'])->name('update.shipping.class');
 
 
 });

@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\backend;
 
-use App\Http\Controllers\Controller;
-use App\Models\Shipping_class;
 use Illuminate\Http\Request;
+use App\Models\Shipping_class;
+use App\Http\Controllers\Controller;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class ShippingClassController extends Controller
 {
@@ -29,6 +30,27 @@ class ShippingClassController extends Controller
         return response()->json([
             'message'=>'success'
         ],200);
+
+    }
+
+
+    public function update(Request $request){
+        $request->validate([
+            'shipping_name'  =>  'required',
+        ]);
+
+        $bb = Shipping_class::where('id',$request->id)->update([
+            'shipping_name'=>$request->shipping_name,
+        ]);
+
+
+        if($bb){
+            toast('Created successfully','success')->padding('10px')->width('270px')->timerProgressBar()->hideCloseButton();
+                return redirect()->back();
+        }else{
+            Alert::warning('Opps...','Something went wrong!');
+                return redirect()->back();
+        }
 
     }
 

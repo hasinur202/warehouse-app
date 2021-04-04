@@ -48,7 +48,8 @@
                                 @php $i++; @endphp
                                 <tr>
                                     <td>{{ $i }}</td>
-                                    <td>{{ $district->district_name }}</td>
+                                    <td>{{ $district->get_warehouse->warehouse_name }}</td>
+                                    <td>{{ $district->state_name }}</td>
                                     <td>
                                         <a href="javascript:void(0)" onclick="editModal({{ $district }})" class="btn btn-dark btn-xs"><i class="fas fa-edit"></i></a>
                                         <a href="javascript:void(0)" class="btn btn-danger btn-xs"><i class="fas fa-trash"></i></a>
@@ -145,11 +146,14 @@
 
 
     $(document).ready(function () {
-        $('#addShipping').validate({
+        $('#addState').validate({
            rules: {
-               shipping_name: {
-                   required: true
-               },
+                state_name: {
+                    required: true
+                },
+                warehouse_id: {
+                    required: true
+                },
            },
            errorElement: 'span',
            errorPlacement: function (error, element) {
@@ -163,13 +167,13 @@
                $(element).removeClass('is-invalid');
            },
            submitHandler: function(form){
-               $("#addShipping").css({'opacity':'0.8'})
+               $("#addState").css({'opacity':'0.8'})
                $("#loading").show();
 
                $.ajax({
-                   url: "{{ route('add.shipping.class') }}",
+                   url: "{{ route('add.district') }}",
                    method: "POST",
-                   data: new FormData(document.getElementById("addShipping")),
+                   data: new FormData(document.getElementById("addState")),
                    enctype: 'multipart/form-data',
                    dataType: 'JSON',
                    contentType: false,
@@ -180,7 +184,7 @@
                         window.location.reload();
                         Toast.fire({
                             icon: 'success',
-                            title: 'Shipping Class created successfully'
+                            title: 'State created successfully'
                        })
                    },
                    error: function(err) {

@@ -103,14 +103,14 @@
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
-                <form action="{{ route('update.brand') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('update.color') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
                         <input type="hidden" id="id" name="id">
                         <div class="form-group row mb-2">
                             <label class="col-sm-4 form-check-label">Color name</label>
                             <div class="col-sm-8">
-                                <input type="text" name="brand_name" id="color_name" class="form-control" placeholder="Color name*">
+                                <input type="text" name="color_name" id="color_name" class="form-control" placeholder="Color name*">
                             </div>
                         </div>
                     </div>
@@ -137,9 +137,7 @@
     function editModal(val){
         $("#edit-Modal").modal('show');
 
-        $("#brand_name").val(val.brand_name);
-        $("#edit-image-img").attr('src', "{{ asset('/images/brand') }}/" + val.logo);
-
+        $("#color_name").val(val.color_name);
         $("#id").val(val.id);
     }
 

@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\backend;
 
-use App\Http\Controllers\Controller;
 use App\Models\Color;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class ColorController extends Controller
 {
@@ -30,6 +31,27 @@ class ColorController extends Controller
         return response()->json([
             'message'=>'success'
         ],200);
+
+    }
+
+
+    public function update(Request $request){
+        $request->validate([
+            'color_name'  =>  'required',
+        ]);
+
+        $bb = Color::where('id',$request->id)->update([
+            'color_name'=>$request->color_name,
+        ]);
+
+
+        if($bb){
+            toast('Created successfully','success')->padding('10px')->width('270px')->timerProgressBar()->hideCloseButton();
+                return redirect()->back();
+        }else{
+            Alert::warning('Opps...','Something went wrong!');
+                return redirect()->back();
+        }
 
     }
 

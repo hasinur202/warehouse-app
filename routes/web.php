@@ -6,6 +6,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\backend\AboutController;
 use App\Http\Controllers\Backend\AdminController;
 use App\Http\Controllers\backend\BrandController;
+use App\Http\Controllers\backend\ColorController;
 use App\Http\Controllers\backend\SliderController;
 use App\Http\Controllers\backend\ProductController;
 use App\Http\Controllers\Backend\CategoryController;
@@ -122,6 +123,12 @@ Route::group(['middleware' => ['auth','admin.role']], function () {
     //Privacy and Policy
     Route::get('/privacy-policy-setup', [PrivacypolicyController::Class, 'index'])->name('privacy.policy');
     Route::post('save/privacy-policy', [PrivacypolicyController::Class, 'store'])->name('privacy.save');
+
+    //Colors Route
+    Route::get('/color-info', [ColorController::Class, 'index'])->name('color.list');
+    Route::post('/create-new-color',[ColorController::Class,'store'])->name('add.color');
+    // Route::post('/update-new-brand',[BrandController::Class,'update'])->name('update.brand');
+    // Route::post('/brand-activity',[BrandController::Class,'activity'])->name('brand.activity');
 
 
 });

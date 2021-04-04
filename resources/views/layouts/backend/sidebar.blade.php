@@ -49,6 +49,14 @@
                             <p>Warehouse Setup</p>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="{{ route('color.list') }}" class="nav-link">
+                            <i class="fas fa-angle-double-right nav-icon"></i>
+                            <p>Color Setup</p>
+                        </a>
+                    </li>
+
+
                 </ul>
             </li>
 

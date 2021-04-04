@@ -14,10 +14,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Brands</h1>
-          </div>
-          <div class="col-sm-6">
-            <button data-toggle="modal" data-target="#addModal" class="btn btn-dark btn-sm float-right"><i class="fas fa-plus"></i> Add Color</button>
+            <h1>Colors</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -27,7 +24,7 @@
     <section class="content">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-8">
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">Color List</h3>
@@ -72,32 +69,27 @@
                       </div>
                       <!-- /.card -->
                 </div>
-            </div>
 
-
-
-            <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header bg-info">
-                      <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-plus"></i> Add Brand</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    </div>
-                    <form id="addColor">
-                        @csrf
-                        <div class="modal-body">
-                            <div class="form-group mb-2">
-                                <input type="text" name="color_name" class="form-control" placeholder="Color name*">
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title"><i class="fas fa-plus"></i> Add Color</h5>
+                        </div>
+                        <form id="addColor">
+                            @csrf
+                            <div class="card-body">
+                                <div class="form-group mb-2">
+                                    <input type="text" name="color_name" class="form-control" placeholder="Color name*">
+                                </div>
                             </div>
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                          <button type="submit" class="btn btn-primary">Save</button>
-                        </div>
-                    </form>
-                  </div>
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary">Save</button>
+                            </div>
+                        </form>
+                    </div>
+
                 </div>
-              </div>
+            </div>
 
         </div>
 
@@ -153,14 +145,11 @@
 
 
     $(document).ready(function () {
-        $('#addBrand').validate({
+        $('#addColor').validate({
            rules: {
-               brand_name: {
+               color_name: {
                    required: true
                },
-               logo: {
-                   required: true
-               }
            },
            errorElement: 'span',
            errorPlacement: function (error, element) {
@@ -174,13 +163,13 @@
                $(element).removeClass('is-invalid');
            },
            submitHandler: function(form){
-               $("#addBrand").css({'opacity':'0.8'})
+               $("#addColor").css({'opacity':'0.8'})
                $("#loading").show();
 
                $.ajax({
-                   url: "{{ route('add.brand') }}",
+                   url: "{{ route('add.color') }}",
                    method: "POST",
-                   data: new FormData(document.getElementById("addBrand")),
+                   data: new FormData(document.getElementById("addColor")),
                    enctype: 'multipart/form-data',
                    dataType: 'JSON',
                    contentType: false,
@@ -191,7 +180,7 @@
                         window.location.reload();
                         Toast.fire({
                             icon: 'success',
-                            title: 'Brand created successfully'
+                            title: 'Color created successfully'
                        })
                    },
                    error: function(err) {
@@ -200,7 +189,7 @@
                        if(err.status == 422){
                            Swal.fire({
                                icon: 'error',
-                               title: 'Brand name should be unique'
+                               title: 'Color name should be unique'
                            })
                        }
                    }

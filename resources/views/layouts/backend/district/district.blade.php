@@ -14,7 +14,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Shipping Class</h1>
+            <h1>District/State</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -27,7 +27,7 @@
                 <div class="col-md-8">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Shipping Classes List</h3>
+                            <h3 class="card-title">District/State List</h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
@@ -35,7 +35,8 @@
                             <thead>
                                 <tr>
                                     <th>SI#</th>
-                                    <th>Shipping Name</th>
+                                    <th>Country</th>
+                                    <th>State</th>
                                     <th>
                                         <img style="height: 20px; width:50px;" src="/backend/images/action.png">
                                     </th>
@@ -43,13 +44,13 @@
                             </thead>
                             <tbody>
                                 @php $i=0; @endphp
-                                @foreach ($shipping_classes as $shipping)
+                                @foreach ($districts as $district)
                                 @php $i++; @endphp
                                 <tr>
                                     <td>{{ $i }}</td>
-                                    <td>{{ $shipping->shipping_name }}</td>
+                                    <td>{{ $district->district_name }}</td>
                                     <td>
-                                        <a href="javascript:void(0)" onclick="editModal({{ $shipping }})" class="btn btn-dark btn-xs"><i class="fas fa-edit"></i></a>
+                                        <a href="javascript:void(0)" onclick="editModal({{ $district }})" class="btn btn-dark btn-xs"><i class="fas fa-edit"></i></a>
                                         <a href="javascript:void(0)" class="btn btn-danger btn-xs"><i class="fas fa-trash"></i></a>
                                     </td>
                                 </tr>
@@ -65,13 +66,22 @@
                 <div class="col-md-4">
                     <div class="card">
                         <div class="card-header">
-                            <h5 class="card-title"><i class="fas fa-plus"></i> Add Shipping Class</h5>
+                            <h5 class="card-title"><i class="fas fa-plus"></i> Add State</h5>
                         </div>
-                        <form id="addShipping">
+                        <form id="addState">
                             @csrf
                             <div class="card-body">
+                                <div class="form-group">
+                                    <select name="warehouse_id" class="form-control">
+                                        <option selected disabled>Select country</option>
+                                        @foreach ($warehouses as $warehouse)
+                                            <option value="{{ $warehouse->id }}">{{ $warehouse->warehouse_name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
                                 <div class="form-group mb-2">
-                                    <input type="text" name="shipping_name" class="form-control" placeholder="Shipping name*">
+                                    <input type="text" name="state_name" class="form-control" placeholder="State name*">
                                 </div>
                             </div>
                             <div class="card-footer">

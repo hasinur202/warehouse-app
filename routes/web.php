@@ -10,6 +10,7 @@ use App\Http\Controllers\backend\ColorController;
 use App\Http\Controllers\backend\SliderController;
 use App\Http\Controllers\backend\ProductController;
 use App\Http\Controllers\Backend\CategoryController;
+use App\Http\Controllers\backend\DistrictController;
 use App\Http\Controllers\Backend\WarehouseController;
 use App\Http\Controllers\backend\SubCategoryController;
 use App\Http\Controllers\backend\ChildCategoryController;
@@ -135,6 +136,11 @@ Route::group(['middleware' => ['auth','admin.role']], function () {
     Route::get('/shipping-class-list', [ShippingClassController::Class, 'index'])->name('shipping.class');
     Route::post('/create-shipping-class',[ShippingClassController::Class,'store'])->name('add.shipping.class');
     Route::post('/update-shipping-class',[ShippingClassController::Class,'update'])->name('update.shipping.class');
+
+    //District Routes
+    Route::get('/state-setup', [DistrictController::Class, 'index'])->name('district.setup');
+    // Route::post('/create-shipping-class',[ShippingClassController::Class,'store'])->name('add.shipping.class');
+    // Route::post('/update-shipping-class',[ShippingClassController::Class,'update'])->name('update.shipping.class');
 
 
 });

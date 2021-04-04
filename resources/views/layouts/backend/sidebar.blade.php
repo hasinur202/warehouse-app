@@ -63,6 +63,14 @@
                         </a>
                     </li>
 
+                    <li class="nav-item">
+                        <a href="{{ route('district.setup') }}" class="nav-link">
+                            <i class="fas fa-angle-double-right nav-icon"></i>
+                            <p>District Setup</p>
+                        </a>
+                    </li>
+
+
 
                 </ul>
             </li>

@@ -55,6 +55,12 @@
                             <p>Color Setup</p>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="{{ route('measurement.list') }}" class="nav-link">
+                            <i class="fas fa-angle-double-right nav-icon"></i>
+                            <p>Measurement Setup</p>
+                        </a>
+                    </li>
 
                     <li class="nav-item">
                         <a href="{{ route('shipping.class') }}" class="nav-link">

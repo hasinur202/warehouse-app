@@ -12,6 +12,7 @@ use App\Http\Controllers\backend\ProductController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\backend\DistrictController;
 use App\Http\Controllers\Backend\WarehouseController;
+use App\Http\Controllers\backend\MeasurementController;
 use App\Http\Controllers\backend\SubCategoryController;
 use App\Http\Controllers\backend\ChildCategoryController;
 use App\Http\Controllers\backend\PrivacypolicyController;
@@ -148,8 +149,11 @@ Route::group(['middleware' => ['auth','admin.role']], function () {
     Route::get('/delivery-charge-setup', [DeliverychargeController::Class, 'index'])->name('delivery.charge');
     Route::post('/district-find', [DeliverychargeController::Class, 'district_find'])->name('district.find');
     Route::post('/store-delivery-charge',[DeliverychargeController::Class,'store'])->name('deliverychargeadd.store');
-
-    // Route::post('/update-state',[DistrictController::Class,'update'])->name('update.state');
+ 
+    //Colors Route
+    Route::get('/measurement-view', [MeasurementController::Class, 'index'])->name('measurement.list');
+    // Route::post('/create-new-color',[ColorController::Class,'store'])->name('add.color');
+    // Route::post('/update-color',[ColorController::Class,'update'])->name('update.color');
 
 
 });

@@ -116,10 +116,6 @@ Route::group(['middleware' => ['auth','admin.role']], function () {
     Route::post('/update-new-slider',[SliderController::Class,'update'])->name('update.slider');
     Route::post('/slider-activity',[SliderController::Class,'activity'])->name('slider.activity');
 
-
-    Route::post('/test-activity',[SliderController::Class,'test'])->name('test');
-
-
     //About routes
     Route::get('/about-setup', [AboutController::Class, 'index'])->name('setup.about');
     Route::post('save/about', [AboutController::Class, 'store'])->name('about.save');
@@ -154,6 +150,10 @@ Route::group(['middleware' => ['auth','admin.role']], function () {
     Route::get('/measurement-view', [MeasurementController::Class, 'index'])->name('measurement.list');
     Route::post('/create-measurement',[MeasurementController::Class,'store'])->name('add.measurement');
     Route::post('/update-measurement',[MeasurementController::Class,'update'])->name('update.measurement');
+
+
+    //Product Rotues
+    Route::post('/add-product',[ProductController::Class,'store'])->name('add.product');
 
 
 });

@@ -54,7 +54,7 @@
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
-            <form action="{{ route('test') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('add.product') }}" method="POST" enctype="multipart/form-data">
                 @csrf
             <div class="row">
                 <div class="col-md-9">
@@ -87,8 +87,8 @@
                                     <label class="form-check-label">Measurement Type*</label>
                                     <select name="brand" class="form-control">
                                         <option selected disabled>Select measurement</option>
-                                        @foreach ($brands as $brand)
-                                            <option value="{{ $brand->id }}">{{ $brand->brand_name }}</option>
+                                        @foreach ($measurements as $measurement)
+                                            <option value="{{ $measurement->id }}">{{ $measurement->measurement_type }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -106,14 +106,14 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="form-check-label">Main Category*</label>
-                                    <select disabled id="main_cat_id" name="main_category" class="form-control">
+                                    <select readonly id="main_cat_id" name="main_category" class="form-control">
                                         <option selected disabled>Select category</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label class="form-check-label">Sub Category*</label>
-                                    <select disabled id="sub_cat_id" name="sub_category" class="form-control">
-                                        <option selected disabled>Select sub category</option>
+                                    <select readonly id="sub_cat_id" name="sub_category" class="form-control">
+                                        <option value="" selected disabled>Select sub category</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
@@ -138,7 +138,7 @@
                                         <div class="form-group">
                                             <input type="text" name="size[]" placeholder="Size">
                                             <input type="text" name="qty[]" placeholder="Quantity" style="width:12% !important">
-                                            <input type="text" name="p_price[]" placeholder="Purchase Price">
+                                            <input type="text" name="purchase_price[]" placeholder="Purchase Price">
                                             <input type="text" name="sale_price[]" id="sale_price" onkeyup="calculate()" placeholder="Sale Price">
                                             <input type="text" name="discount[]" id="discount_price" onkeyup="calculate()" placeholder="Discount">
                                             <input type="text" name="discount_p[]" id="discount_per" disabled placeholder="Discount[%]" style="width: 13 !important;margin-top:5px">
@@ -180,7 +180,7 @@
 
                             <div class="form-group">
                                 <label>Product Color</label>
-                                <select name="product_color" class="select2" multiple="multiple" data-placeholder="Select a State" style="width: 100%;">
+                                <select name="product_color[]" class="select2" multiple="multiple" data-placeholder="Select a State" style="width: 100%;">
                                     @foreach ($colors as $color)
                                         <option value="{{ $color->id }}">{{ $color->color_name }}</option>
                                     @endforeach
@@ -389,7 +389,7 @@
         $(addButton).click(function(){
             //Check maximum number of input fields
             if(x < maxField){
-                var fieldHTML = '<div class="form-group"><input type="text" name="size[]" placeholder="Size" style="margin-right:3px"><input type="text" name="qty[]" placeholder="Quantity" style="width:12% !important;margin-right:3px"><input type="text" name="p_price[]" placeholder="Purchase Price" style="margin-right:3px"><input type="text" name="sale_price[]" onkeyup="calculatee('+x+')" id="sale_price'+x+'" placeholder="Sale Price" style="margin-right:3px"><input type="text" name="discount[]" onkeyup="calculatee('+x+')" id="discount_price'+x+'" placeholder="Discount" style="margin-right:3px"><input type="text" name="discount_p[]" id="discount_per'+x+'" disabled placeholder="Discount[%]" style="width: 13 !important;margin-right:3px"><input type="text" name="c_price[]" id="current_price'+x+'" disabled placeholder="Current Price" style="width: 13 !important;margin-right:3px;margin-top:5px"><a href="javascript:void(0);" class="remove_button" title="Remove field" style="padding:6px;"><i class="fa fa-times"></i></a></div>';
+                var fieldHTML = '<div class="form-group"><input type="text" name="size[]" placeholder="Size" style="margin-right:3px"><input type="text" name="qty[]" placeholder="Quantity" style="width:12% !important;margin-right:3px"><input type="text" name="purchase_price[]" placeholder="Purchase Price" style="margin-right:3px"><input type="text" name="sale_price[]" onkeyup="calculatee('+x+')" id="sale_price'+x+'" placeholder="Sale Price" style="margin-right:3px"><input type="text" name="discount[]" onkeyup="calculatee('+x+')" id="discount_price'+x+'" placeholder="Discount" style="margin-right:3px"><input type="text" name="discount_p[]" id="discount_per'+x+'" disabled placeholder="Discount[%]" style="width: 13 !important;margin-right:3px"><input type="text" name="c_price[]" id="current_price'+x+'" disabled placeholder="Current Price" style="width: 13 !important;margin-right:3px;margin-top:5px"><a href="javascript:void(0);" class="remove_button" title="Remove field" style="padding:6px;"><i class="fa fa-times"></i></a></div>';
                 calculatee(x);
                 x++; //Increment field counter
                 $(wrapper).append(fieldHTML); //Add field html

@@ -22,11 +22,6 @@ class SliderController extends Controller
         ]);
     }
 
-
-    public function test(Request $request){
-        dd($request->all());
-    }
-
     public function store(Request $request){
         $request->validate([
             'title'  =>  'required|unique:slides',

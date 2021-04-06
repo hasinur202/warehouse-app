@@ -47,7 +47,7 @@
                                 @php $i++; @endphp
                                 <tr>
                                     <td>{{ $i }}</td>
-                                    <td>{{ $measurement->measurement_name }}</td>
+                                    <td>{{ $measurement->measurement_type }}</td>
                                     <td>
                                         <a href="javascript:void(0)" onclick="editModal({{ $measurement }})" class="btn btn-dark btn-xs"><i class="fas fa-edit"></i></a>
                                         <a href="javascript:void(0)" class="btn btn-danger btn-xs"><i class="fas fa-trash"></i></a>
@@ -65,13 +65,13 @@
                 <div class="col-md-4">
                     <div class="card">
                         <div class="card-header">
-                            <h5 class="card-title"><i class="fas fa-plus"></i> Add Color</h5>
+                            <h5 class="card-title"><i class="fas fa-plus"></i> Add Measurement</h5>
                         </div>
-                        <form id="addColor">
+                        <form id="addMeasurement">
                             @csrf
                             <div class="card-body">
                                 <div class="form-group mb-2">
-                                    <input type="text" name="color_name" class="form-control" placeholder="Color name*">
+                                    <input type="text" name="measurement_name" class="form-control" placeholder="Measurement name*">
                                 </div>
                             </div>
                             <div class="card-footer">
@@ -135,9 +135,9 @@
 
 
     $(document).ready(function () {
-        $('#addColor').validate({
+        $('#addMeasurement').validate({
            rules: {
-               color_name: {
+               measurement_name: {
                    required: true
                },
            },
@@ -153,13 +153,13 @@
                $(element).removeClass('is-invalid');
            },
            submitHandler: function(form){
-               $("#addColor").css({'opacity':'0.8'})
+               $("#addMeasurement").css({'opacity':'0.8'})
                $("#loading").show();
 
                $.ajax({
-                   url: "{{ route('add.color') }}",
+                   url: "{{ route('add.measurement') }}",
                    method: "POST",
-                   data: new FormData(document.getElementById("addColor")),
+                   data: new FormData(document.getElementById("addMeasurement")),
                    enctype: 'multipart/form-data',
                    dataType: 'JSON',
                    contentType: false,
@@ -170,7 +170,7 @@
                         window.location.reload();
                         Toast.fire({
                             icon: 'success',
-                            title: 'Color created successfully'
+                            title: 'Measurement created successfully'
                        })
                    },
                    error: function(err) {
@@ -186,38 +186,6 @@
        });
 
    });
-
-
-    function changeActivity(id){
-        $("#loading").show();
-        $.ajax({
-            url:"{{ route('color.activity') }}",
-            method:"POST",
-            dataType:"json",
-            data:{
-                "_token": "{{ csrf_token() }}",
-                'id':id,
-            },
-            success: function(response) {
-                $("#loading").hide();
-                Toast.fire({
-                    icon: 'success',
-                    title: 'Status Changes Successfully.'
-                })
-                window.location.reload();
-            },
-            error: function() {
-                $("#loading").hide();
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Something Wrong'
-                })
-            }
-        })
-    }
-
-
-
 
 
 

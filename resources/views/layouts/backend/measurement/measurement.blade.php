@@ -90,19 +90,19 @@
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header bg-warning">
-                  <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-edit"></i> Edit Color</h5>
+                  <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-edit"></i> Edit Measurement Type</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
-                <form action="{{ route('update.color') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('update.measurement') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
                         <input type="hidden" id="id" name="id">
                         <div class="form-group row mb-2">
-                            <label class="col-sm-4 form-check-label">Color name</label>
+                            <label class="col-sm-4 form-check-label">Measurement Name</label>
                             <div class="col-sm-8">
-                                <input type="text" name="color_name" id="color_name" class="form-control" placeholder="Color name*">
+                                <input type="text" name="measurement_type" id="measurement_type" class="form-control" placeholder="Measurement type name*">
                             </div>
                         </div>
                     </div>
@@ -129,7 +129,7 @@
     function editModal(val){
         $("#edit-Modal").modal('show');
 
-        $("#color_name").val(val.color_name);
+        $("#measurement_type").val(val.measurement_type);
         $("#id").val(val.id);
     }
 

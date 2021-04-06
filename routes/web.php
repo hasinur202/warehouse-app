@@ -153,7 +153,7 @@ Route::group(['middleware' => ['auth','admin.role']], function () {
     //Colors Route
     Route::get('/measurement-view', [MeasurementController::Class, 'index'])->name('measurement.list');
     Route::post('/create-measurement',[MeasurementController::Class,'store'])->name('add.measurement');
-    // Route::post('/update-color',[ColorController::Class,'update'])->name('update.color');
+    Route::post('/update-measurement',[MeasurementController::Class,'update'])->name('update.measurement');
 
 
 });

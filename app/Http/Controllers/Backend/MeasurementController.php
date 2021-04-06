@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\backend;
 
-use App\Http\Controllers\Controller;
-use App\Models\Measurement_type;
 use Illuminate\Http\Request;
+use App\Models\Measurement_type;
+use App\Http\Controllers\Controller;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class MeasurementController extends Controller
 {
@@ -34,23 +35,23 @@ class MeasurementController extends Controller
     }
 
 
-    // public function update(Request $request){
-    //     $request->validate([
-    //         'color_name'  =>  'required',
-    //     ]);
+    public function update(Request $request){
+        $request->validate([
+            'measurement_type'  =>  'required',
+        ]);
 
-    //     $bb = Color::where('id',$request->id)->update([
-    //         'color_name'=>$request->color_name,
-    //     ]);
+        $bb = Measurement_type::where('id',$request->id)->update([
+            'measurement_type'=>$request->measurement_type,
+        ]);
 
 
-    //     if($bb){
-    //         toast('Updated successfully','success')->padding('10px')->width('270px')->timerProgressBar()->hideCloseButton();
-    //             return redirect()->back();
-    //     }else{
-    //         Alert::warning('Opps...','Something went wrong!');
-    //             return redirect()->back();
-    //     }
+        if($bb){
+            toast('Updated successfully','success')->padding('10px')->width('270px')->timerProgressBar()->hideCloseButton();
+                return redirect()->back();
+        }else{
+            Alert::warning('Opps...','Something went wrong!');
+                return redirect()->back();
+        }
 
-    // }
+    }
 }

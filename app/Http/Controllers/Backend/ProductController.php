@@ -30,7 +30,6 @@ class ProductController extends Controller
     }
 
     public function product_list_index(){
-
         $warehouses = Warehouse::where('status',1)->get();
 
         return view('layouts.backend.product.product_list',[

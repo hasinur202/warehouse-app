@@ -1,8 +1,6 @@
 @extends('layouts.backend.app')
 
 @section('css')
-
-
     <style>
         .service-img{
             height: 9.5rem;
@@ -28,7 +26,6 @@
         .attr input{
             width: 21%;
         }
-
 
    </style>
 @endsection

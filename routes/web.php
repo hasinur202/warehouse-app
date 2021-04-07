@@ -157,7 +157,7 @@ Route::group(['middleware' => ['auth','admin.role']], function () {
 
     //Coupon Routes
     Route::get('coupon-list', [CouponController::Class,'index'])->name('coupon.list');
-
+    Route::post('/coupon-store',[CouponController::Class,'store'])->name('coupon.store');
 
 });
 

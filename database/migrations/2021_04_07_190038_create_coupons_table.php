@@ -19,9 +19,9 @@ class CreateCouponsTable extends Migration
             $table->string('start_date');
             $table->string('end_date');
             $table->decimal('min_price',15,2);
-            $table->decimal('discount_p');
-            $table->decimal('discout_price',15,2);
-            $table->date('apply_coupon');
+            $table->integer('discount_p');
+            $table->decimal('discount_price',15,2);
+            $table->integer('apply_coupon');
             $table->integer('use')->nullable();
             $table->boolean('status')->default(1);
             $table->integer('admin_id')->nullable();

@@ -41,6 +41,7 @@
                                     <th>Minimum Price</th>
                                     <th>Discount Price</th>
                                     <th>Discount [%]</th>
+                                    <th>Apply Coupon</th>
                                     <th>Status</th>
                                     <th>
                                         <img style="height: 20px; width:50px;" src="/backend/images/action.png">
@@ -54,11 +55,12 @@
                                 <tr>
                                     <td>{{ $i }}</td>
                                     <td>{{ $coupon->coupon_name }}</td>
-                                    <td>{{ $coupon->start_date }}</td>
-                                    <td>{{ $coupon->end_date }}</td>
+                                    <td>{{ Carbon\Carbon::parse($coupon->start_date)->isoFormat('MMM Do YYYY') }}</td>
+                                    <td>{{ Carbon\Carbon::parse($coupon->end_date)->isoFormat('MMM Do YYYY') }}</td>
                                     <td>{{ $coupon->min_price }}</td>
                                     <td>{{ $coupon->discount_price }}</td>
                                     <td>{{ $coupon->discount_p }}</td>
+                                    <td>{{ $coupon->apply_coupon }}</td>
                                     <td>
                                         @if($coupon->status == 1)
                                             <button onclick="changeActivity({{ $coupon->id }})" type="button" class="btn btn-success btn-block btn-xs">Active</button>
@@ -85,7 +87,7 @@
                             <button onclick="closeAdd()" class="close" type="button"><span aria-hidden="true">&times;</span></button>
                         </div>
                         <div class="col-md-8" style="margin: auto">
-                            <form method="POST" action="{{ route('coupon.store') }}" enctype="multipart/form-data">
+                            <form id="addCoupon">
                                 @csrf
                                 <div class="card-body">
                                     <div class="form-group row mb-2">
@@ -162,41 +164,6 @@
 <script>
 
 
-    function district_find(id) {
-        $("#loading").show();
-        $.ajax({
-            headers: { 'X-CSRF-TOKEN': "{{ csrf_token() }}" },
-            url: "{{ route('district.find') }}",
-            type: 'POST',
-            data: {country_id: id},
-            success: function(data){
-                $("#loading").hide();
-                $('#state').html(data);
-                //GetBrand();
-            },
-            error: function() {
-                $("#loading").hide();
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Something Wrong'
-                })
-            }
-
-        });
-
-    }
-
-    function check_all(){
-    if($('#chkbx_all').is(':checked')){
-      $('input.check_elmnt2').prop('disabled', false);
-      $('input.check_elmnt').prop('checked', true);
-      $('input.check_elmnt2').prop('checked', true);
-    }else{
-      $('input.check_elmnt2').prop('disabled', true);
-      $('input.check_elmnt').prop('checked', false);
-      $('input.check_elmnt2').prop('checked', false);
-      }
-  }
 
 
     function viewAdd(){
@@ -211,17 +178,29 @@
 
 
     $(document).ready(function () {
-        $('#addCategory').validate({
+        $('#addCoupon').validate({
            rules: {
-               warehouse_id: {
+               coupon_name: {
                    required: true
                },
-               category_name: {
+               start_date: {
                    required: true
                },
-               icon: {
+               end_date: {
                    required: true
-               }
+               },
+               min_price: {
+                   required: true
+               },
+               discount_price: {
+                   required: true
+               },
+               discount_p: {
+                   required: true
+               },
+               apply_coupon: {
+                   required: true
+               },
            },
            errorElement: 'span',
            errorPlacement: function (error, element) {
@@ -235,13 +214,11 @@
                $(element).removeClass('is-invalid');
            },
            submitHandler: function(form){
-               $("#addCategory").css({'opacity':'0.8'})
                $("#loading").show();
-
                $.ajax({
-                   url: "{{route('add.main.category')}}",
+                   url: "{{ route('coupon.store') }}",
                    method: "POST",
-                   data: new FormData(document.getElementById("addCategory")),
+                   data: new FormData(document.getElementById("addCoupon")),
                    enctype: 'multipart/form-data',
                    dataType: 'JSON',
                    contentType: false,
@@ -249,21 +226,20 @@
                    processData: false,
                    success: function(res) {
                         $("#loading").hide();
-                        window.location.reload();
-                        Toast.fire({
-                            icon: 'success',
-                            title: 'Category created successfully'
-                       })
+                        Swal.fire(
+                            'Good job!',
+                            'Coupon created successfully!',
+                            'success'
+                        )
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 2000);
                    },
-                   error: function(err) {
-                       $("#loading").hide();
-
-                       if(err.status == 422){
-                           Swal.fire({
-                               icon: 'error',
-                               title: 'Category name should be unique'
-                           })
-                       }
+                   error: function(response) {
+                        $("#loading").hide();
+                        $.each(response.responseJSON.errors,function(field_name,error){
+                            $(document).find('[name='+field_name+']').after('<span class="text-strong text-danger">' +error+ '</span>')
+                        })
                    }
                })
            }

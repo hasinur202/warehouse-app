@@ -109,46 +109,6 @@
             </div>
         </div>
 
-
-        <div class="modal fade" id="edit-Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header bg-warning">
-                  <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-edit"></i> Edit Brand</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <form action="{{ route('update.brand') }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    <div class="modal-body">
-                        <input type="hidden" id="id" name="id">
-
-                        <div class="form-group row mb-2">
-                            <label class="col-sm-4 form-check-label">Brand name</label>
-                            <div class="col-sm-8">
-                                <input type="text" name="brand_name" id="brand_name" class="form-control" placeholder="Brand name*">
-                            </div>
-                        </div>
-                        <div class="form-group row mt-4">
-                            <label class="form-check-label col-sm-4">Brand Logo</label>
-                            <div class="col-sm-8">
-                                <div class="service-img" style="width: 40% !important">
-                                    <input id="edit-image" type="file" class="form-control" name="logo">
-                                    <img src="" id="edit-image-img"/>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                      <button type="submit" class="btn btn-primary">Update</button>
-                    </div>
-                </form>
-              </div>
-            </div>
-        </div>
-
     </section>
     <!-- /.content -->
 </div>
@@ -161,7 +121,6 @@
 @section('js')
 <script>
     function editModal(val){
-        $("#edit-Modal").modal('show');
 
         $("#brand_name").val(val.brand_name);
         $("#edit-image-img").attr('src', "{{ asset('/images/brand') }}/" + val.logo);
@@ -173,7 +132,7 @@
     function changeActivity(id){
         $("#loading").show();
         $.ajax({
-            url:"{{ route('brand.activity') }}",
+            url:"{{ route('product.activity') }}",
             method:"POST",
             dataType:"json",
             data:{

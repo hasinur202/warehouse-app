@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers\backend;
 
-use ArrayIterator;
 use App\Models\Brand;
 use App\Models\Color;
-use MultipleIterator;
 use App\Models\Product;
 use App\Models\Warehouse;
 use Illuminate\Http\Request;
@@ -109,6 +107,32 @@ class ProductController extends Controller
         return response()->json([
             'message'=>'success'
         ],200);
+    }
+
+
+
+    
+    public function activity(Request $request){
+        $data = Product::where('id',$request->id)->first();
+
+        if ($data->status == 0) {
+            Product::where('id',$request->id)->update([
+                'status'=>1
+            ]);
+
+            return response()->json([
+                'message'=>'success'
+            ],200);
+        }else{
+            Product::where('id',$request->id)->update([
+                'status'=>0
+            ]);
+
+            return response()->json([
+                'message'=>'success'
+            ],200);
+        }
+
     }
 
 

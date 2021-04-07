@@ -104,12 +104,6 @@ Route::group(['middleware' => ['auth','admin.role']], function () {
     Route::post('/update-new-brand',[BrandController::Class,'update'])->name('update.brand');
     Route::post('/brand-activity',[BrandController::Class,'activity'])->name('brand.activity');
 
-    //Products Routes
-    Route::get('product-add', [ProductController::Class,'index'])->name('product.add');
-    Route::get('product-list', [ProductController::Class,'product_list_index'])->name('product.list');
-
-
-
     //Slider Routes
     Route::get('slides-list', [SliderController::Class,'index'])->name('slider.list');
     Route::post('/create-new-slider',[SliderController::Class,'store'])->name('add.slider');
@@ -152,8 +146,11 @@ Route::group(['middleware' => ['auth','admin.role']], function () {
     Route::post('/update-measurement',[MeasurementController::Class,'update'])->name('update.measurement');
 
 
-    //Product Rotues
+    //Products Routes
+    Route::get('product-add-form', [ProductController::Class,'index'])->name('product.add');
+    Route::get('product-list', [ProductController::Class,'product_list_index'])->name('product.list');
     Route::post('/add-product',[ProductController::Class,'store'])->name('add.product');
+    Route::post('/update-product-activity',[ProductController::Class,'activity'])->name('product.activity');
 
 
 });

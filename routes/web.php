@@ -7,6 +7,7 @@ use App\Http\Controllers\backend\AboutController;
 use App\Http\Controllers\Backend\AdminController;
 use App\Http\Controllers\backend\BrandController;
 use App\Http\Controllers\backend\ColorController;
+use App\Http\Controllers\backend\CouponController;
 use App\Http\Controllers\backend\SliderController;
 use App\Http\Controllers\backend\ProductController;
 use App\Http\Controllers\Backend\CategoryController;
@@ -152,6 +153,11 @@ Route::group(['middleware' => ['auth','admin.role']], function () {
     Route::post('/add-product',[ProductController::Class,'store'])->name('add.product');
     Route::post('/update-product-activity',[ProductController::Class,'activity'])->name('product.activity');
     Route::post('/edit-product',[ProductController::Class,'getProductById'])->name('edit.product');
+
+
+    //Coupon Routes
+    Route::get('coupon-list', [CouponController::Class,'index'])->name('coupon.list');
+
 
 });
 

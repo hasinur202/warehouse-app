@@ -6,6 +6,7 @@ use App\Models\Brand;
 use App\Models\Color;
 use App\Models\Product;
 use App\Models\Warehouse;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\Product_image;
 use App\Models\Shipping_class;
@@ -72,6 +73,7 @@ class ProductController extends Controller
             $pro->shipping_id       = $request->shipp_class;
             $pro->measurement_id    = $request->measurement;
             $pro->product_name      = $request->product_name;
+            $pro->slug              = Str::slug($request->product_name);
             $pro->product_barcode   = $request->product_barcode;
             $pro->product_sku       = $request->product_sku;
             $pro->product_type      = $request->product_type;

@@ -149,6 +149,32 @@
                     </li>
                 </ul>
             </li>
+            <li class="nav-item">
+                <a href="{{ route('brand.list') }}" class="nav-link">
+                    <i class="nav-icon fas fa-book-medical"></i>
+                    <p>
+                        Order Information
+                    </p>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="{{ route('brand.list') }}" class="nav-link">
+                    <i class="nav-icon fas fa-book-medical"></i>
+                    <p>
+                        Combo Packs
+                    </p>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="{{ route('coupon.list') }}" class="nav-link">
+                    <i class="nav-icon fas fa-book-medical"></i>
+                    <p>
+                        Coupons
+                    </p>
+                </a>
+            </li>
 
             <li class="nav-item">
                 <a href="" class="nav-link">

@@ -51,7 +51,7 @@
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
-            <form action="{{ route('add.product') }}" method="POST" enctype="multipart/form-data">
+            <form id="addProduct">
                 @csrf
             <div class="row">
                 <div class="col-md-9">
@@ -82,7 +82,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="form-check-label">Measurement Type*</label>
-                                    <select name="brand" class="form-control">
+                                    <select name="measurement" class="form-control">
                                         <option selected disabled>Select measurement</option>
                                         @foreach ($measurements as $measurement)
                                             <option value="{{ $measurement->id }}">{{ $measurement->measurement_type }}</option>
@@ -146,7 +146,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Product Description</label>
-                                    <textarea name="description" placeholder="Description" required class="form-control"></textarea>
+                                    <textarea name="description" required placeholder="Description"></textarea>
                                 </div>
 
                             </div>
@@ -207,13 +207,6 @@
                                 </select>
                             </div>
 
-
-
-
-                            {{-- <div style="text-align:center">
-                                <span class="btn btn-success btn-sm"><i class="fas fa-plus"></i> Add More</span>
-                            </div> --}}
-
                         </div>
                         <!-- /.card-body -->
                     </div>
@@ -250,8 +243,124 @@
     });
 
     CKEDITOR.replace('description');
+
 </script>
 <script>
+
+    $(document).ready(function () {
+        $('#addProduct').validate({
+           rules: {
+               warehouse_id: {
+                   required: true
+               },
+               product_name: {
+                   required: true
+               },
+               product_barcode: {
+                   required: true
+               },
+               product_sku: {
+                   required: true
+               },
+               child_category: {
+                   required: true
+               },
+               condition: {
+                   required: true
+               },
+               shipp_class: {
+                   required: true
+               },
+               shipp_duration: {
+                   required: true
+               },
+               image: {
+                   required: true
+               },
+               brand: {
+                   required: true
+               },
+               product_type: {
+                   required: true
+               },
+               measurement: {
+                   required: true
+               },
+               "purchase_price[]": {
+                   required: true
+               },
+               "sale_price[]": {
+                   required: true
+               },
+               "qty[]": {
+                   required: true
+               },
+               "size[]": {
+                   required: true
+               },
+               'product_color[]': {
+                   required: true
+               },
+               discription: {
+                    required: true
+                }
+           },
+           
+           messages:{
+                "product_color[]": "Select product color",
+                "qty[]": "Enter product quantity",
+                "size[]": "Enter product size",
+                "purchase_price[]": "Enter product purchase price",
+                "sale_price[]": "Enter product sales price",
+                "product_type": "Please check a product type",
+                "image": "Please select a product feature image",
+           },
+           errorElement: 'span',
+           errorPlacement: function (error, element) {
+               error.addClass('invalid-feedback');
+               element.closest('.form-group').append(error);
+           },
+           highlight: function (element, errorClass, validClass) {
+               $(element).addClass('is-invalid');
+           },
+           unhighlight: function (element, errorClass, validClass) {
+               $(element).removeClass('is-invalid');
+           },
+           submitHandler: function(form){
+               $("#addProduct").css({'opacity':'0.8'})
+               $("#loading").show();
+               $.ajax({
+                   url: "{{ route('add.product') }}",
+                   method: "POST",
+                   data: new FormData(document.getElementById("addProduct")),
+                   enctype: 'multipart/form-data',
+                   dataType: 'JSON',
+                   contentType: false,
+                   cache: false,
+                   processData: false,
+                   success: function(res) {
+                        $("#loading").hide();
+                        window.location.reload();
+                        Toast.fire({
+                            icon: 'success',
+                            title: 'Brand created successfully'
+                       })
+                   },
+                   error: function(err) {
+                       $("#loading").hide();
+
+                       if(err.status == 422){
+                           Swal.fire({
+                               icon: 'error',
+                               title: 'Brand name should be unique'
+                           })
+                       }
+                   }
+               })
+           }
+       });
+
+   });
 
     function loadChildCategory(id){
         $("#loading").show();

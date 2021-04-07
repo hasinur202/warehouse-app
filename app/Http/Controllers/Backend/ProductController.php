@@ -35,9 +35,11 @@ class ProductController extends Controller
 
     public function product_list_index(){
         $warehouses = Warehouse::where('status',1)->get();
+        $products = Product::with(['get_warehouse','main_category','sub_category','child_category','brand','attributes','shipping_class'])->get();
 
         return view('layouts.backend.product.product_list',[
             'warehouses'=>$warehouses ?? '',
+            'products'=>$products
         ]);
     }
 

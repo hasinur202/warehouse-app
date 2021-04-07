@@ -38,7 +38,7 @@
             <h1>Product List</h1>
           </div>
           <div class="col-sm-6">
-            <a href="{{ route('product.add') }}" class="btn btn-success btn-sm float-right"><i class="fas fa-plus"></i> Add Product</a>
+            <a href="{{ route('product.add') }}" class="btn btn-dark btn-sm float-right"><i class="fas fa-plus"></i> Add Product</a>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -54,41 +54,52 @@
                           <table id="example1" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
-                                    <th>SI#</th>
+                                    <th>Warehouse</th>
                                     <th>Barcode</th>
                                     <th>SKU</th>
                                     <th>Product Name</th>
                                     <th>Image</th>
+                                    <th>Category</th>
+                                    <th>Sub Category</th>
+                                    <th>Child Category</th>
+                                    <th>Qty</th>
+                                    <th>Shipp. Class</th>
                                     <th width="70px">Status</th>
                                     <th>
                                         <img style="height: 20px; width:50px;" src="/backend/images/action.png">
                                     </th>
                                 </tr>
                             </thead>
-                            {{--  <tbody>
-                                @php $i=0; @endphp
-                                @foreach ($brands as $brand)
-                                @php $i++; @endphp
+                            <tbody>
+                                @foreach ($products as $product)
                                 <tr>
-                                    <td>{{ $i }}</td>
-                                    <td>{{ $brand->brand_name }}</td>
+                                    <td>{{ $product->get_warehouse->warehouse_name }}</td>
+                                    <td>{{ $product->product_barcode }}</td>
+                                    <td>{{ $product->product_sku }}</td>
+                                    <td>{{ $product->product_name }}</td>
                                     <td>
-                                        <img src="/images/brand/{{ $brand->logo }}" alt="Category Icon" height="40px" width="70px">
+                                        <img src="/images/product/{{ $product->feature_image }}" alt="Product Image" height="40px" width="50px">
                                     </td>
+                                    <td>{{ $product->main_category->category_name }}</td>
+                                    <td>{{ $product->sub_category->category_name }}</td>
+                                    <td>{{ $product->child_category->category_name }}</td>
+                                    <td>{{ $product->attributes->sum('qty') }}</td>
+                                    <td>{{ $product->shipping_class->shipping_name }}</td>
+                                    
                                     <td>
-                                        @if($brand->status == 1)
-                                            <button onclick="changeActivity({{ $brand->id }})" type="button" class="btn btn-success btn-block btn-xs">Active</button>
+                                        @if($product->status == 1)
+                                            <button onclick="changeActivity({{ $product->id }})" type="button" class="btn btn-success btn-block btn-xs">Active</button>
                                         @else
-                                            <button onclick="changeActivity({{ $brand->id }})" type="button" class="btn btn-danger btn-block btn-xs">Inactive</button>
+                                            <button onclick="changeActivity({{ $product->id }})" type="button" class="btn btn-danger btn-block btn-xs">Inactive</button>
                                         @endif
                                     </td>
                                     <td>
-                                        <a href="javascript:void(0)" onclick="editModal({{ $brand }})" class="btn btn-dark btn-xs"><i class="fas fa-edit"></i></a>
+                                        <a href="javascript:void(0)" onclick="editModal({{ $product->id }})" class="btn btn-dark btn-xs"><i class="fas fa-edit"></i></a>
                                         <a href="javascript:void(0)" class="btn btn-danger btn-xs"><i class="fas fa-trash"></i></a>
                                     </td>
                                 </tr>
                                 @endforeach
-                            </tbody>  --}}
+                            </tbody>
                           </table>
                         </div>
                         <!-- /.card-body -->

@@ -151,7 +151,7 @@ Route::group(['middleware' => ['auth','admin.role']], function () {
     Route::get('product-list', [ProductController::Class,'product_list_index'])->name('product.list');
     Route::post('/add-product',[ProductController::Class,'store'])->name('add.product');
     Route::post('/update-product-activity',[ProductController::Class,'activity'])->name('product.activity');
-
+    Route::post('/edit-product',[ProductController::Class,'getProductById'])->name('edit.product');
 
 });
 

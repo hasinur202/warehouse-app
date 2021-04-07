@@ -35,9 +35,18 @@ class ProductController extends Controller
         $warehouses = Warehouse::where('status',1)->get();
         $products = Product::with(['get_warehouse','main_category','sub_category','child_category','brand','attributes','shipping_class'])->get();
 
+        $brands = Brand::where('status',1)->get();
+        $ships = Shipping_class::all();
+        $colors = Color::where('status',1)->get();
+        $measurements = Measurement_type::all();
+
         return view('layouts.backend.product.product_list',[
             'warehouses'=>$warehouses ?? '',
-            'products'=>$products
+            'products'=>$products,
+            'brands'=>$brands ?? '',
+            'ships'=>$ships ?? '',
+            'colors'=>$colors ?? '',
+            'measurements'=>$measurements ?? ''
         ]);
     }
 
@@ -133,6 +142,17 @@ class ProductController extends Controller
             ],200);
         }
 
+    }
+
+
+    public function getProductById(Request $request){
+     
+        $product = Product::with('main_category','sub_category','child_category')->where('id',$request->id)->first();
+
+        return response()->json([
+            'message'=>'success',
+            'product'=>$product
+        ],200);
     }
 
 

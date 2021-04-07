@@ -122,8 +122,8 @@
                                 <div class="form-group">
                                     <label class="form-check-label">Product Type *</label>
                                     <div class="controls">
-                                        <input type="checkbox" name="popular" value="1">&nbsp;Popular Product&nbsp;
-                                        <input type="checkbox" name="trending" value="1">&nbsp;Trending&nbsp;
+                                        <input type="checkbox" name="product_type" value="popular">&nbsp;Popular Product&nbsp;
+                                        <input type="checkbox" name="product_type" value="trending">&nbsp;Trending&nbsp;
                                     </div>
                                 </div>
                             </div>
@@ -138,8 +138,8 @@
                                             <input type="text" name="purchase_price[]" placeholder="Purchase Price">
                                             <input type="text" name="sale_price[]" id="sale_price" onkeyup="calculate()" placeholder="Sale Price">
                                             <input type="text" name="discount[]" id="discount_price" onkeyup="calculate()" placeholder="Discount">
-                                            <input type="text" name="discount_p[]" id="discount_per" disabled placeholder="Discount[%]" style="width: 13 !important;margin-top:5px">
-                                            <input type="text" name="c_price[]" id="current_price" disabled placeholder="Current Price" style="width: 13 !important;margin-top:5px">
+                                            <input type="text" name="discount_p[]" id="discount_per" readonly placeholder="Discount[%]" style="width: 13 !important;margin-top:5px">
+                                            <input type="text" name="c_price[]" id="current_price" readonly placeholder="Current Price" style="width: 13 !important;margin-top:5px">
                                             <a href="javascript:void(0);" class="add_button" title="Add field" style="padding:6px;"><i class="fa fa-plus"></i></a>
                                         </div>
                                     </div>
@@ -200,7 +200,7 @@
 
                             <div class="form-group">
                                 <label class="form-check-label">Product Condition*</label>
-                                <select name="conditions" class="form-control">
+                                <select name="condition" class="form-control">
                                     <option selected disabled>Select one</option>
                                     <option value="Used">Used</option>
                                     <option value="New">New</option>
@@ -386,7 +386,7 @@
         $(addButton).click(function(){
             //Check maximum number of input fields
             if(x < maxField){
-                var fieldHTML = '<div class="form-group"><input type="text" name="size[]" placeholder="Size" style="margin-right:3px"><input type="text" name="qty[]" placeholder="Quantity" style="width:12% !important;margin-right:3px"><input type="text" name="purchase_price[]" placeholder="Purchase Price" style="margin-right:3px"><input type="text" name="sale_price[]" onkeyup="calculatee('+x+')" id="sale_price'+x+'" placeholder="Sale Price" style="margin-right:3px"><input type="text" name="discount[]" onkeyup="calculatee('+x+')" id="discount_price'+x+'" placeholder="Discount" style="margin-right:3px"><input type="text" name="discount_p[]" id="discount_per'+x+'" disabled placeholder="Discount[%]" style="width: 13 !important;margin-right:3px"><input type="text" name="c_price[]" id="current_price'+x+'" disabled placeholder="Current Price" style="width: 13 !important;margin-right:3px;margin-top:5px"><a href="javascript:void(0);" class="remove_button" title="Remove field" style="padding:6px;"><i class="fa fa-times"></i></a></div>';
+                var fieldHTML = '<div class="form-group"><input type="text" name="size[]" placeholder="Size" style="margin-right:3px"><input type="text" name="qty[]" placeholder="Quantity" style="width:12% !important;margin-right:3px"><input type="text" name="purchase_price[]" placeholder="Purchase Price" style="margin-right:3px"><input type="text" name="sale_price[]" onkeyup="calculatee('+x+')" id="sale_price'+x+'" placeholder="Sale Price" style="margin-right:3px"><input type="text" name="discount[]" onkeyup="calculatee('+x+')" id="discount_price'+x+'" placeholder="Discount" style="margin-right:3px"><input type="text" name="discount_p[]" id="discount_per'+x+'" readonly placeholder="Discount[%]" style="width: 13 !important;margin-right:3px"><input type="text" name="c_price[]" id="current_price'+x+'" readonly placeholder="Current Price" style="width: 13 !important;margin-right:3px;margin-top:5px"><a href="javascript:void(0);" class="remove_button" title="Remove field" style="padding:6px;"><i class="fa fa-times"></i></a></div>';
                 calculatee(x);
                 x++; //Increment field counter
                 $(wrapper).append(fieldHTML); //Add field html

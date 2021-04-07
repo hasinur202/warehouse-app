@@ -327,8 +327,8 @@
                $(element).removeClass('is-invalid');
            },
            submitHandler: function(form){
-               $("#addProduct").css({'opacity':'0.8'})
                $("#loading").show();
+               for(var instanceName in CKEDITOR.instances){ CKEDITOR.instances[instanceName].updateElement();}
                $.ajax({
                    url: "{{ route('add.product') }}",
                    method: "POST",
@@ -340,21 +340,20 @@
                    processData: false,
                    success: function(res) {
                         $("#loading").hide();
-                        window.location.reload();
-                        Toast.fire({
-                            icon: 'success',
-                            title: 'Brand created successfully'
-                       })
+                        Swal.fire(
+                            'Good job!',
+                            'Product added successfully!',
+                            'success'
+                        )
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 2000);
                    },
-                   error: function(err) {
-                       $("#loading").hide();
-
-                       if(err.status == 422){
-                           Swal.fire({
-                               icon: 'error',
-                               title: 'Brand name should be unique'
-                           })
-                       }
+                   error: function(response) {
+                        $("#loading").hide();
+                        $.each(response.responseJSON.errors,function(field_name,error){
+                            $(document).find('[name='+field_name+']').after('<span class="text-strong text-danger">' +error+ '</span>')
+                        })
                    }
                })
            }

@@ -43,48 +43,70 @@ class ProductController extends Controller
 
 
     public function store(Request $request){
-       
-      
-        // $pro = new Product();
-        //     $pro->warehouse_id      = $request->warehouse_id;
-        //     $pro->brand_id          = $request->brand;
-        //     $pro->main_category_id  = $request->main_category;
-        //     $pro->sub_category_id   = $request->sub_category;
-        //     $pro->child_category_id = $request->child_category;
-        //     $pro->shipping_id       = $request->shipp_class;
-        //     $pro->product_name      = $request->product_name;
-        //     $pro->product_barcode   = $request->product_barcode;
-        //     $pro->product_sku       = $request->product_sku;
-        //     $pro->product_type      = $request->product_type;
-        //     $pro->shipp_duration    = $request->shipp_duration;
-        //     $pro->condition         = $request->condition;
-        //     $pro->description       = $request->description;
-        //     $pro->feature_image       = $request->image;
-        //     $pro->save();
-        //     $pro->colors()->sync($request->product_color);
+        $request->validate([
+            'product_name'  =>  'required|unique:products',
+            'product_barcode'  =>  'required|unique:products',
+            'product_sku'  =>  'required|unique:products',
+        ]);
 
-        //     foreach($request->gallery as $img){
-        //         Product_image::create([
-        //             'product_id'=>$pro->id,
-        //             'gallery_img'=>$img
-        //         ]);
-        //     }
+        if ($request->file('image')) {
+            $image = $request->file('image');
+            $new_name = rand() . '.' . $image->getClientOriginalExtension();
+            $upload_path = public_path()."/images/product/";
 
-        //     for($i=0; $i < count($request->qty); $i++){
-        //         $all = array(
-        //             'product_id' => $pro->id,
-        //             'size' => $request->size[$i],
-        //             'qty' => $request->qty[$i],
-        //             'purchase_price' => $request->purchase_price[$i],
-        //             'sale_price' => $request->sale_price[$i],
-        //             'discount' => $request->discount[$i],
-        //             'discount_p' => $request->discount_p[$i],
-        //             'current_price' => $request->c_price[$i],
-        //         );
-        //         $insert = Product_attribute::create($all);
-        //     }
+            $pro = new Product();
+            $pro->warehouse_id      = $request->warehouse_id;
+            $pro->brand_id          = $request->brand;
+            $pro->main_category_id  = $request->main_category;
+            $pro->sub_category_id   = $request->sub_category;
+            $pro->child_category_id = $request->child_category;
+            $pro->shipping_id       = $request->shipp_class;
+            $pro->measurement_id    = $request->measurement;
+            $pro->product_name      = $request->product_name;
+            $pro->product_barcode   = $request->product_barcode;
+            $pro->product_sku       = $request->product_sku;
+            $pro->product_type      = $request->product_type;
+            $pro->shipp_duration    = $request->shipp_duration;
+            $pro->condition         = $request->condition;
+            $pro->description       = $request->description;
+            $pro->feature_image     = $new_name;
+            $pro->save();
 
-        return "Successfully inserted";
+            $pro->colors()->sync($request->product_color);
+            $image->move($upload_path, $new_name);
+        }
+        //upload multiple images
+        if($files=$request->file('gallery')){
+            foreach($files as $img){
+                $name = rand() . '.' . $img->getClientOriginalExtension();
+                $upload_path = public_path()."/images/product/";
+    
+                Product_image::create([
+                    'product_id'=>$pro->id,
+                    'gallery_img'=>$name
+                ]);
+
+                $img->move($upload_path, $name);
+            }
+        }
+        //insert product attributes
+        for($i=0; $i < count($request->qty); $i++){
+            $all = array(
+                'product_id' => $pro->id,
+                'size' => $request->size[$i],
+                'qty' => $request->qty[$i],
+                'purchase_price' => $request->purchase_price[$i],
+                'sale_price' => $request->sale_price[$i],
+                'discount' => $request->discount[$i],
+                'discount_p' => $request->discount_p[$i],
+                'current_price' => $request->c_price[$i],
+            );
+            $insert = Product_attribute::create($all);
+        }
+
+        return response()->json([
+            'message'=>'success'
+        ],200);
     }
 
 

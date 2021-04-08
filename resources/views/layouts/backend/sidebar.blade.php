@@ -36,12 +36,6 @@
                     </p>
                 </a>
                 <ul class="nav nav-treeview">
-                    <li class="nav-item">
-                        <a href="{{ route('admin.list') }}" class="nav-link">
-                            <i class="fas fa-angle-double-right nav-icon"></i>
-                            <p>Admin Setup</p>
-                        </a>
-                    </li>
 
                     <li class="nav-item">
                         <a href="{{ route('warehouse.list') }}" class="nav-link">
@@ -158,14 +152,14 @@
                 </a>
             </li>
 
-            <li class="nav-item">
+            {{--  <li class="nav-item">
                 <a href="{{ route('brand.list') }}" class="nav-link">
                     <i class="nav-icon fas fa-book-medical"></i>
                     <p>
                         Combo Packs
                     </p>
                 </a>
-            </li>
+            </li>  --}}
 
             <li class="nav-item">
                 <a href="{{ route('coupon.list') }}" class="nav-link">
@@ -174,6 +168,39 @@
                         Coupons
                     </p>
                 </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('admin.list') }}" class="nav-link">
+                    <i class="nav-icon fas fa-book-medical"></i>
+                    <p>
+                        Manage Staffs
+                    </p>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="javascript:void(0)" class="nav-link">
+                    <i class="nav-icon fas fa-book-medical"></i>
+                    <p>
+                        Inventory
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-angle-double-right nav-icon"></i>
+                            <p>Expense</p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-angle-double-right nav-icon"></i>
+                            <p>Income</p>
+                        </a>
+                    </li>
+                </ul>
             </li>
 
             <li class="nav-item">

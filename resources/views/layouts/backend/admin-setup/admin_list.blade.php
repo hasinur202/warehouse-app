@@ -16,7 +16,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Admin Setup</h1>
+            <h1>Staffs</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -29,8 +29,8 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Admin List</h3>
-                            <button data-toggle="modal" data-target="#addModal" class="btn btn-dark btn-sm float-right"><i class="fas fa-plus"></i> Add Admin</button>
+                            <h3 class="card-title">Staff List</h3>
+                            <button data-toggle="modal" data-target="#addModal" class="btn btn-dark btn-sm float-right"><i class="fas fa-plus"></i> Add New Staff</button>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
@@ -78,38 +78,70 @@
                 </div>
             </div>
             <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
+                <div class="modal-dialog modal-lg" role="document">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">Add Admin</h5>
+                      <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-plus"></i> Add Staff</h5>
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                       </button>
                     </div>
                     <form action="{{ route('create.admin') }}" method="POST">
                         @csrf
-                        <div class="modal-body">
-                            <div class="input-group mb-2">
-                                <input type="text" name="first_name" class="form-control" placeholder="First name*" required>
+                        <div class="modal-body col-md-10" style="margin: auto">
+                            <div class="input-group row mb-3">
+                                <label class="col-sm-4 form-check-label"><span style="float: right">First Name</span></label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="first_name" class="form-control" placeholder="First name*" required>
+                                </div>
                             </div>
-                            <div class="input-group mb-2">
+                            <div class="input-group row mb-3">
+                                <label class="col-sm-4 form-check-label"><span style="float: right">Last Name</span></label>
+                                <div class="col-sm-8">
                                   <input type="text" name="last_name" class="form-control" placeholder="Last name*" required>
+                                </div>
                             </div>
-                            <div class="input-group mb-2">
-                                <input type="text" name="phone" class="form-control" placeholder="Phone*" required>
+                            <div class="input-group row mb-3">
+                                <label class="col-sm-4 form-check-label"><span style="float: right">Phone</span></label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="phone" class="form-control" placeholder="Phone*" required>
+                                </div>
                             </div>
-                            <div class="input-group mb-2">
-                                <input type="text" name="address" class="form-control" placeholder="Address*" required>
+                            <div class="input-group row mb-3">
+                                <label class="col-sm-4 form-check-label"><span style="float: right">Address</span></label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="address" class="form-control" placeholder="Address*" required>
+                                </div>
+                            </div>
+                            <div class="input-group row mb-3">
+                                <label class="col-sm-4 form-check-label"><span style="float: right">Staff Type </span></label>
+                                <div class="col-sm-8">
+                                    <select name="type" class="form-control" required>
+                                        <option selected hidden>Select type</option>
+                                        <option value="super_admin">Super Admin</option>
+                                        <option value="admin">Admin</option>
+                                        <option value="staff">Staff</option>
+                                    </select>
+                                </div>
                             </div>
 
-                            <div class="input-group mb-2">
-                                <input type="email" name="email" class="form-control" placeholder="Email*" required>
+                            <div class="input-group row mb-3">
+                                <label class="col-sm-4 form-check-label"><span style="float: right">Email </span></label>
+                                <div class="col-sm-8">
+                                    <input type="email" name="email" class="form-control" placeholder="Email*" required>
+                                </div>
                             </div>
-                            <div class="input-group mb-2">
+                            <div class="input-group row mb-3">
+                                <label class="col-sm-4 form-check-label"><span style="float: right">Password</span></label>
+                                <div class="col-sm-8">
                                 <input type="password" name="password" class="form-control" placeholder="Password*" required>
+                                </div>
                             </div>
-                            <div class="input-group mb-2">
-                                <input type="password" name="confirm_password" class="form-control" placeholder="Retype password*" required>
+                            <div class="input-group row mb-3">
+                                <label class="col-sm-4 form-check-label"><span style="float: right">Confirm Password</span></label>
+                                <div class="col-sm-8">
+                                    <input type="password" name="confirm_password" class="form-control" placeholder="Retype password*" required>
+                                </div>
                             </div>
                         </div>
 
@@ -126,34 +158,61 @@
 
 
         <div class="modal fade" id="edit-Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
+            <div class="modal-dialog modal-lg" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Edit Admin</h5>
+                  <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-edit"></i> Edit Admin</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
                 <form action="{{ route('update.admin') }}" method="POST">
                     @csrf
-                    <div class="modal-body">
-                        <div class="input-group mb-2">
-                            <input type="text" name="first_name" id="first_name" class="form-control" required>
+                    <div class="modal-body col-md-10" style="margin: auto">
+                        <div class="input-group row mb-3">
+                            <label class="col-sm-4 form-check-label"><span style="float: right">First Name</span></label>
+                            <div class="col-sm-8">
+                                <input type="text" name="first_name" id="first_name" class="form-control" placeholder="First name*" required>
+                            </div>
                         </div>
-                        <div class="input-group mb-2">
-                              <input type="text" name="last_name" id="last_name" class="form-control" required>
+                        <div class="input-group row mb-3">
+                            <label class="col-sm-4 form-check-label"><span style="float: right">Last Name</span></label>
+                            <div class="col-sm-8">
+                              <input type="text" name="last_name" id="last_name" class="form-control" placeholder="Last name*" required>
+                            </div>
                         </div>
-                        <div class="input-group mb-2">
-                            <input type="text" name="phone" id="phone" class="form-control" placeholder="Phone*" required>
+                        <div class="input-group row mb-3">
+                            <label class="col-sm-4 form-check-label"><span style="float: right">Phone</span></label>
+                            <div class="col-sm-8">
+                                <input type="text" name="phone" id="phone" class="form-control" placeholder="Phone*" required>
+                            </div>
                         </div>
-                        <div class="input-group mb-2">
-                            <input type="text" name="address" id="address" class="form-control" placeholder="Address*" required>
+                        <div class="input-group row mb-3">
+                            <label class="col-sm-4 form-check-label"><span style="float: right">Address</span></label>
+                            <div class="col-sm-8">
+                                <input type="text" name="address" id="address" class="form-control" placeholder="Address*" required>
+                            </div>
+                        </div>
+                        <div class="input-group row mb-3">
+                            <label class="col-sm-4 form-check-label"><span style="float: right">Staff Type </span></label>
+                            <div class="col-sm-8">
+                                <select name="type" id="type" class="form-control" required>
+                                    <option selected hidden>Select type</option>
+                                    <option value="super_admin">Super Admin</option>
+                                    <option value="admin">Admin</option>
+                                    <option value="staff">Staff</option>
+                                </select>
+                            </div>
                         </div>
 
-                        <div class="input-group mb-2">
-                            <input type="email" name="email" id="email" class="form-control" required>
-                            <input type="hidden" name="id" id="id" required>
+                        <div class="input-group row mb-3">
+                            <label class="col-sm-4 form-check-label"><span style="float: right">Email </span></label>
+                            <div class="col-sm-8">
+                                <input type="email" name="email" id="email" class="form-control" placeholder="Email*" required>
+                            </div>
                         </div>
+
+                        <input type="hidden" name="id" id="id" required>
                     </div>
 
                     <div class="modal-footer">
@@ -180,6 +239,7 @@
         $("#phone").val(val.phone);
         $("#address").val(val.address);
         $("#email").val(val.email);
+        $("#type").val(val.type);
         $("#id").val(val.id);
     }
 

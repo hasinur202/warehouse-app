@@ -11,7 +11,7 @@ use RealRashid\SweetAlert\Facades\Alert;
 class AdminController extends Controller
 {
     public function index(){
-        $admins = User::where('type','admin')->get();
+        $admins = User::where('type','admin')->orWhere('type','staff')->get();
 
         return view('layouts.backend.admin-setup.admin_list',[
             'admins'=>$admins,
@@ -25,6 +25,7 @@ class AdminController extends Controller
             'last_name' => 'required',
             'phone' => 'required',
             'address' => 'required',
+            'type' => 'required',
             'email' => 'required|unique:users',
         ]);
 
@@ -36,7 +37,7 @@ class AdminController extends Controller
                 'address' => $request->address,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
-                'type'=>'admin'
+                'type'=>$request->type
             ]);
 
             if($user){
@@ -75,6 +76,7 @@ class AdminController extends Controller
                 'phone' => $request->phone,
                 'address' => $request->address,
                 'email' => $request->email,
+                'type'=>$request->type
             ]);
 
             toast('Updated successfully','success')->padding('10px')->width('270px')->timerProgressBar()->hideCloseButton();

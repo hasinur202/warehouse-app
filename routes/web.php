@@ -65,7 +65,7 @@ Route::group(['middleware' => ['auth','admin.role']], function () {
     })->name('dashboard');
 
     //Admin Routes
-    Route::get('admin-list', [AdminController::Class,'index'])->name('admin.list');
+    Route::get('staff-list', [AdminController::Class,'index'])->name('admin.list');
     Route::post('/admin-activity',[AdminController::Class,'adminActivity'])->name('admin.activity');
     Route::post('/admin-add',[AdminController::Class,'createAdmin'])->name('create.admin');
     Route::post('/admin-update',[AdminController::Class,'update'])->name('update.admin');
@@ -140,7 +140,7 @@ Route::group(['middleware' => ['auth','admin.role']], function () {
     Route::get('/delivery-charge-setup', [DeliverychargeController::Class, 'index'])->name('delivery.charge');
     Route::post('/district-find', [DeliverychargeController::Class, 'district_find'])->name('district.find');
     Route::post('/store-delivery-charge',[DeliverychargeController::Class,'store'])->name('deliverychargeadd.store');
- 
+
     //Colors Route
     Route::get('/measurement-view', [MeasurementController::Class, 'index'])->name('measurement.list');
     Route::post('/create-measurement',[MeasurementController::Class,'store'])->name('add.measurement');

@@ -21,7 +21,7 @@ class CreateProductsTable extends Migration
             $table->foreignId('sub_category_id')->nullable()->constrained('sub_categories')->onDelete('cascade');
             $table->foreignId('child_category_id')->nullable()->constrained('child_categories')->onDelete('cascade');
             $table->foreignId('shipping_id')->nullable()->constrained('shipping_classes')->onDelete('cascade');
-            $table->foreignId('measerement_id')->nullable()->constrained('measurement_types')->onDelete('cascade');
+            $table->foreignId('measurement_id')->nullable()->constrained('measurement_types')->onDelete('cascade');
             $table->string('product_barcode');
             $table->string('product_sku');
             $table->string('product_name');

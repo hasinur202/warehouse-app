@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 05, 2021 at 11:20 AM
+-- Generation Time: Apr 08, 2021 at 03:20 PM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.4.8
 
@@ -118,6 +118,57 @@ INSERT INTO `colors` (`id`, `color_name`, `status`, `created_at`, `updated_at`) 
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `color_products`
+--
+
+CREATE TABLE `color_products` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `product_id` bigint(20) UNSIGNED NOT NULL,
+  `color_id` int(10) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `color_products`
+--
+
+INSERT INTO `color_products` (`id`, `product_id`, `color_id`, `created_at`, `updated_at`) VALUES
+(5, 3, 1, '2021-04-08 04:49:35', '2021-04-08 04:49:35'),
+(6, 3, 3, '2021-04-08 04:49:35', '2021-04-08 04:49:35');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `coupons`
+--
+
+CREATE TABLE `coupons` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `coupon_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `start_date` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `end_date` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `min_price` decimal(15,2) NOT NULL,
+  `discount_p` int(11) NOT NULL,
+  `discount_price` decimal(15,2) NOT NULL,
+  `apply_coupon` int(11) NOT NULL,
+  `use` int(11) DEFAULT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 1,
+  `admin_id` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `coupons`
+--
+
+INSERT INTO `coupons` (`id`, `coupon_name`, `start_date`, `end_date`, `min_price`, `discount_p`, `discount_price`, `apply_coupon`, `use`, `status`, `admin_id`, `created_at`, `updated_at`) VALUES
+(1, 'asfdklsa', '2021-04-08', '2021-04-16', '100.00', 50, '50.00', 1, NULL, 1, NULL, '2021-04-07 23:44:51', '2021-04-07 23:44:51');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `delivery_charges`
 --
 
@@ -218,6 +269,28 @@ INSERT INTO `main_categories` (`id`, `warehouse_id`, `admin_id`, `category_name`
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `measurement_types`
+--
+
+CREATE TABLE `measurement_types` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `measurement_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `measurement_types`
+--
+
+INSERT INTO `measurement_types` (`id`, `measurement_type`, `created_at`, `updated_at`) VALUES
+(1, 'piece', '2021-04-07 23:28:01', '2021-04-07 23:28:01'),
+(2, 'kg', '2021-04-07 23:28:03', '2021-04-07 23:28:03'),
+(3, 'meters', '2021-04-07 23:28:06', '2021-04-07 23:28:06');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `migrations`
 --
 
@@ -246,7 +319,13 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (15, '2021_04_04_063234_create_colors_table', 10),
 (16, '2021_04_04_070518_create_shipping_classes_table', 11),
 (17, '2021_04_04_073953_create_districts_table', 12),
-(18, '2021_04_04_102632_create_delivery_charges_table', 13);
+(18, '2021_04_04_102632_create_delivery_charges_table', 13),
+(25, '2021_04_06_170521_create_measurement_types_table', 14),
+(26, '2021_04_06_180045_create_products_table', 14),
+(27, '2021_04_06_182725_create_product_attributes_table', 14),
+(28, '2021_04_06_182743_create_product_images_table', 14),
+(29, '2021_04_06_183903_create_color_products_table', 14),
+(30, '2021_04_07_190038_create_coupons_table', 14);
 
 -- --------------------------------------------------------
 
@@ -279,6 +358,102 @@ CREATE TABLE `privacypolicies` (
 
 INSERT INTO `privacypolicies` (`id`, `description`, `created_at`, `updated_at`) VALUES
 (1, '<p>asfdsaf asdf asdf safd sadf asdf</p>', '2021-04-03 01:33:13', '2021-04-03 01:33:13');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `products`
+--
+
+CREATE TABLE `products` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `warehouse_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `brand_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `main_category_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `sub_category_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `child_category_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `shipping_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `measurement_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `product_barcode` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `product_sku` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `product_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `feature_image` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `image1` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `image2` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `image3` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `product_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `condition` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `shipp_duration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 1,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `products`
+--
+
+INSERT INTO `products` (`id`, `warehouse_id`, `brand_id`, `main_category_id`, `sub_category_id`, `child_category_id`, `shipping_id`, `measurement_id`, `product_barcode`, `product_sku`, `product_name`, `slug`, `feature_image`, `image1`, `image2`, `image3`, `product_type`, `condition`, `shipp_duration`, `description`, `status`, `created_at`, `updated_at`) VALUES
+(1, 2, 1, 3, 2, 1, 1, 1, 'barr555', '101', 'samsung pro', 'samsung-pro', '89047258.jpg', '179008748.jpg', '146641420.webp', '1666070843.png', 'popular', 'New', '3 days', '<p>sadfsadf asf sda</p>', 1, '2021-04-07 23:29:08', '2021-04-08 07:19:49'),
+(2, 2, 1, 3, 2, 2, 2, 1, 'barr555gg', '103', 'Infinity T shirt', 'infinity-t-shirt', '63799354.png', '1478743619.jpg', '6442486.png', '870470755.jpg', 'trending', 'New', '3 days', '<p>afsafsaf</p>', 1, '2021-04-08 01:23:12', '2021-04-08 01:23:12'),
+(3, 2, 1, 3, 2, 2, 2, 1, 'barr555455', '104', 'Mens Fairness', 'mens-fairness', '455550659.jpg', '1789133779.png', '368252913.jpg', '', 'popular', 'New', '3 days', '<p>asfsdaf</p>', 1, '2021-04-08 04:49:34', '2021-04-08 04:49:34');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product_attributes`
+--
+
+CREATE TABLE `product_attributes` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `product_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `size` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `qty` int(11) NOT NULL,
+  `purchase_price` decimal(15,2) NOT NULL,
+  `sale_price` decimal(15,2) NOT NULL,
+  `discount` decimal(15,2) DEFAULT NULL,
+  `discount_p` decimal(15,2) DEFAULT NULL,
+  `current_price` decimal(15,2) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `product_attributes`
+--
+
+INSERT INTO `product_attributes` (`id`, `product_id`, `size`, `qty`, `purchase_price`, `sale_price`, `discount`, `discount_p`, `current_price`, `created_at`, `updated_at`) VALUES
+(4, 3, 'small', 50, '200.00', '195.00', '5.00', '3.00', '190.00', '2021-04-08 04:49:35', '2021-04-08 04:49:35'),
+(7, 2, 'small', 50, '200.00', '490.00', '5.00', '1.00', '485.00', '2021-04-08 07:19:27', '2021-04-08 07:19:27'),
+(10, 1, 'small', 50, '200.00', '250.00', '5.00', '2.00', '245.00', '2021-04-08 07:19:49', '2021-04-08 07:19:49'),
+(11, 1, 'medium', 50, '300.00', '350.00', '10.00', '3.00', '340.00', '2021-04-08 07:19:49', '2021-04-08 07:19:49');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product_images`
+--
+
+CREATE TABLE `product_images` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `product_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `gallery_img` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `product_images`
+--
+
+INSERT INTO `product_images` (`id`, `product_id`, `gallery_img`, `created_at`, `updated_at`) VALUES
+(1, 1, '179008748.jpg', '2021-04-07 23:29:08', '2021-04-07 23:29:08'),
+(2, 1, '146641420.webp', '2021-04-07 23:29:08', '2021-04-07 23:29:08'),
+(3, 2, '1478743619.jpg', '2021-04-08 01:23:12', '2021-04-08 01:23:12'),
+(4, 2, '6442486.png', '2021-04-08 01:23:12', '2021-04-08 01:23:12'),
+(5, 2, '870470755.jpg', '2021-04-08 01:23:12', '2021-04-08 01:23:12');
 
 -- --------------------------------------------------------
 
@@ -388,7 +563,8 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `email_verified_at`, `password`, `phone`, `type`, `avatar`, `address`, `city`, `state`, `zip`, `status`, `remember_token`, `created_at`, `updated_at`) VALUES
 (1, 'Hasinur', 'Rahman', 'admin@admin.com', NULL, '$2y$10$UV06Amj7Eg9jl5mtKvvrKeoAouVMyIsfH6DD8Z/KVJdEmqeYGq6AC', NULL, 'super_admin', 'avatar.jpg', NULL, NULL, NULL, NULL, 1, NULL, '2021-03-23 05:52:14', '2021-03-23 05:52:14'),
 (2, 'Sazzad', 'Hossain', 'admin2@gmail.com', NULL, '$2y$10$3XeZjdrzN6eTytPjMXGQl.nEz9WTuc0k62t6K4oiGvpGPPPTozBWi', '155415', 'admin', 'avatar.jpg', 'Dhaka', NULL, NULL, NULL, 1, NULL, '2021-03-23 06:08:14', '2021-03-25 00:40:30'),
-(6, 'Shanon', 'babu', 'admin3@admin.com', NULL, '$2y$10$mZ.CyThV0g6vt.L1EJ1y4uX84jIYx3uwaT.s2PM.0D.8HhK8TSJH2', '45455445', 'admin', 'avatar.jpg', 'mohammadpur', NULL, NULL, NULL, NULL, NULL, '2021-03-24 06:40:49', '2021-03-24 23:47:17');
+(6, 'Shanon', 'babu', 'admin3@admin.com', NULL, '$2y$10$mZ.CyThV0g6vt.L1EJ1y4uX84jIYx3uwaT.s2PM.0D.8HhK8TSJH2', '45455445', 'admin', 'avatar.jpg', 'mohammadpur', NULL, NULL, NULL, NULL, NULL, '2021-03-24 06:40:49', '2021-03-24 23:47:17'),
+(7, 'Babu', 'Ry', 'staff@staff.com', NULL, '$2y$10$OsYYDk7sNuR2BiSAbjQTCe.vBRpQnjSfNujeuf2al0EbmO19JYHm.', '555454', 'staff', 'avatar.jpg', 'Mohammadpur', NULL, NULL, NULL, NULL, NULL, '2021-04-08 01:09:45', '2021-04-08 01:09:45');
 
 -- --------------------------------------------------------
 
@@ -445,6 +621,20 @@ ALTER TABLE `colors`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `color_products`
+--
+ALTER TABLE `color_products`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `color_products_product_id_foreign` (`product_id`),
+  ADD KEY `color_products_color_id_index` (`color_id`);
+
+--
+-- Indexes for table `coupons`
+--
+ALTER TABLE `coupons`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `delivery_charges`
 --
 ALTER TABLE `delivery_charges`
@@ -476,6 +666,12 @@ ALTER TABLE `main_categories`
   ADD KEY `main_categories_admin_id_foreign` (`admin_id`);
 
 --
+-- Indexes for table `measurement_types`
+--
+ALTER TABLE `measurement_types`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `migrations`
 --
 ALTER TABLE `migrations`
@@ -492,6 +688,33 @@ ALTER TABLE `password_resets`
 --
 ALTER TABLE `privacypolicies`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `products`
+--
+ALTER TABLE `products`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `products_warehouse_id_foreign` (`warehouse_id`),
+  ADD KEY `products_brand_id_foreign` (`brand_id`),
+  ADD KEY `products_main_category_id_foreign` (`main_category_id`),
+  ADD KEY `products_sub_category_id_foreign` (`sub_category_id`),
+  ADD KEY `products_child_category_id_foreign` (`child_category_id`),
+  ADD KEY `products_shipping_id_foreign` (`shipping_id`),
+  ADD KEY `products_measurement_id_foreign` (`measurement_id`);
+
+--
+-- Indexes for table `product_attributes`
+--
+ALTER TABLE `product_attributes`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `product_attributes_product_id_foreign` (`product_id`);
+
+--
+-- Indexes for table `product_images`
+--
+ALTER TABLE `product_images`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `product_images_product_id_foreign` (`product_id`);
 
 --
 -- Indexes for table `shipping_classes`
@@ -557,6 +780,18 @@ ALTER TABLE `colors`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT for table `color_products`
+--
+ALTER TABLE `color_products`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `coupons`
+--
+ALTER TABLE `coupons`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `delivery_charges`
 --
 ALTER TABLE `delivery_charges`
@@ -581,16 +816,40 @@ ALTER TABLE `main_categories`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT for table `measurement_types`
+--
+ALTER TABLE `measurement_types`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `privacypolicies`
 --
 ALTER TABLE `privacypolicies`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `products`
+--
+ALTER TABLE `products`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `product_attributes`
+--
+ALTER TABLE `product_attributes`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT for table `product_images`
+--
+ALTER TABLE `product_images`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `shipping_classes`
@@ -614,7 +873,7 @@ ALTER TABLE `sub_categories`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `warehouses`
@@ -633,6 +892,12 @@ ALTER TABLE `child_categories`
   ADD CONSTRAINT `child_categories_main_category_id_foreign` FOREIGN KEY (`main_category_id`) REFERENCES `main_categories` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `child_categories_sub_category_id_foreign` FOREIGN KEY (`sub_category_id`) REFERENCES `sub_categories` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `child_categories_warehouse_id_foreign` FOREIGN KEY (`warehouse_id`) REFERENCES `warehouses` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `color_products`
+--
+ALTER TABLE `color_products`
+  ADD CONSTRAINT `color_products_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `delivery_charges`
@@ -654,6 +919,30 @@ ALTER TABLE `districts`
 ALTER TABLE `main_categories`
   ADD CONSTRAINT `main_categories_admin_id_foreign` FOREIGN KEY (`admin_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `main_categories_warehouse_id_foreign` FOREIGN KEY (`warehouse_id`) REFERENCES `warehouses` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `products`
+--
+ALTER TABLE `products`
+  ADD CONSTRAINT `products_brand_id_foreign` FOREIGN KEY (`brand_id`) REFERENCES `brands` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `products_child_category_id_foreign` FOREIGN KEY (`child_category_id`) REFERENCES `child_categories` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `products_main_category_id_foreign` FOREIGN KEY (`main_category_id`) REFERENCES `main_categories` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `products_measurement_id_foreign` FOREIGN KEY (`measurement_id`) REFERENCES `measurement_types` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `products_shipping_id_foreign` FOREIGN KEY (`shipping_id`) REFERENCES `shipping_classes` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `products_sub_category_id_foreign` FOREIGN KEY (`sub_category_id`) REFERENCES `sub_categories` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `products_warehouse_id_foreign` FOREIGN KEY (`warehouse_id`) REFERENCES `warehouses` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `product_attributes`
+--
+ALTER TABLE `product_attributes`
+  ADD CONSTRAINT `product_attributes_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `product_images`
+--
+ALTER TABLE `product_images`
+  ADD CONSTRAINT `product_images_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `slides`

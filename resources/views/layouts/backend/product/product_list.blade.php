@@ -230,10 +230,26 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="form-group">
-                                <label>Product Gallery Images [max: 4]</label>
-                                <input required type="file" class="form-control" name="gallery[]" placeholder="address" multiple>
+                            <div class="form-group row">
+                                <label style="width:100%">Product Gallery Images</label>
+                                <div class="col-sm-4">
+                                    <div class="service-img" style="height: 5.5rem !important">
+                                        <input id="image1" type="file" class="form-control" name="image1" style="height: 5.5rem !important">
+                                        <img src="" id="image-img1" style="height: 5.5rem !important;margin-top:-118px !important"/>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="service-img" style="height: 5.5rem !important">
+                                        <input id="image2" type="file" class="form-control" name="image2" style="height: 5.5rem !important">
+                                        <img src="" id="image-img2" style="height: 5.5rem !important;margin-top:-118px !important"/>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="service-img" style="height: 5.5rem !important">
+                                        <input id="image3" type="file" class="form-control" name="image3" style="height: 5.5rem !important">
+                                        <img src="" id="image-img3" style="height: 5.5rem !important;margin-top:-118px !important"/>
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="form-group">
@@ -351,6 +367,9 @@
                 $("#shipp_duration").val(res.product.shipp_duration);
                 $("#condition").val(res.product.condition);
                 $("#image-img").attr('src', "{{ asset('/images/product') }}/" + res.product.feature_image);
+                $("#image-img1").attr('src', "{{ asset('/images/product') }}/" + res.product.image1);
+                $("#image-img2").attr('src', "{{ asset('/images/product') }}/" + res.product.image2);
+                $("#image-img3").attr('src', "{{ asset('/images/product') }}/" + res.product.image3);
 
 
                 $('#edit_p').text('');
@@ -517,9 +536,53 @@
         }
     }
 
+
+    function urlImage1(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                $('#image-img1').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    function urlImage2(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                $('#image-img2').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    function urlImage3(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                $('#image-img3').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
     $("#image").change(function() {
         imageUrl(this);
     });
+
+    $("#image1").change(function() {
+        urlImage1(this);
+    });
+    $("#image2").change(function() {
+        urlImage2(this);
+    });
+
+    $("#image3").change(function() {
+        urlImage3(this);
+    });
+
+
 
 
     function editimageUrl(input) {

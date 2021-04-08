@@ -62,6 +62,17 @@ class ProductController extends Controller
             'product_sku'  =>  'required|unique:products',
         ]);
 
+        //upload multiple images
+        $galleries = array();
+        if($files=$request->file('gallery')){
+            foreach($files as $img){
+                $name = rand() . '.' . $img->getClientOriginalExtension();
+                $upload_path = public_path()."/images/product/";
+                $galleries[] = $name;
+                $img->move($upload_path, $name);
+            }
+        }
+
         if ($request->file('image')) {
             $image = $request->file('image');
             $new_name = rand() . '.' . $image->getClientOriginalExtension();
@@ -84,25 +95,15 @@ class ProductController extends Controller
             $pro->condition         = $request->condition;
             $pro->description       = $request->description;
             $pro->feature_image     = $new_name;
+            $pro->image1     = $galleries[0] ?? '';
+            $pro->image2     = $galleries[1] ?? '';
+            $pro->image3     = $galleries[2] ?? '';
             $pro->save();
 
             $pro->colors()->sync($request->product_color);
             $image->move($upload_path, $new_name);
         }
-        //upload multiple images
-        if($files=$request->file('gallery')){
-            foreach($files as $img){
-                $name = rand() . '.' . $img->getClientOriginalExtension();
-                $upload_path = public_path()."/images/product/";
 
-                Product_image::create([
-                    'product_id'=>$pro->id,
-                    'gallery_img'=>$name
-                ]);
-
-                $img->move($upload_path, $name);
-            }
-        }
         //insert product attributes
         for($i=0; $i < count($request->qty); $i++){
             $all = array(

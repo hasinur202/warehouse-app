@@ -172,8 +172,8 @@
                             </div>
 
                             <div class="form-group">
-                                <label>Product Gallery Images [max: 4]</label>
-                                <input required type="file" class="form-control" name="gallery[]" placeholder="address" multiple>
+                                <label>Product Gallery Images [max: 3]</label>
+                                <input required type="file" id="gallery_image" class="form-control" name="gallery[]" multiple>
                             </div>
 
                             <div class="form-group">
@@ -246,6 +246,13 @@
 
     CKEDITOR.replace('description');
 
+
+    $("#gallery_image").on("change", function() {
+        if ($("#gallery_image")[0].files.length > 3) {
+            alert("You can select only 3 images");
+            $("#gallery_image").val('');
+        }
+    });
 </script>
 <script>
 

@@ -27,6 +27,9 @@ class CreateProductsTable extends Migration
             $table->string('product_name');
             $table->string('slug');
             $table->string('feature_image');
+            $table->string('image1')->nullable();
+            $table->string('image2')->nullable();
+            $table->string('image3')->nullable();
             $table->string('product_type');
             $table->string('condition');
             $table->string('shipp_duration');

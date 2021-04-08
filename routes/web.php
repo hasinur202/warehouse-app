@@ -153,6 +153,7 @@ Route::group(['middleware' => ['auth','admin.role']], function () {
     Route::post('/add-product',[ProductController::Class,'store'])->name('add.product');
     Route::post('/update-product-activity',[ProductController::Class,'activity'])->name('product.activity');
     Route::post('/edit-product',[ProductController::Class,'getProductById'])->name('edit.product');
+    Route::post('/update-product',[ProductController::Class,'update'])->name('update.product');
 
 
     //Coupon Routes

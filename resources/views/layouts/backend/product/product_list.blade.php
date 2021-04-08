@@ -121,6 +121,8 @@
             </div>
 
 
+        <form id="updateProduct">
+            @csrf
             <div class="row" id="editProduct" style="display: none;">
                 <div class="col-md-9">
                     <div class="card">
@@ -254,10 +256,10 @@
 
                             <div class="form-group">
                                 <label>Product Color</label>
-                                <select name="product_color[]" class="select2" multiple="multiple" data-placeholder="Select a State" style="width: 100%;">
-                                    @foreach ($colors as $color)
+                                <select name="product_color[]" class="select2"  id="product_color" multiple="multiple" data-placeholder="Select a State" style="width: 100%;">
+                                     {{-- @foreach ($colors as $color)
                                         <option value="{{ $color->id }}">{{ $color->color_name }}</option>
-                                    @endforeach
+                                    @endforeach --}}
                                 </select>
                             </div>
 
@@ -287,10 +289,12 @@
                         <!-- /.card-body -->
                     </div>
                     <!-- /.card -->
+                    <input id="id" type="hidden" class="form-control" name="id">
                     <button type="submit" class="btn btn-success">Submit</button>
                 </div>
             </div>
-        </div>
+        </form>
+    </div>
 
     </section>
     <!-- /.content -->
@@ -335,7 +339,6 @@
                 $("#productList").hide();
                 $("#editProduct").show();
 
-
                 res.main_categories.forEach(function (main_cat) {
                     if(res.product.main_category_id == main_cat.id){
                         $('#main_cat_id').append('<option selected value="'+main_cat.id+'">'+main_cat.category_name+'</option>');
@@ -352,6 +355,7 @@
                     }
                 });
 
+                $("#id").val(res.product.id);
                 $("#product_barcode").val(res.product.product_barcode);
                 $("#product_sku").val(res.product.product_sku);
                 $("#product_name").val(res.product.product_name);
@@ -372,6 +376,16 @@
                 $("#image-img3").attr('src', "{{ asset('/images/product') }}/" + res.product.image3);
 
 
+                $('#product_color').text('');
+                res.colors.forEach(function (cc){
+                    res.product.colors.forEach(function (color) {
+                        if(cc.id == color.id){
+                            $('#product_color').append("<option value='' selected='selected' disabled hidden>"+color.color_name+"</option>");
+                        }
+                    });
+                    $('#product_color').append("<option hidden value='"+cc.id+"'>"+cc.color_name+"</option>");
+                });
+
                 $('#edit_p').text('');
                 var i =0;
                 res.product.attributes.forEach(function (attr) {
@@ -382,20 +396,127 @@
                         $('#edit_p').append('<div class="form-group"><input type="text" name="size[]" value="'+attr.size+'" placeholder="Size"><input type="text" name="qty[]" value="'+attr.qty+'" placeholder="Quantity" style="width:12% !important;margin-left: 3px;"><input type="text" name="purchase_price[]" value="'+attr.purchase_price+'" placeholder="Purchase Price" style="margin-left: 3px;"><input type="text" name="sale_price[]" value="'+attr.sale_price+'" id="sale_price'+attr.id+'" onkeyup="calculatee('+attr.id+')" placeholder="Sale Price" style="margin-left: 3px;"><input type="text" name="discount[]" value="'+attr.discount+'" id="discount_price'+attr.id+'" onkeyup="calculatee('+attr.id+')" placeholder="Discount" style="margin-left: 3px;"><input type="text" name="discount_p[]" value="'+attr.discount_p+'" id="discount_per'+attr.id+'" readonly placeholder="Discount[%]" style="width: 13 !important;margin-top:5px;"><input type="text" name="c_price[]" value="'+attr.current_price+'" id="current_price'+attr.id+'" readonly placeholder="Current Price" style="width: 13 !important;margin-top:5px;margin-left: 3px;"></div>');
                     }
                 });
-
-
-
             },
+
             error: function() {
                 $("#loading").hide();
                 Swal.fire({
                     icon: 'error',
-                    title: 'Something Wrong'
+                    title: 'Something went wrong!'
                 })
             }
         })
 
     }
+
+
+    $(document).ready(function () {
+        $('#updateProduct').validate({
+           rules: {
+               warehouse_id: {
+                   required: true
+               },
+               product_name: {
+                   required: true
+               },
+               product_barcode: {
+                   required: true
+               },
+               product_sku: {
+                   required: true
+               },
+               child_category: {
+                   required: true
+               },
+               condition: {
+                   required: true
+               },
+               shipp_class: {
+                   required: true
+               },
+               shipp_duration: {
+                   required: true
+               },
+               brand: {
+                   required: true
+               },
+               product_type: {
+                   required: true
+               },
+               measurement: {
+                   required: true
+               },
+               "purchase_price[]": {
+                   required: true
+               },
+               "sale_price[]": {
+                   required: true
+               },
+               "qty[]": {
+                   required: true
+               },
+               "size[]": {
+                   required: true
+               },
+               discription: {
+                    required: true
+               }
+           },
+
+           messages:{
+                "product_color[]": "Select product color",
+                "qty[]": "Enter product quantity",
+                "size[]": "Enter product size",
+                "purchase_price[]": "Enter product purchase price",
+                "sale_price[]": "Enter product sales price",
+                "product_type": "Please check a product type",
+           },
+           errorElement: 'span',
+           errorPlacement: function (error, element) {
+               error.addClass('invalid-feedback');
+               element.closest('.form-group').append(error);
+           },
+           highlight: function (element, errorClass, validClass) {
+               $(element).addClass('is-invalid');
+           },
+           unhighlight: function (element, errorClass, validClass) {
+               $(element).removeClass('is-invalid');
+           },
+           submitHandler: function(form){
+               $("#loading").show();
+               for(var instanceName in CKEDITOR.instances){ CKEDITOR.instances[instanceName].updateElement();}
+               $.ajax({
+                   url: "{{ route('update.product') }}",
+                   method: "POST",
+                   data: new FormData(document.getElementById("updateProduct")),
+                   enctype: 'multipart/form-data',
+                   dataType: 'JSON',
+                   contentType: false,
+                   cache: false,
+                   processData: false,
+                   success: function(res) {
+                        $("#loading").hide();
+
+                        Swal.fire(
+                            'Good job!',
+                            'Product updated successfully!',
+                            'success'
+                        )
+                         setTimeout(() => {
+                            window.location.reload();
+                        }, 2000);
+                   },
+                   error: function(response) {
+                        $("#loading").hide();
+                        $.each(response.responseJSON.errors,function(field_name,error){
+                            $(document).find('[name='+field_name+']').after('<span class="text-strong text-danger">' +error+ '</span>')
+                        })
+                   }
+               })
+           }
+       });
+
+   });
 
     function back(){
         $("#productEditTitle").hide();
@@ -583,8 +704,6 @@
     });
 
 
-
-
     function editimageUrl(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
@@ -626,9 +745,6 @@
             x--; //Decrement field counter
         });
     }
-
-
-
 
 </script>
 

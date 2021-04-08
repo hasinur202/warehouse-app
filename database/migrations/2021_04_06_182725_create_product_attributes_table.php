@@ -17,7 +17,7 @@ class CreateProductAttributesTable extends Migration
             $table->id();
             $table->foreignId('product_id')->nullable()->constrained('products')->onDelete('cascade');
             $table->string('size');
-            $table->decimal('qty',15,2);
+            $table->integer('qty');
             $table->decimal('purchase_price',15,2);
             $table->decimal('sale_price',15,2);
             $table->decimal('discount',15,2)->nullable();

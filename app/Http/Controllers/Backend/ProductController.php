@@ -13,6 +13,9 @@ use App\Models\Shipping_class;
 use App\Models\Measurement_type;
 use App\Models\Product_attribute;
 use App\Http\Controllers\Controller;
+use App\Models\Child_category;
+use App\Models\Main_category;
+use App\Models\Sub_category;
 
 class ProductController extends Controller
 {
@@ -91,7 +94,7 @@ class ProductController extends Controller
             foreach($files as $img){
                 $name = rand() . '.' . $img->getClientOriginalExtension();
                 $upload_path = public_path()."/images/product/";
-    
+
                 Product_image::create([
                     'product_id'=>$pro->id,
                     'gallery_img'=>$name
@@ -122,7 +125,7 @@ class ProductController extends Controller
 
 
 
-    
+
     public function activity(Request $request){
         $data = Product::where('id',$request->id)->first();
 
@@ -148,12 +151,18 @@ class ProductController extends Controller
 
 
     public function getProductById(Request $request){
-     
-        $product = Product::with('main_category','sub_category','child_category')->where('id',$request->id)->first();
+
+        $product = Product::with('attributes')->where('id',$request->id)->first();
+        $main_categories = Main_category::where('status',1)->get();
+        $sub_categories = Sub_category::where('status',1)->get();
+        $child_categories = Child_category::where('status',1)->get();
 
         return response()->json([
             'message'=>'success',
-            'product'=>$product
+            'product'=>$product,
+            'main_categories'=>$main_categories,
+            'sub_categories'=>$sub_categories,
+            'child_categories'=>$child_categories,
         ],200);
     }
 

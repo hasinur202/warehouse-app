@@ -39,13 +39,19 @@
     <section class="content-header">
         @include('layouts.backend.include.message')
       <div class="container-fluid">
-        <div class="row mb-2">
+        <div class="row mb-2" id="productTitle">
           <div class="col-sm-6">
             <h1>Product List</h1>
           </div>
           <div class="col-sm-6">
             <a href="{{ route('product.add') }}" class="btn btn-dark btn-sm float-right"><i class="fas fa-plus"></i> Add Product</a>
           </div>
+        </div>
+        <div class="row mb-2 col-sm-6" id="productEditTitle" style="display: none">
+            <h4>Product Details</h4/>
+            <a style="margin-left: 1rem; background: #0c3d97; cursor:pointer; padding: 1px 18px 4px 18px; border-radius: 22px;
+                font-weight: 500; color: #fff;
+                height: 28px;" onclick="back()"><i class="fas fa-arrow-left"></i> Back</a>
         </div>
       </div><!-- /.container-fluid -->
     </section>
@@ -91,7 +97,7 @@
                                     <td>{{ $product->child_category->category_name }}</td>
                                     <td>{{ $product->attributes->sum('qty') }}</td>
                                     <td>{{ $product->shipping_class->shipping_name }}</td>
-                                    
+
                                     <td>
                                         @if($product->status == 1)
                                             <button onclick="changeActivity({{ $product->id }})" type="button" class="btn btn-success btn-block btn-xs">Active</button>
@@ -166,44 +172,37 @@
                                 <div class="form-group">
                                     <label class="form-check-label">Main Category*</label>
                                     <select readonly id="main_cat_id" name="main_category" class="form-control">
-                                        <option selected disabled>Select category</option>
+
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label class="form-check-label">Sub Category*</label>
                                     <select readonly id="sub_cat_id" name="sub_category" class="form-control">
-                                        <option value="" selected disabled>Select sub category</option>
+
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label class="form-check-label">Child Category*</label>
                                     <select onchange="loadAllCategory(this.value)" name="child_category" id="child_cat_id" class="form-control">
-                                        <option selected disabled>Select child category</option>
+                                        {{--  <option selected disabled>Select child category</option>  --}}
                                     </select>
                                 </div>
+
                                 <div class="form-group">
                                     <label class="form-check-label">Product Type *</label>
-                                    <div class="controls">
-                                        <input type="checkbox" name="product_type" value="popular">&nbsp;Popular Product&nbsp;
-                                        <input type="checkbox" name="product_type" value="trending">&nbsp;Trending&nbsp;
-                                    </div>
+                                    <select name="product_type" id="product_type" class="form-control">
+                                        <option selected disabled>Select type</option>
+                                        <option value="popular">Popular Product</option>
+                                        <option value="trending">Trending</option>
+                                    </select>
                                 </div>
                             </div>
 
                             <div class="col-sm-12">
                                 <div class="form-group attr">
                                     <label style="width: 100%">Product Attributes</label>
-                                    <div class="field_wrapper">
-                                        <div class="form-group">
-                                            <input type="text" name="size[]" placeholder="Size">
-                                            <input type="text" name="qty[]" placeholder="Quantity" style="width:12% !important">
-                                            <input type="text" name="purchase_price[]" placeholder="Purchase Price">
-                                            <input type="text" name="sale_price[]" id="sale_price" onkeyup="calculate()" placeholder="Sale Price">
-                                            <input type="text" name="discount[]" id="discount_price" onkeyup="calculate()" placeholder="Discount">
-                                            <input type="text" name="discount_p[]" id="discount_per" readonly placeholder="Discount[%]" style="width: 13 !important;margin-top:5px">
-                                            <input type="text" name="c_price[]" id="current_price" readonly placeholder="Current Price" style="width: 13 !important;margin-top:5px">
-                                            <a href="javascript:void(0);" class="add_button" title="Add field" style="padding:6px;"><i class="fa fa-plus"></i></a>
-                                        </div>
+                                    <div class="field_wrapper" id="edit_p">
+
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -268,7 +267,6 @@
                                     <option value="New">New</option>
                                 </select>
                             </div>
-
                         </div>
                         <!-- /.card-body -->
                     </div>
@@ -316,27 +314,57 @@
             },
             success: function(res) {
                 $("#loading").hide();
+                $("#productTitle").hide();
+                $("#productEditTitle").show();
                 $("#productList").hide();
                 $("#editProduct").show();
+
+
+                res.main_categories.forEach(function (main_cat) {
+                    if(res.product.main_category_id == main_cat.id){
+                        $('#main_cat_id').append('<option selected value="'+main_cat.id+'">'+main_cat.category_name+'</option>');
+                    }
+                });
+                res.main_categories.forEach(function (sub_cat) {
+                    if(res.product.sub_category_id == sub_cat.id){
+                        $('#sub_cat_id').append('<option selected value="'+sub_cat.id+'">'+sub_cat.category_name+'</option>');
+                    }
+                });
+                res.child_categories.forEach(function (child_cat) {
+                    if(res.product.child_category_id == child_cat.id){
+                        $('#child_cat_id').append('<option selected value="'+child_cat.id+'">'+child_cat.category_name+'</option>');
+                    }
+                });
 
                 $("#product_barcode").val(res.product.product_barcode);
                 $("#product_sku").val(res.product.product_sku);
                 $("#product_name").val(res.product.product_name);
                 $("#warehouse_id").val(res.product.warehouse_id);
                 $("#brand_id").val(res.product.brand_id);
-                // $("#main_cat_id").val(res.product.main_category_id);
-                // $("#sub_cat_id").val(res.product.sub_category_id);
-                // $("#child_cat_id").val(res.product.child_category_id);
 
                 CKEDITOR.instances['description'].setData(res.product.description);
                 // $("#exampleCheck2").attr('checked',true);
 
+                $("#product_type").val(res.product.product_type);
                 $("#shipping_id").val(res.product.shipping_id);
                 $("#measurement_id").val(res.product.measurement_id);
                 $("#shipp_duration").val(res.product.shipp_duration);
                 $("#condition").val(res.product.condition);
                 $("#image-img").attr('src', "{{ asset('/images/product') }}/" + res.product.feature_image);
-           
+
+
+                $('#edit_p').text('');
+                var i =0;
+                res.product.attributes.forEach(function (attr) {
+                    i++;
+                    if(i==1){
+                        $('#edit_p').append('<div class="form-group"><input type="text" name="size[]" value="'+attr.size+'" placeholder="Size"><input type="text" name="qty[]" value="'+attr.qty+'" placeholder="Quantity" style="width:12% !important;margin-left: 3px;"><input type="text" name="purchase_price[]" value="'+attr.purchase_price+'" placeholder="Purchase Price" style="margin-left: 3px;"><input type="text" name="sale_price[]" value="'+attr.sale_price+'" id="sale_price" onkeyup="calculate()" placeholder="Sale Price" style="margin-left: 3px;"><input type="text" name="discount[]" value="'+attr.discount+'" id="discount_price" onkeyup="calculate()" placeholder="Discount" style="margin-left: 3px;"><input type="text" name="discount_p[]" value="'+attr.discount_p+'" id="discount_per" readonly placeholder="Discount[%]" style="width: 13 !important;margin-top:5px;"><input type="text" name="c_price[]" value="'+attr.current_price+'" id="current_price" readonly placeholder="Current Price" style="width: 13 !important;margin-top:5px;margin-left: 3px;"><a href="javascript:void(0);" onclick="addMoreAttr()" class="add_button" title="Add field" style="padding:6px;"><i class="fa fa-plus"></i></a></div>');
+                    }else{
+                        $('#edit_p').append('<div class="form-group"><input type="text" name="size[]" value="'+attr.size+'" placeholder="Size"><input type="text" name="qty[]" value="'+attr.qty+'" placeholder="Quantity" style="width:12% !important;margin-left: 3px;"><input type="text" name="purchase_price[]" value="'+attr.purchase_price+'" placeholder="Purchase Price" style="margin-left: 3px;"><input type="text" name="sale_price[]" value="'+attr.sale_price+'" id="sale_price'+attr.id+'" onkeyup="calculatee('+attr.id+')" placeholder="Sale Price" style="margin-left: 3px;"><input type="text" name="discount[]" value="'+attr.discount+'" id="discount_price'+attr.id+'" onkeyup="calculatee('+attr.id+')" placeholder="Discount" style="margin-left: 3px;"><input type="text" name="discount_p[]" value="'+attr.discount_p+'" id="discount_per'+attr.id+'" readonly placeholder="Discount[%]" style="width: 13 !important;margin-top:5px;"><input type="text" name="c_price[]" value="'+attr.current_price+'" id="current_price'+attr.id+'" readonly placeholder="Current Price" style="width: 13 !important;margin-top:5px;margin-left: 3px;"></div>');
+                    }
+                });
+
+
 
             },
             error: function() {
@@ -348,6 +376,13 @@
             }
         })
 
+    }
+
+    function back(){
+        $("#productEditTitle").hide();
+        $("#productTitle").show();
+        $("#editProduct").hide();
+        $("#productList").show();
     }
 
 
@@ -379,7 +414,72 @@
         })
     }
 
-    
+
+    function loadChildCategory(id){
+        $("#loading").show();
+        $.ajax({
+            url:"{{ route('load.child.category') }}",
+            method:"POST",
+            dataType:"json",
+            data:{
+                "_token": "{{ csrf_token() }}",
+                'id':id,
+            },
+            success: function(res) {
+                $("#main_cat_id").text('');
+                $("#sub_cat_id").text('');
+                $("#child_cat_id").text('');
+                $("#loading").hide();
+
+                $('#main_cat_id').append('<option selected disabled>Select category</option>');
+                $('#sub_cat_id').append('<option selected disabled>Select sub category</option>');
+                $('#child_cat_id').append('<option selected disabled>Select category</option>');
+
+                res.child_categories.forEach(function (child_cat) {
+                    $('#child_cat_id').append('<option value="'+child_cat.id+'">'+child_cat.category_name+'</option>');
+                });
+
+            },
+            error: function() {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Something Wrong'
+                })
+            }
+        })
+    }
+
+    function loadAllCategory(id){
+        $("#loading").show();
+        $.ajax({
+            url:"{{ route('load.all.category') }}",
+            method:"POST",
+            dataType:"json",
+            data:{
+                "_token": "{{ csrf_token() }}",
+                'id':id,
+            },
+            success: function(res) {
+                $("#main_cat_id").text('');
+                $("#sub_cat_id").text('');
+                $("#loading").hide();
+
+                res.data.forEach(function (cat) {
+                    $('#main_cat_id').append('<option value="'+cat.get_main_category.id+'">'+cat.get_main_category.category_name+'</option>');
+                    $('#sub_cat_id').append('<option value="'+cat.get_sub_category.id+'">'+cat.get_sub_category.category_name+'</option>');
+                });
+
+            },
+            error: function() {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Something Wrong'
+                })
+            }
+        })
+    }
+
+
     function calculate(){
         var sale_price = $("#sale_price").val();
         var discount_price = $("#discount_price").val();
@@ -438,13 +538,15 @@
 </script>
 
 <script type="text/javascript">
-    $(document).ready(function(){
+
+    function addMoreAttr(){
+
         var maxField = 5; //Input fields increment limitation
         var addButton = $('.add_button'); //Add button selector
         var wrapper = $('.field_wrapper'); //Input field wrapper
         var x = 1; //Initial field counter is 1
         //Once add button is clicked
-        $(addButton).click(function(){
+
             //Check maximum number of input fields
             if(x < maxField){
                 var fieldHTML = '<div class="form-group"><input type="text" name="size[]" placeholder="Size" style="margin-right:3px"><input type="text" name="qty[]" placeholder="Quantity" style="width:12% !important;margin-right:3px"><input type="text" name="purchase_price[]" placeholder="Purchase Price" style="margin-right:3px"><input type="text" name="sale_price[]" onkeyup="calculatee('+x+')" id="sale_price'+x+'" placeholder="Sale Price" style="margin-right:3px"><input type="text" name="discount[]" onkeyup="calculatee('+x+')" id="discount_price'+x+'" placeholder="Discount" style="margin-right:3px"><input type="text" name="discount_p[]" id="discount_per'+x+'" readonly placeholder="Discount[%]" style="width: 13 !important;margin-right:3px"><input type="text" name="c_price[]" id="current_price'+x+'" readonly placeholder="Current Price" style="width: 13 !important;margin-right:3px;margin-top:5px"><a href="javascript:void(0);" class="remove_button" title="Remove field" style="padding:6px;"><i class="fa fa-times"></i></a></div>';
@@ -452,7 +554,7 @@
                 x++; //Increment field counter
                 $(wrapper).append(fieldHTML); //Add field html
             }
-        });
+
 
         //Once remove button is clicked
         $(wrapper).on('click', '.remove_button', function(e){
@@ -460,7 +562,7 @@
             $(this).parent('div').remove(); //Remove field html
             x--; //Decrement field counter
         });
-    });
+    }
 
 
 

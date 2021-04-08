@@ -121,10 +121,11 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="form-check-label">Product Type *</label>
-                                    <div class="controls">
-                                        <input type="checkbox" name="product_type" value="popular">&nbsp;Popular Product&nbsp;
-                                        <input type="checkbox" name="product_type" value="trending">&nbsp;Trending&nbsp;
-                                    </div>
+                                    <select name="product_type" class="form-control">
+                                        <option selected disabled>Select type</option>
+                                        <option value="popular">Popular Product</option>
+                                        <option value="trending">Trending</option>
+                                    </select>
                                 </div>
                             </div>
 
@@ -206,6 +207,7 @@
                                     <option value="New">New</option>
                                 </select>
                             </div>
+
 
                         </div>
                         <!-- /.card-body -->
@@ -305,7 +307,7 @@
                     required: true
                 }
            },
-           
+
            messages:{
                 "product_color[]": "Select product color",
                 "qty[]": "Enter product quantity",

@@ -7,6 +7,7 @@ use App\Http\Controllers\backend\AboutController;
 use App\Http\Controllers\Backend\AdminController;
 use App\Http\Controllers\backend\BrandController;
 use App\Http\Controllers\backend\ColorController;
+use App\Http\Controllers\backend\TermsController;
 use App\Http\Controllers\backend\CouponController;
 use App\Http\Controllers\backend\SliderController;
 use App\Http\Controllers\backend\ProductController;
@@ -119,6 +120,10 @@ Route::group(['middleware' => ['auth','admin.role']], function () {
     //Privacy and Policy
     Route::get('/privacy-policy-setup', [PrivacypolicyController::Class, 'index'])->name('privacy.policy');
     Route::post('save/privacy-policy', [PrivacypolicyController::Class, 'store'])->name('privacy.save');
+
+    //Terms and Conditions
+    Route::get('/terms-and-conditions-setup', [TermsController::Class, 'index'])->name('terms.conditions');
+    Route::post('save/terms-and-conditions', [TermsController::Class, 'store'])->name('terms.save');
 
     //Colors Route
     Route::get('/color-info', [ColorController::Class, 'index'])->name('color.list');

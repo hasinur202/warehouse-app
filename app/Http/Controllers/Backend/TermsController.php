@@ -10,10 +10,10 @@ class TermsController extends Controller
 {
     public function index(){
         $data = auth()->user();
-        $terms = Terms_condition::first() ?? '';
+        $term = Terms_condition::first() ?? '';
 
         return view('layouts.backend.terms-condition.terms_condition',[
-            'terms'=>$terms,
+            'term'=>$term,
             'data'=>$data
         ]);
     }

@@ -3,17 +3,17 @@
 namespace App\Http\Controllers\backend;
 
 use App\Http\Controllers\Controller;
-use App\Models\How_to_buy;
+use App\Models\Faq;
 use Illuminate\Http\Request;
 
-class HowToBuyController extends Controller
+class FaqController extends Controller
 {
     public function index(){
         $data = auth()->user();
-        $buy = How_to_buy::first() ?? '';
+        $faq = Faq::first() ?? '';
 
-        return view('layouts.backend.settings.how_to_buy',[
-            'buy'=>$buy,
+        return view('layouts.backend.faq.faq',[
+            'faq'=>$faq,
             'data'=>$data
         ]);
     }
@@ -24,14 +24,14 @@ class HowToBuyController extends Controller
             'description' =>'required',
         ]);
 
-        $confirmId = How_to_buy::select('id')->first();
+        $confirmId = Faq::select('id')->first();
         if($confirmId == null){
-            $data = How_to_buy::create([
+            $data = Faq::create([
                 'description'=>$request->description,
             ]);
 
         }else{
-            How_to_buy::where('id',$request->id)->update([
+            Faq::where('id',$request->id)->update([
                 'description'=>$request->description,
             ]);
         }

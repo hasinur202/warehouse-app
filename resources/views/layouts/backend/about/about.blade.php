@@ -23,10 +23,10 @@
                 @csrf
             <input name="id" hidden type="text" hidden value="{{ optional($about)->id }}" class="form-control" />
 
-            <div style="float: left" class="col-md-10">
+
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Description of About Pages</h3>
+                        <h3 class="card-title">Description of About Page</h3>
                     </div>
                     <div class="card-body">
                         <div class="form-group">
@@ -37,7 +37,6 @@
                     </div>
                     <button type="submit" class="btn btn-primary">Save Changes</button>
                 </div>
-            </div>
         </form>
         </div>
 

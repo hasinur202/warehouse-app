@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\backend\FaqController;
 use App\Http\Controllers\backend\AboutController;
 use App\Http\Controllers\Backend\AdminController;
 use App\Http\Controllers\backend\BrandController;
@@ -129,6 +130,10 @@ Route::group(['middleware' => ['auth','admin.role']], function () {
     //How to Buy
     Route::get('/how-to-buy-setup', [HowToBuyController::Class, 'index'])->name('how.to.buy');
     Route::post('save/how-to-buy', [HowToBuyController::Class, 'store'])->name('buy.save');
+
+    //Faq routes
+    Route::get('/faq-setup', [FaqController::Class, 'index'])->name('faq.setup');
+    Route::post('save/faq-store', [FaqController::Class, 'store'])->name('faq.save');
 
     //Colors Route
     Route::get('/color-info', [ColorController::Class, 'index'])->name('color.list');

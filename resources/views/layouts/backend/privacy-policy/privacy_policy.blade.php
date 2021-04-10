@@ -23,7 +23,7 @@
                 @csrf
             <input name="id" hidden type="text" hidden value="{{ optional($privacy)->id }}" class="form-control" />
 
-            <div style="float: left" class="col-md-10">
+
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">Privacy & Policy Description</h3>
@@ -37,7 +37,6 @@
                     </div>
                     <button type="submit" class="btn btn-primary">Save Changes</button>
                 </div>
-            </div>
         </form>
         </div>
 

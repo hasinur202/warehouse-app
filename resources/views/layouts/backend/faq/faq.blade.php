@@ -9,7 +9,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>How to Buy</h1>
+                    <h1>Faq</h1>
                 </div>
             </div>
         </div>
@@ -19,19 +19,19 @@
     <section class="content">
         <div class="row">
             <div class="col-md-12">
-            <form action="{{ route('buy.save') }}" method="POST" role="form">
+            <form action="{{ route('faq.save') }}" method="POST" role="form">
                 @csrf
-            <input name="id" hidden type="text" hidden value="{{ optional($buy)->id }}" class="form-control" />
+            <input name="id" hidden type="text" hidden value="{{ optional($faq)->id }}" class="form-control" />
 
 
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">How to Buys Description</h3>
+                        <h3 class="card-title">Faq Description</h3>
                     </div>
                     <div class="card-body">
                         <div class="form-group">
                             <textarea name="description" id="description" placeholder="Place some text here">
-                          {{ optional($buy)->description }}
+                          {{ optional($faq)->description }}
                         </textarea>
                         </div>
                     </div>

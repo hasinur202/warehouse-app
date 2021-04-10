@@ -21,9 +21,9 @@
             <div class="col-md-12">
             <form action="{{ route('terms.save') }}" method="POST" role="form">
                 @csrf
-            <input name="id" hidden type="text" hidden value="{{ optional($terms)->id }}" class="form-control" />
+            <input name="id" hidden type="text" hidden value="{{ optional($term)->id }}" class="form-control" />
 
-            <div style="float: left" class="col-md-10">
+
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">Terms & Conditions Description</h3>
@@ -31,13 +31,12 @@
                     <div class="card-body">
                         <div class="form-group">
                             <textarea name="description" id="description" placeholder="Place some text here">
-                          {{ optional($terms)->description }}
+                          {{ optional($term)->description }}
                         </textarea>
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary">Save Changes</button>
                 </div>
-            </div>
         </form>
         </div>
 

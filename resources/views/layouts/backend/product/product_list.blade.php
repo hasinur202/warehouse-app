@@ -290,7 +290,7 @@
                     </div>
                     <!-- /.card -->
                     <input id="id" type="hidden" class="form-control" name="id">
-                    <button type="submit" class="btn btn-success">Submit</button>
+                    <button type="submit" class="btn btn-success">Update</button>
                 </div>
             </div>
         </form>
@@ -380,7 +380,7 @@
                 res.colors.forEach(function (cc){
                     res.product.colors.forEach(function (color) {
                         if(cc.id == color.id){
-                            $('#product_color').append("<option value='' selected='selected' disabled hidden>"+color.color_name+"</option>");
+                            $('#product_color').append("<option value='"+color.id+"' selected='selected' hidden>"+color.color_name+"</option>");
                         }
                     });
                     $('#product_color').append("<option hidden value='"+cc.id+"'>"+cc.color_name+"</option>");
@@ -502,12 +502,13 @@
                             'Product updated successfully!',
                             'success'
                         )
-                         setTimeout(() => {
+                        setTimeout(() => {
                             window.location.reload();
                         }, 2000);
                    },
                    error: function(response) {
                         $("#loading").hide();
+
                         $.each(response.responseJSON.errors,function(field_name,error){
                             $(document).find('[name='+field_name+']').after('<span class="text-strong text-danger">' +error+ '</span>')
                         })
@@ -523,6 +524,7 @@
         $("#productTitle").show();
         $("#editProduct").hide();
         $("#productList").show();
+        $("#updateProduct").reset();
     }
 
 

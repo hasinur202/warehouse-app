@@ -129,27 +129,46 @@ class ProductController extends Controller
 
         $product = Product::where('id',$request->id)->first();
         if($product->product_name == $request->product_name){
-            if($product->product_barcode == $request->product_barcode){
-                if($product->product_sku == $request->product_sku){
-                    $update = true;
-                }else{
-                    $request->validate([
-                        'product_sku'  =>  'required|unique:products',
-                    ]);
-                }
+            $update = true;
+        }else{
+            $cc = Product::where('product_name',$request->product_name)->count();
+            if($cc > 0){
+                $request->validate([
+                    'product_name'  =>  'required|unique:products',
+                ]);
             }else{
+                $update = true;
+            }
+        }
+
+        if($product->product_barcode == $request->product_barcode){
+            $update1 = true;
+        }else{
+            $cc1 = Product::where('product_barcode',$request->product_barcode)->count();
+            if($cc1 > 0){
                 $request->validate([
                     'product_barcode'  =>  'required|unique:products',
                 ]);
+            }else{
+                $update1 = true;
             }
+        }
+
+        if($product->product_sku == $request->product_sku){
+            $update2 = true;
         }else{
-            $request->validate([
-                'product_name'  =>  'required|unique:products',
-            ]);
+            $cc2 = Product::where('product_sku',$request->product_sku)->count();
+            if($cc2 > 0){
+                $request->validate([
+                    'product_sku'  =>  'required|unique:products',
+                ]);
+            }else{
+                $update2 = true;
+            }
         }
 
 
-        if($update == true){
+        if($update == true && $update1 == true && $update2 == true){
             if ($request->file('image')) {
                 $image = $request->file('image');
                 $new_name = rand() . '.' . $image->getClientOriginalExtension();
@@ -208,7 +227,7 @@ class ProductController extends Controller
                 $new_name3 = $product->image3;
             }
 
-            $pro = Product::find($request->id);
+            $pro = Product::find($product->id);
             $pro->warehouse_id      = $request->warehouse_id;
             $pro->brand_id          = $request->brand;
             $pro->main_category_id  = $request->main_category;
@@ -230,23 +249,25 @@ class ProductController extends Controller
             $pro->image3     = $new_name3 ?? '';
             $pro->colors()->sync($request->product_color);
             $pro->save();
-        }
 
 
-        Product_attribute::where('product_id',$request->id)->delete();
-        //insert product attributes
-        for($i=0; $i < count($request->qty); $i++){
-            $all = array(
-                'product_id' => $pro->id,
-                'size' => $request->size[$i],
-                'qty' => $request->qty[$i],
-                'purchase_price' => $request->purchase_price[$i],
-                'sale_price' => $request->sale_price[$i],
-                'discount' => $request->discount[$i],
-                'discount_p' => $request->discount_p[$i],
-                'current_price' => $request->c_price[$i],
-            );
-            $insert = Product_attribute::create($all);
+
+            Product_attribute::where('product_id',$request->id)->delete();
+            //insert product attributes
+            for($i=0; $i < count($request->qty); $i++){
+                $all = array(
+                    'product_id' => $pro->id,
+                    'size' => $request->size[$i],
+                    'qty' => $request->qty[$i],
+                    'purchase_price' => $request->purchase_price[$i],
+                    'sale_price' => $request->sale_price[$i],
+                    'discount' => $request->discount[$i],
+                    'discount_p' => $request->discount_p[$i],
+                    'current_price' => $request->c_price[$i],
+                );
+                $insert = Product_attribute::create($all);
+            }
+
         }
 
         return response()->json([

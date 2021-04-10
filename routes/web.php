@@ -3,27 +3,27 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\backend\FaqController;
-use App\Http\Controllers\backend\AboutController;
+use App\Http\Controllers\Backend\FaqController;
+use App\Http\Controllers\Backend\AboutController;
 use App\Http\Controllers\Backend\AdminController;
-use App\Http\Controllers\backend\BrandController;
-use App\Http\Controllers\backend\ColorController;
-use App\Http\Controllers\backend\TermsController;
-use App\Http\Controllers\backend\CouponController;
-use App\Http\Controllers\backend\SliderController;
-use App\Http\Controllers\backend\ExpenseController;
-use App\Http\Controllers\backend\ProductController;
+use App\Http\Controllers\Backend\BrandController;
+use App\Http\Controllers\Backend\ColorController;
+use App\Http\Controllers\Backend\TermsController;
+use App\Http\Controllers\Backend\CouponController;
+use App\Http\Controllers\Backend\SliderController;
+use App\Http\Controllers\Backend\ExpenseController;
+use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\CategoryController;
-use App\Http\Controllers\backend\DistrictController;
-use App\Http\Controllers\backend\HowToBuyController;
-use App\Http\Controllers\backend\SettingsController;
+use App\Http\Controllers\Backend\DistrictController;
+use App\Http\Controllers\Backend\HowToBuyController;
+use App\Http\Controllers\Backend\SettingsController;
 use App\Http\Controllers\Backend\WarehouseController;
-use App\Http\Controllers\backend\MeasurementController;
-use App\Http\Controllers\backend\SubCategoryController;
-use App\Http\Controllers\backend\ChildCategoryController;
-use App\Http\Controllers\backend\PrivacypolicyController;
-use App\Http\Controllers\backend\ShippingClassController;
-use App\Http\Controllers\backend\DeliverychargeController;
+use App\Http\Controllers\Backend\MeasurementController;
+use App\Http\Controllers\Backend\SubCategoryController;
+use App\Http\Controllers\Backend\ChildCategoryController;
+use App\Http\Controllers\Backend\PrivacypolicyController;
+use App\Http\Controllers\Backend\ShippingClassController;
+use App\Http\Controllers\Backend\DeliverychargeController;
 
 /*
 |--------------------------------------------------------------------------

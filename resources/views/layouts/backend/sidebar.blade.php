@@ -151,7 +151,7 @@
                 </ul>
             </li>
             <li class="nav-item">
-                <a href="{{ route('brand.list') }}" class="nav-link">
+                <a href="javascript:void(0)" class="nav-link">
                     <i class="nav-icon fas fa-book-medical"></i>
                     <p>
                         Order Information

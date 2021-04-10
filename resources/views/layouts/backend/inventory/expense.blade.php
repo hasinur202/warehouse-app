@@ -33,7 +33,7 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                          <table id="example1" class="table table-bordered table-striped">
+                          <table id="example1" class="table">
                             <thead>
                                 <tr>
                                     <th>SI#</th>
@@ -48,9 +48,12 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @php $i=0; @endphp
+                                @php $i=0; $total = 0; @endphp
                                 @foreach ($expenses as $expense)
-                                @php $i++; @endphp
+                                @php
+                                    $i++;
+                                    $total = $total + $expense->amount;
+                                @endphp
                                 <tr>
                                     <td>{{ $i }}</td>
                                     <td>{{ $expense->expense_name }}</td>
@@ -58,12 +61,21 @@
                                     <td>{{ Carbon\Carbon::parse($expense->date)->isoFormat('MMM Do YYYY') }}</td>
 
                                     <td>{{ $expense->expense_head->head_name }}</td>
-                                    <td>{{ $expense->amount }}</td>
+                                    <td>{{ $expense->amount }} $</td>
                                     <td>
                                         <a href="javascript:void(0)" class="btn btn-danger btn-xs"><i class="fas fa-trash"></i></a>
                                     </td>
                                 </tr>
                                 @endforeach
+                                <tr>
+                                    <td><span class="text-white">==</span> </td>
+                                    <td><span class="text-white">==</span> </td>
+                                    <td><span class="text-white">==</span> </td>
+                                    <td><span class="text-white">==</span> </td>
+                                    <td style="font-weight: bold">Total</td>
+                                    <td style="font-weight: bold">{{ $total }} $</td>
+                                    <td><span class="text-white">==</span> </td>
+                                </tr>
                             </tbody>
                           </table>
                         </div>

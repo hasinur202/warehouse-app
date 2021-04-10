@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 08, 2021 at 03:20 PM
+-- Generation Time: Apr 10, 2021 at 01:52 PM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.4.8
 
@@ -134,8 +134,13 @@ CREATE TABLE `color_products` (
 --
 
 INSERT INTO `color_products` (`id`, `product_id`, `color_id`, `created_at`, `updated_at`) VALUES
-(5, 3, 1, '2021-04-08 04:49:35', '2021-04-08 04:49:35'),
-(6, 3, 3, '2021-04-08 04:49:35', '2021-04-08 04:49:35');
+(13, 2, 1, '2021-04-10 00:58:43', '2021-04-10 00:58:43'),
+(14, 2, 2, '2021-04-10 00:58:43', '2021-04-10 00:58:43'),
+(15, 1, 2, '2021-04-10 01:02:29', '2021-04-10 01:02:29'),
+(16, 1, 3, '2021-04-10 01:02:29', '2021-04-10 01:02:29'),
+(17, 3, 1, '2021-04-10 01:03:00', '2021-04-10 01:03:00'),
+(18, 3, 2, '2021-04-10 01:03:00', '2021-04-10 01:03:00'),
+(19, 3, 3, '2021-04-10 01:03:00', '2021-04-10 01:03:00');
 
 -- --------------------------------------------------------
 
@@ -225,6 +230,57 @@ INSERT INTO `districts` (`id`, `warehouse_id`, `state_name`, `created_at`, `upda
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `expenses`
+--
+
+CREATE TABLE `expenses` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `expense_head_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `expense_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `invoice_no` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `date` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `amount` decimal(15,2) NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `expenses`
+--
+
+INSERT INTO `expenses` (`id`, `expense_head_id`, `expense_name`, `invoice_no`, `date`, `amount`, `description`, `created_at`, `updated_at`) VALUES
+(1, 2, 'adfasdf', '554545', '2021-04-14', '1000.00', 'afasdfsdaf', '2021-04-10 05:22:25', '2021-04-10 05:22:25'),
+(2, 3, 'Hoasdf', '554545', '2021-04-16', '580.00', 'asfsafasf', '2021-04-10 05:25:55', '2021-04-10 05:25:55'),
+(3, 5, 'asfda', '5545455dd', '2021-03-29', '600.00', 'asfdasdf', '2021-04-10 05:38:11', '2021-04-10 05:38:11');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `expense_heads`
+--
+
+CREATE TABLE `expense_heads` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `head_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `expense_heads`
+--
+
+INSERT INTO `expense_heads` (`id`, `head_name`, `created_at`, `updated_at`) VALUES
+(1, 'Home Rent', '2021-04-10 04:16:07', '2021-04-10 04:16:07'),
+(2, 'Electricity Bill', '2021-04-10 04:16:26', '2021-04-10 04:16:26'),
+(3, 'Gas Bill', '2021-04-10 04:16:31', '2021-04-10 04:20:40'),
+(4, 'Water Bill', '2021-04-10 04:16:36', '2021-04-10 04:16:36'),
+(5, 'Others', '2021-04-10 04:25:47', '2021-04-10 04:25:47');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `failed_jobs`
 --
 
@@ -237,6 +293,46 @@ CREATE TABLE `failed_jobs` (
   `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `faqs`
+--
+
+CREATE TABLE `faqs` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `faqs`
+--
+
+INSERT INTO `faqs` (`id`, `description`, `created_at`, `updated_at`) VALUES
+(1, '<p>afasdf asdf asdf sadf safd saf</p>', '2021-04-10 03:17:49', '2021-04-10 03:17:49');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `how_to_buys`
+--
+
+CREATE TABLE `how_to_buys` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `how_to_buys`
+--
+
+INSERT INTO `how_to_buys` (`id`, `description`, `created_at`, `updated_at`) VALUES
+(1, '<p>asdf asf asdf asfd asfd sadf sadf sadfsadf saf asdfasfd asf asf saf</p>', '2021-04-10 03:06:26', '2021-04-10 03:06:26');
 
 -- --------------------------------------------------------
 
@@ -325,7 +421,13 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (27, '2021_04_06_182725_create_product_attributes_table', 14),
 (28, '2021_04_06_182743_create_product_images_table', 14),
 (29, '2021_04_06_183903_create_color_products_table', 14),
-(30, '2021_04_07_190038_create_coupons_table', 14);
+(30, '2021_04_07_190038_create_coupons_table', 14),
+(31, '2021_04_10_072506_create_settings_table', 15),
+(32, '2021_04_10_084733_create_terms_conditions_table', 16),
+(33, '2021_04_10_085949_create_how_to_buys_table', 17),
+(35, '2021_04_10_091025_create_faqs_table', 18),
+(36, '2021_04_10_100317_create_expense_heads_table', 19),
+(37, '2021_04_10_102859_create_expenses_table', 20);
 
 -- --------------------------------------------------------
 
@@ -397,8 +499,8 @@ CREATE TABLE `products` (
 
 INSERT INTO `products` (`id`, `warehouse_id`, `brand_id`, `main_category_id`, `sub_category_id`, `child_category_id`, `shipping_id`, `measurement_id`, `product_barcode`, `product_sku`, `product_name`, `slug`, `feature_image`, `image1`, `image2`, `image3`, `product_type`, `condition`, `shipp_duration`, `description`, `status`, `created_at`, `updated_at`) VALUES
 (1, 2, 1, 3, 2, 1, 1, 1, 'barr555', '101', 'samsung pro', 'samsung-pro', '89047258.jpg', '179008748.jpg', '146641420.webp', '1666070843.png', 'popular', 'New', '3 days', '<p>sadfsadf asf sda</p>', 1, '2021-04-07 23:29:08', '2021-04-08 07:19:49'),
-(2, 2, 1, 3, 2, 2, 2, 1, 'barr555gg', '103', 'Infinity T shirt', 'infinity-t-shirt', '63799354.png', '1478743619.jpg', '6442486.png', '870470755.jpg', 'trending', 'New', '3 days', '<p>afsafsaf</p>', 1, '2021-04-08 01:23:12', '2021-04-08 01:23:12'),
-(3, 2, 1, 3, 2, 2, 2, 1, 'barr555455', '104', 'Mens Fairness', 'mens-fairness', '455550659.jpg', '1789133779.png', '368252913.jpg', '', 'popular', 'New', '3 days', '<p>asfsdaf</p>', 1, '2021-04-08 04:49:34', '2021-04-08 04:49:34');
+(2, 2, 1, 3, 2, 2, 2, 1, 'barr555gg', '102', 'Infinity T shirt', 'infinity-t-shirt', '63799354.png', '1478743619.jpg', '6442486.png', '870470755.jpg', 'popular', 'New', '3 days', '<p>afsafsaf asf sadf ami</p>', 1, '2021-04-08 01:23:12', '2021-04-10 00:56:34'),
+(3, 2, 1, 3, 2, 2, 2, 1, 'barr555455', '104', 'Mens Fairness', 'mens-fairness', '455550659.jpg', '1789133779.png', '368252913.jpg', '', 'popular', 'New', '3 days', '<p>asfsdaf asdfsadf</p>', 1, '2021-04-08 04:49:34', '2021-04-10 00:01:10');
 
 -- --------------------------------------------------------
 
@@ -425,10 +527,11 @@ CREATE TABLE `product_attributes` (
 --
 
 INSERT INTO `product_attributes` (`id`, `product_id`, `size`, `qty`, `purchase_price`, `sale_price`, `discount`, `discount_p`, `current_price`, `created_at`, `updated_at`) VALUES
-(4, 3, 'small', 50, '200.00', '195.00', '5.00', '3.00', '190.00', '2021-04-08 04:49:35', '2021-04-08 04:49:35'),
-(7, 2, 'small', 50, '200.00', '490.00', '5.00', '1.00', '485.00', '2021-04-08 07:19:27', '2021-04-08 07:19:27'),
-(10, 1, 'small', 50, '200.00', '250.00', '5.00', '2.00', '245.00', '2021-04-08 07:19:49', '2021-04-08 07:19:49'),
-(11, 1, 'medium', 50, '300.00', '350.00', '10.00', '3.00', '340.00', '2021-04-08 07:19:49', '2021-04-08 07:19:49');
+(35, 2, 'small', 50, '200.00', '490.00', '5.00', '1.00', '485.00', '2021-04-10 01:02:05', '2021-04-10 01:02:05'),
+(36, 2, 'medium', 10, '250.00', '300.00', '10.00', '3.00', '290.00', '2021-04-10 01:02:05', '2021-04-10 01:02:05'),
+(37, 1, 'small', 50, '200.00', '250.00', '5.00', '2.00', '245.00', '2021-04-10 01:02:29', '2021-04-10 01:02:29'),
+(38, 1, 'medium', 50, '300.00', '350.00', '10.00', '3.00', '340.00', '2021-04-10 01:02:29', '2021-04-10 01:02:29'),
+(39, 3, 'small', 50, '200.00', '195.00', '5.00', '3.00', '190.00', '2021-04-10 01:03:00', '2021-04-10 01:03:00');
 
 -- --------------------------------------------------------
 
@@ -454,6 +557,35 @@ INSERT INTO `product_images` (`id`, `product_id`, `gallery_img`, `created_at`, `
 (3, 2, '1478743619.jpg', '2021-04-08 01:23:12', '2021-04-08 01:23:12'),
 (4, 2, '6442486.png', '2021-04-08 01:23:12', '2021-04-08 01:23:12'),
 (5, 2, '870470755.jpg', '2021-04-08 01:23:12', '2021-04-08 01:23:12');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `settings`
+--
+
+CREATE TABLE `settings` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `logo` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `address` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `contact` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `fb_link` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `twitt_link` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `tube_link` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `insta_link` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `settings`
+--
+
+INSERT INTO `settings` (`id`, `title`, `logo`, `description`, `email`, `address`, `contact`, `fb_link`, `twitt_link`, `tube_link`, `insta_link`, `created_at`, `updated_at`) VALUES
+(3, 'London Based Ltd', '80661557.png', 'asfsadf sadf sadf', 'ideatech.engineear@gmail.com', 'Mohammadpur', '+8801711 431 231', 'https://www.facebook.com/', 'https://www.twitter.com/', 'https://www.youtube.com/', 'https://www.instagram.com/', '2021-04-10 02:42:59', '2021-04-10 02:43:26');
 
 -- --------------------------------------------------------
 
@@ -529,6 +661,26 @@ CREATE TABLE `sub_categories` (
 INSERT INTO `sub_categories` (`id`, `warehouse_id`, `main_category_id`, `category_name`, `slug`, `icon`, `status`, `created_at`, `updated_at`) VALUES
 (2, 2, 3, 'sub category one', 'sub-category-one', '1525943499.png', 1, '2021-03-27 01:58:00', '2021-03-27 01:58:00'),
 (3, 2, 2, 'acac cat', 'acac-cat', '636684390.png', 1, '2021-03-31 06:30:42', '2021-03-31 06:32:30');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `terms_conditions`
+--
+
+CREATE TABLE `terms_conditions` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `terms_conditions`
+--
+
+INSERT INTO `terms_conditions` (`id`, `description`, `created_at`, `updated_at`) VALUES
+(1, '<p>jhggfhf hgfh gfghdf hfgh hgf hgfh gfhg</p>', '2021-04-10 02:56:19', '2021-04-10 02:56:19');
 
 -- --------------------------------------------------------
 
@@ -651,11 +803,36 @@ ALTER TABLE `districts`
   ADD KEY `districts_warehouse_id_foreign` (`warehouse_id`);
 
 --
+-- Indexes for table `expenses`
+--
+ALTER TABLE `expenses`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `expenses_expense_head_id_foreign` (`expense_head_id`);
+
+--
+-- Indexes for table `expense_heads`
+--
+ALTER TABLE `expense_heads`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
+
+--
+-- Indexes for table `faqs`
+--
+ALTER TABLE `faqs`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `how_to_buys`
+--
+ALTER TABLE `how_to_buys`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `main_categories`
@@ -717,6 +894,12 @@ ALTER TABLE `product_images`
   ADD KEY `product_images_product_id_foreign` (`product_id`);
 
 --
+-- Indexes for table `settings`
+--
+ALTER TABLE `settings`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `shipping_classes`
 --
 ALTER TABLE `shipping_classes`
@@ -736,6 +919,12 @@ ALTER TABLE `sub_categories`
   ADD PRIMARY KEY (`id`),
   ADD KEY `sub_categories_warehouse_id_foreign` (`warehouse_id`),
   ADD KEY `sub_categories_main_category_id_foreign` (`main_category_id`);
+
+--
+-- Indexes for table `terms_conditions`
+--
+ALTER TABLE `terms_conditions`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `users`
@@ -783,7 +972,7 @@ ALTER TABLE `colors`
 -- AUTO_INCREMENT for table `color_products`
 --
 ALTER TABLE `color_products`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `coupons`
@@ -804,10 +993,34 @@ ALTER TABLE `districts`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
+-- AUTO_INCREMENT for table `expenses`
+--
+ALTER TABLE `expenses`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `expense_heads`
+--
+ALTER TABLE `expense_heads`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `faqs`
+--
+ALTER TABLE `faqs`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `how_to_buys`
+--
+ALTER TABLE `how_to_buys`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `main_categories`
@@ -825,7 +1038,7 @@ ALTER TABLE `measurement_types`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `privacypolicies`
@@ -843,13 +1056,19 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT for table `product_attributes`
 --
 ALTER TABLE `product_attributes`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `product_images`
 --
 ALTER TABLE `product_images`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `settings`
+--
+ALTER TABLE `settings`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `shipping_classes`
@@ -868,6 +1087,12 @@ ALTER TABLE `slides`
 --
 ALTER TABLE `sub_categories`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `terms_conditions`
+--
+ALTER TABLE `terms_conditions`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -912,6 +1137,12 @@ ALTER TABLE `delivery_charges`
 --
 ALTER TABLE `districts`
   ADD CONSTRAINT `districts_warehouse_id_foreign` FOREIGN KEY (`warehouse_id`) REFERENCES `warehouses` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `expenses`
+--
+ALTER TABLE `expenses`
+  ADD CONSTRAINT `expenses_expense_head_id_foreign` FOREIGN KEY (`expense_head_id`) REFERENCES `expense_heads` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `main_categories`

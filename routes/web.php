@@ -12,6 +12,7 @@ use App\Http\Controllers\backend\SliderController;
 use App\Http\Controllers\backend\ProductController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\backend\DistrictController;
+use App\Http\Controllers\backend\SettingsController;
 use App\Http\Controllers\Backend\WarehouseController;
 use App\Http\Controllers\backend\MeasurementController;
 use App\Http\Controllers\backend\SubCategoryController;
@@ -159,6 +160,10 @@ Route::group(['middleware' => ['auth','admin.role']], function () {
     //Coupon Routes
     Route::get('coupon-list', [CouponController::Class,'index'])->name('coupon.list');
     Route::post('/coupon-store',[CouponController::Class,'store'])->name('coupon.store');
+
+    //Settings
+    Route::get('setup-website-info', [SettingsController::Class, 'index'])->name('setup.settings');
+    Route::post('save-settings', [SettingsController::Class, 'store'])->name('settings.save');
 
 });
 

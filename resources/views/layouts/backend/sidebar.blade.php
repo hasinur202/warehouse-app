@@ -76,6 +76,13 @@
                         </a>
                     </li>
 
+                    <li class="nav-item">
+                        <a href="{{ route('expense.head') }}" class="nav-link">
+                            <i class="fas fa-angle-double-right nav-icon"></i>
+                            <p>Expense Head Setup</p>
+                        </a>
+                    </li>
+
 
 
                 </ul>

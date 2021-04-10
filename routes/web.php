@@ -11,6 +11,7 @@ use App\Http\Controllers\backend\ColorController;
 use App\Http\Controllers\backend\TermsController;
 use App\Http\Controllers\backend\CouponController;
 use App\Http\Controllers\backend\SliderController;
+use App\Http\Controllers\backend\ExpenseController;
 use App\Http\Controllers\backend\ProductController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\backend\DistrictController;
@@ -179,6 +180,11 @@ Route::group(['middleware' => ['auth','admin.role']], function () {
     //Settings
     Route::get('setup-website-info', [SettingsController::Class, 'index'])->name('setup.settings');
     Route::post('save-settings', [SettingsController::Class, 'store'])->name('settings.save');
+
+    //Expense routes
+    Route::get('/expense-head-setup', [ExpenseController::Class, 'expenseHeadIndex'])->name('expense.head');
+    Route::post('/create-expense-head',[ExpenseController::Class,'store'])->name('add.expense.head');
+    // Route::post('/update-color',[ColorController::Class,'update'])->name('update.color');
 
 });
 

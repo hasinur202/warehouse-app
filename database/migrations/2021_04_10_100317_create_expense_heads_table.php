@@ -15,7 +15,7 @@ class CreateExpenseHeadsTable extends Migration
     {
         Schema::create('expense_heads', function (Blueprint $table) {
             $table->id();
-            $table->string('expense_name');
+            $table->string('head_name');
             $table->timestamps();
         });
     }

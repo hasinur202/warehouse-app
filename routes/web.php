@@ -181,10 +181,15 @@ Route::group(['middleware' => ['auth','admin.role']], function () {
     Route::get('setup-website-info', [SettingsController::Class, 'index'])->name('setup.settings');
     Route::post('save-settings', [SettingsController::Class, 'store'])->name('settings.save');
 
-    //Expense routes
+    //Expense head routes
     Route::get('/expense-head-setup', [ExpenseController::Class, 'expenseHeadIndex'])->name('expense.head');
-    Route::post('/create-expense-head',[ExpenseController::Class,'store'])->name('add.expense.head');
-    Route::post('/update-expense-head',[ExpenseController::Class,'update'])->name('update.expense.head');
+    Route::post('/create-expense-head',[ExpenseController::Class,'expenseHeadStore'])->name('add.expense.head');
+    Route::post('/update-expense-head',[ExpenseController::Class,'expenseHeadUpdate'])->name('update.expense.head');
+
+    //Expense Routes
+    Route::get('/expense-list', [ExpenseController::Class, 'index'])->name('expense.list');
+    Route::post('/store-expense',[ExpenseController::Class,'store'])->name('expense.store');
+    // Route::post('/update-expense-head',[ExpenseController::Class,'update'])->name('update.expense.head');
 
 });
 

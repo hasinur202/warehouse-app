@@ -195,7 +195,7 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{ route('expense.list') }}" class="nav-link">
                             <i class="fas fa-angle-double-right nav-icon"></i>
                             <p>Expense</p>
                         </a>

@@ -47,7 +47,7 @@
                                 @php $i++; @endphp
                                 <tr>
                                     <td>{{ $i }}</td>
-                                    <td>{{ $expense->expense_name }}</td>
+                                    <td>{{ $expense->head_name }}</td>
                                     <td>
                                         <a href="javascript:void(0)" onclick="editModal({{ $expense }})" class="btn btn-dark btn-xs"><i class="fas fa-edit"></i></a>
                                         <a href="javascript:void(0)" class="btn btn-danger btn-xs"><i class="fas fa-trash"></i></a>
@@ -71,7 +71,7 @@
                             @csrf
                             <div class="card-body">
                                 <div class="form-group mb-2">
-                                    <input type="text" name="expense_name" class="form-control" placeholder="Expense name*">
+                                    <input type="text" name="head_name" class="form-control" placeholder="Expense head name*">
                                 </div>
                             </div>
                             <div class="card-footer">
@@ -102,7 +102,7 @@
                         <div class="form-group row mb-2">
                             <label class="col-sm-4 form-check-label">Expense head name</label>
                             <div class="col-sm-8">
-                                <input type="text" name="expense_name" id="expense_name" class="form-control" placeholder="Expense name*">
+                                <input type="text" name="head_name" id="expense_name" class="form-control" placeholder="Expense name*">
                             </div>
                         </div>
                     </div>
@@ -129,7 +129,7 @@
     function editModal(val){
         $("#edit-Modal").modal('show');
 
-        $("#expense_name").val(val.expense_name);
+        $("#expense_name").val(val.head_name);
         $("#id").val(val.id);
     }
 
@@ -186,38 +186,6 @@
        });
 
    });
-
-
-    function changeActivity(id){
-        $("#loading").show();
-        $.ajax({
-            url:"{{ route('color.activity') }}",
-            method:"POST",
-            dataType:"json",
-            data:{
-                "_token": "{{ csrf_token() }}",
-                'id':id,
-            },
-            success: function(response) {
-                $("#loading").hide();
-                Toast.fire({
-                    icon: 'success',
-                    title: 'Status Changes Successfully.'
-                })
-                window.location.reload();
-            },
-            error: function() {
-                $("#loading").hide();
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Something Wrong'
-                })
-            }
-        })
-    }
-
-
-
 
 
 

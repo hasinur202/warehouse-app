@@ -184,7 +184,7 @@ Route::group(['middleware' => ['auth','admin.role']], function () {
     //Expense routes
     Route::get('/expense-head-setup', [ExpenseController::Class, 'expenseHeadIndex'])->name('expense.head');
     Route::post('/create-expense-head',[ExpenseController::Class,'store'])->name('add.expense.head');
-    // Route::post('/update-color',[ColorController::Class,'update'])->name('update.color');
+    Route::post('/update-expense-head',[ExpenseController::Class,'update'])->name('update.expense.head');
 
 });
 

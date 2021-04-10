@@ -95,12 +95,12 @@
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
-                <form action="{{ route('update.color') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('update.expense.head') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
                         <input type="hidden" id="id" name="id">
                         <div class="form-group row mb-2">
-                            <label class="col-sm-4 form-check-label">Color name</label>
+                            <label class="col-sm-4 form-check-label">Expense head name</label>
                             <div class="col-sm-8">
                                 <input type="text" name="expense_name" id="expense_name" class="form-control" placeholder="Expense name*">
                             </div>
@@ -129,7 +129,7 @@
     function editModal(val){
         $("#edit-Modal").modal('show');
 
-        $("#color_name").val(val.color_name);
+        $("#expense_name").val(val.expense_name);
         $("#id").val(val.id);
     }
 

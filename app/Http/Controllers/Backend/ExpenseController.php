@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\backend;
 
-use App\Http\Controllers\Controller;
 use App\Models\Expense_head;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class ExpenseController extends Controller
 {
@@ -38,4 +39,28 @@ class ExpenseController extends Controller
         ],200);
 
     }
+
+    public function update(Request $request){
+        $request->validate([
+            'expense_name'  =>  'required',
+        ]);
+
+        $bb = Expense_head::where('id',$request->id)->update([
+            'expense_name'=>$request->expense_name,
+        ]);
+
+
+        if($bb){
+            toast('Updated successfully','success')->padding('10px')->width('270px')->timerProgressBar()->hideCloseButton();
+                return redirect()->back();
+        }else{
+            Alert::warning('Opps...','Something went wrong!');
+                return redirect()->back();
+        }
+
+    }
+
+
+
+
 }

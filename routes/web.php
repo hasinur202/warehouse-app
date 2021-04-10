@@ -13,6 +13,7 @@ use App\Http\Controllers\backend\SliderController;
 use App\Http\Controllers\backend\ProductController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\backend\DistrictController;
+use App\Http\Controllers\backend\HowToBuyController;
 use App\Http\Controllers\backend\SettingsController;
 use App\Http\Controllers\Backend\WarehouseController;
 use App\Http\Controllers\backend\MeasurementController;
@@ -124,6 +125,10 @@ Route::group(['middleware' => ['auth','admin.role']], function () {
     //Terms and Conditions
     Route::get('/terms-and-conditions-setup', [TermsController::Class, 'index'])->name('terms.conditions');
     Route::post('save/terms-and-conditions', [TermsController::Class, 'store'])->name('terms.save');
+
+    //How to Buy
+    Route::get('/how-to-buy-setup', [HowToBuyController::Class, 'index'])->name('how.to.buy');
+    Route::post('save/how-to-buy', [HowToBuyController::Class, 'store'])->name('buy.save');
 
     //Colors Route
     Route::get('/color-info', [ColorController::Class, 'index'])->name('color.list');

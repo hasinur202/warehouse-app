@@ -41,7 +41,7 @@ use App\Http\Controllers\Backend\DeliverychargeController;
 
 Route::get('/', function () {
     // Session::flush();
-    return view('welcome');
+    return view('layouts.frontend.master');
 })->name('home');
 
 

@@ -32,7 +32,7 @@ const router = new VueRouter({
 
 
 
-Vue.component('app', require('./components/App.vue').default);
+Vue.component('app', require('./components/frontend/App.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
